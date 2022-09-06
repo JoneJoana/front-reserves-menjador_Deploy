@@ -1,28 +1,6 @@
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div style="border: solid red" class="d-block w-100">slide1</div>
-    </div>
-    <div class="carousel-item">
-      <div style="border: solid purple" class="d-block w-100">slide1</div>
-    </div>
-    <div class="carousel-item">
-      <div style="border: solid green" class="d-block w-100">slide1</div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
 <!-- slider section -->
 <section class="slider_section ">
-  <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+  <div id="customCarousel1" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="container ">
@@ -90,9 +68,9 @@
     </div>
     <div class="container">
       <ol class="carousel-indicators">
-        <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
-        <li data-target="#customCarousel1" data-slide-to="1"></li>
-        <li data-target="#customCarousel1" data-slide-to="2"></li>
+        <li type="button" data-bs-target="#customCarousel1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></li>
+        <li type="button" data-bs-target="#customCarousel1" data-bs-slide-to="1" aria-label="Slide 2"></li>
+        <li type="button" data-bs-target="#customCarousel1" data-bs-slide-to="2" aria-label="Slide 3"></li>
       </ol>
     </div>
   </div>
