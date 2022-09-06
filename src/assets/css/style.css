@@ -4,6 +4,9 @@ body {
   color: #0c0c0c;
   background-color: #ffffff;
   overflow-x: hidden;
+  background-image: url('/assets/images/fons.png');
+  background-repeat: no-repeat;
+  background-size: 100% 600px;
 }
 
 .layout_padding {
@@ -100,11 +103,6 @@ a:focus {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  background-image: url('/assets/images/fons.png');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-
 }
 
 .bg-box {
