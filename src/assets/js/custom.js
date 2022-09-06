@@ -43,7 +43,3 @@ function myMap() {
     var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 }
 
-// Slider home
-$('.carousel').carousel({
-  interval: 2000
-})
