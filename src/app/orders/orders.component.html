@@ -53,16 +53,66 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="form_container">
-                <button>
-                    New Order
-                </button>
-            </div>
         </div>
 
         <!-- VISTA CLIENT -->
         <div *ngIf="!admin">
           <!-- Implementar vista client -->
+          <div class="ordres">
+            <div class="ordre">
+                <div class="ordre-top">
+                  <div class="ordre-top-top">
+                    <div class="ordre-top-createdOn">
+                      Created on 05/09/2022 at 08:04
+                    </div>
+                    <div class="ordre-top-orderId s-14">
+                      ORDER N.º 001
+                    </div>
+                  </div>
+                  <div class="ordre-top-bottom">
+                    Entrega avui 10:00
+                  </div>
+                </div>
+                <div class="ordre-bottom">
+                  <img src="/assets/images/f9.png" width="150px" height="150px"/>
+                  <div class="ordre-bottom-info">
+                    <span>Ravioli + Ternera plancha ...</span>
+                    <span class="s-14">Modificable hasta...</span>
+                    <span><button>Modificar</button></span>
+                  </div>
+                </div>
+            </div>
+            <div class="ordre">
+              <div class="ordre-top">
+                <div class="ordre-top-top">
+                  <div class="ordre-top-createdOn">
+                    Created on 05/09/2022 at 08:04
+                  </div>
+                  <div class="ordre-top-orderId s-14">
+                    ORDER N.º 002
+                  </div>
+                </div>
+                <div class="ordre-top-bottom">
+                  Entrega avui 10:00
+                </div>
+              </div>
+              <div class="ordre-bottom">
+                <img src="/assets/images/f9.png" width="150px" height="150px"/>
+                <div class="ordre-bottom-info">
+                  <span>Ravioli + Ternera plancha ...</span>
+                  <span class="s-14">Modificable hasta...</span>
+                  <span><button>Modificar</button></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="form_container">
+          <button>
+              New Order
+          </button>
+      </div>
+
     </div>
 </section>

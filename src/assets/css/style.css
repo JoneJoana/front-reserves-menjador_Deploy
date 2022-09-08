@@ -6,7 +6,7 @@ body {
   overflow-x: hidden;
   background-image: url('/assets/images/fons.png');
   background-repeat: no-repeat;
-  background-size: 100% 600px;
+  background-size: 100% 100%; /* 100% 600px*/
 }
 
 .layout_padding {

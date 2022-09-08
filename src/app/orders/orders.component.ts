@@ -12,6 +12,7 @@ export class OrdersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.body
   }
 
 }
