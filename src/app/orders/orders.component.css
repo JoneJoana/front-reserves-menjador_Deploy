@@ -1,0 +1,43 @@
+body {
+  background-size: 100% 100%; /* 100% 600px*/
+}
+.ordre {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  border-bottom: 1px solid white;
+}
+.ordre div {
+  padding: 5px 0px;
+}
+.ordre-top {
+  display: flex;
+  flex-direction: column;
+}
+.ordre-top-top {
+  display: flex;
+  justify-content: space-between;
+}
+.ordre-top-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.ordre-bottom {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  margin-bottom: 15px;
+}
+.ordre-bottom-info {
+  display: flex;
+  flex-direction: column;
+}
+.ordre-bottom-info span {
+  padding: 3px 20px;
+}
+.s-14 {
+  font-size: 14px;
+}
