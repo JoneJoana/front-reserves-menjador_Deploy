@@ -7,6 +7,9 @@ body {
 .btn:hover {
   background-color: #E30075;
 }
+.plus {
+  color: #E30075;
+}
 .btn[disabled] {
   background-color: #8f5c77;
 }
@@ -14,7 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   color: white;
-  border-bottom: 1px solid white;
+  border-top: 1px solid white;
 }
 .ordre div {
   padding: 5px 0px;
@@ -43,6 +46,9 @@ body {
 .ordre-bottom-info {
   display: flex;
   flex-direction: column;
+}
+.ordre-bottom-info span button {
+  margin-right: 10px;
 }
 .ordre-bottom-info > div, .ordre-bottom-info > span  {
   padding: 3px 20px;

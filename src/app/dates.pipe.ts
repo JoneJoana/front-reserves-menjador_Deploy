@@ -18,11 +18,18 @@ export class DatesPipe implements PipeTransform {
         case "createdOn": {
           if(this.isToday(d[2], d[1], d[0]))
             return ' today at '+d[3]+":"+d[4]
+          else if(this.isYesterday(d[2], d[1], d[0]))
+            return ' yesterday at '+d[3]+":"+d[4]
           else
             return " on " + d[2]+"/"+d[1]+"/"+d[0]+" at "+d[3]+":"+d[4]
         }
         case "deliveryOn": {
-          return d[3]+":"+d[4];
+          if(this.isToday(d[2], d[1], d[0]))
+            return ' today at '+d[3]+":"+d[4]
+          else if(this.isYesterday(d[2], d[1], d[0]))
+            return ' yesterday at '+d[3]+":"+d[4]
+          else
+            return d[3]+":"+d[4];
         }
         case "modifiableTill": {
           var h = d[3];
@@ -53,6 +60,11 @@ export class DatesPipe implements PipeTransform {
     // getDate() per obtenir el dia, getDay() retorna el dia de la setmana...
     // sumar +1 al mes, pq el Gener es 0, no 1 (com seria logic...)
     return d.getDate() == dia && d.getMonth()+1 == mes && d.getFullYear() == any
+  }
+
+  isYesterday(dia:any, mes:any, any:any) {
+    var d = new Date();
+    return d.getDate()-1 == dia && d.getMonth()+1 == mes && d.getFullYear() == any
   }
 
 }

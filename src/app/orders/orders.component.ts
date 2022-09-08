@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrdersService } from '../orders.service';
+import { OrdersService } from '../api.service';
 
 @Component({
   selector: 'app-orders',
@@ -8,22 +8,29 @@ import { OrdersService } from '../orders.service';
   styleUrls: ['./orders.component.css']
 })
 
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit,AfterViewInit {
 
   admin = false;
-  orders:any = [];
+  orders:any;
+  retrievedImage: any;
 
   constructor(private api:OrdersService, private router: Router) { }
+
+  ngAfterViewInit(): void {
+    console.log("viewinit")
+  }
 
 
   ngOnInit(): void {
     this.loadOrders()
-
+/* De moment ho deixo comentat, pero poso aixo per que recalculi el temps que queda per modificar
+la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     setInterval(() => {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/orders']);
       });
     }, 60000)
+    */
   }
 
   isModifiable(id:any): boolean {
@@ -42,9 +49,8 @@ export class OrdersComponent implements OnInit {
     // Validacions
     if(hAct > hDel) return false;
     if(hAct == hDel && mAct >= mDel) return false;
-
     if(hAct <= hDel && Math.abs(mAct-mDel) < 20) return false;
-    console.log("NOPE")
+
     return true;
   }
 
@@ -52,10 +58,19 @@ export class OrdersComponent implements OnInit {
     this.api.gerOrders().subscribe(
       response => {
         this.orders = response
+        if(this.orders == null) console.log("undef")
+        //this.retrievedImage = ;
       }
     )
-}
+  }
 
+  loadImage() {
+    console.log("ok")
+    /*
+    var img:HTMLImageElement|any = document.getElementById("imatge"+o.id)
+    img.src("data:image/jpeg;base64,"+ o.dishes[0].image)
+    */
+  }
 
 }
 

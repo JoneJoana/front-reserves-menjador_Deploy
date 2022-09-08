@@ -16,7 +16,7 @@ import { DatesPipe } from './dates.pipe';
     DishesComponent,
     HomeComponent,
     OrdersComponent,
-    DatesPipe
+    DatesPipe,
   ],
   imports: [
     BrowserModule,
