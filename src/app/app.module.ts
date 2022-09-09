@@ -7,13 +7,15 @@ import { DishesComponent } from './dishes/dishes.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { OrdersComponent } from './orders/orders.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DishesComponent,
     HomeComponent,
-    OrdersComponent
+    OrdersComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
