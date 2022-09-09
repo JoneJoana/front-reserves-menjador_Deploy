@@ -1,7 +1,6 @@
 <!-- dish section -->
 <section class="book_section layout_padding">
   <div class="container">
-
     <!-- <div class="form-check form-switch">
       <input
           [(ngModel)]="admin"
@@ -30,7 +29,7 @@
             </div>
           </td>
           <td>
-              <select [(ngModel)]="dish.popularity">
+              <select class="form-select" [(ngModel)]="dish.popularity">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -46,7 +45,7 @@
           </td>
           <td>
             <div>
-              <select>
+              <select class="form-select">
                 <option selected="selected">Actions</option>
                 <option value="1">Save</option>
                 <option value="2">Delete</option>
@@ -57,7 +56,7 @@
       </tbody>
     </table>
     <div class="form_container">
-      <button>
+      <button (click)="add()">
         New Dish
       </button>
     </div>

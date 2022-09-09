@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DishesService } from '../api.service';
+import { DishesService, OrdersService } from '../api.service';
 declare var $: any;
 
 @Component({
@@ -16,11 +16,9 @@ export class DishesComponent implements OnInit  {
 
   constructor(private api:DishesService, private router: Router) { } //private api:DishesService, private router: Router
 
-
   ngOnInit(): void {
-    
-    $("select").niceSelect()
     this.loadDishes()
+    $("select").niceSelect()
 
     const dish1 = {
       name: 'arroz',
@@ -54,6 +52,10 @@ export class DishesComponent implements OnInit  {
         console.log("ERROR REQUEST")
       }
     )
+  }
+
+  add(){
+
   }
 
 }
