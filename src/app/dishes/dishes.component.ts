@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var $: any;
 
 @Component({
   selector: 'app-dishes',
@@ -9,7 +10,11 @@ export class DishesComponent implements OnInit {
 
   constructor() { }
 
+
   ngOnInit(): void {
+
+      $("select").niceSelect()
+
   }
 
 }

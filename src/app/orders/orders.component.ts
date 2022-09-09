@@ -58,8 +58,9 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     this.api.gerOrders().subscribe(
       response => {
         this.orders = response
-        if(this.orders == null) console.log("undef")
-        //this.retrievedImage = ;
+      },
+      error => {
+        console.log("ERROR REQUEST:\n "+error.message)
       }
     )
   }
