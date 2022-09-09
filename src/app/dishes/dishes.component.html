@@ -1,150 +1,67 @@
-<!-- book section -->
+<!-- dish section -->
 <section class="book_section layout_padding">
   <div class="container">
-      <table class="table table-hover" style="background-color: rgb(235, 224, 224);">
-          <thead>
-              <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Dish</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Popularity</th>
-                  <th scope="col">Status</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <th scope="row">1</th>
-                  <td><input type="text" id="nombrePlato"></td>
-                  <td>
-                      <div class="mb-3">
-                          <input
-                              class="form-control form-control-sm"
-                              id="formFileSm"
-                              type="file"
-                              style="width: 90%">
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option value="0">0</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                          </select>
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option value="1">Active</option>
-                              <option value="2">Inactive</option>
-                          </select>
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option selected="selected">Actions</option>
-                              <option value="1">Save</option>
-                              <option value="2">Delete</option>
-                          </select>
-                      </div>
-                  </td>
-              </tr>
-              <tr>
-                  <th scope="row">2</th>
-                  <td>
-                      <input type="text" id="nombrePlato">
-                  </td>
-                  <td>
-                      <div class="mb-3">
-                          <input
-                              class="form-control form-control-sm"
-                              id="formFileSm"
-                              type="file"
-                              style="width: 90%">
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option value="0">0</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                          </select>
-                      </div>
-                  </td>
-                  <td>
-                      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                          <option value="1">Active</option>
-                          <option value="2">Inactive</option>
-                      </select>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option selected="selected">Actions</option>
-                              <option value="1">Save</option>
-                              <option value="2">Delete</option>
-                          </select>
-                      </div>
-                  </td>
-              </tr>
-              <tr>
-                  <th scope="row">3</th>
-                  <td><input type="text" id="nombrePlato"></td>
-                  <td>
-                      <div class="mb-3">
-                          <input
-                              class="form-control form-control-sm"
-                              id="formFileSm"
-                              type="file"
-                              style="width: 90%">
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option value="0">0</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                          </select>
-                      </div>
-                  </td>
-                  <td>
-                      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                          <option value="1">Active</option>
-                          <option value="2">Inactive</option>
-                      </select>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option selected="selected">Actions</option>
-                              <option value="1">Save</option>
-                              <option value="2">Delete</option>
-                          </select>
-                      </div>
-                  </td>
-              </tr>
-          </tbody>
-      </table>
-      <div class="form_container">
-          <button>
-              New Dish
-          </button>
-      </div>
+    <!-- <div class="form-check form-switch">
+      <input
+          [(ngModel)]="admin"
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="admin"/>
+      <label class="form-check-label" for="admin" style="color: white">Admin</label>
+  </div> -->
+
+    <table class="table table-hover" style="background-color: rgb(235, 224, 224);" *ngIf="admin">
+      <thead>
+        <tr>
+          <th scope="col">Dish</th>
+          <th scope="col">Image</th>
+          <th scope="col">Popularity</th>
+          <th scope="col">Active</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dish of dishes">
+          <td><input type="text" id="nombrePlato" [(ngModel)]="dish.name"></td>
+          <td>
+            <div class="mb-3">
+              <input class="form-control" id="formFileSm" type="file" style="width: 90%">
+            </div>
+          </td>
+          <td>
+              <select class="form-select" [(ngModel)]="dish.popularity">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+          </td>
+          <td>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="dish.status">
+              </div>
+          </td>
+          <td>
+            <div>
+              <select class="form-select">
+                <option selected="selected">Actions</option>
+                <option value="1">Save</option>
+                <option value="2">Delete</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="form_container">
+      <button>
+        New Dish
+      </button>
+    </div>
   </div>
 
 </section>
-<!-- end book section -->
+<!-- end dish section -->
 
