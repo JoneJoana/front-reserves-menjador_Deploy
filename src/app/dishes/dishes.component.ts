@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DishesService, OrdersService } from '../api.service';
+//declare var $: any;
 
 @Component({
   selector: 'app-dishes',
@@ -12,6 +13,7 @@ export class DishesComponent implements OnInit  {
   admin: boolean = true;
   dishes: any; //Dish[] = []; en el cas dutilitzar les dades const dish1 etc
   retrievedImage: any;
+  categories: any;
   newDish: Dish = {
     name: '',
     popularity: 0,
@@ -22,7 +24,10 @@ export class DishesComponent implements OnInit  {
   constructor(private api:DishesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadDishes()
+    this.loadDishes();
+    /* setTimeout(() => {
+      $("select").niceSelect()
+    },500) */
 
     /* const dish1 = {
       name: 'arroz',
