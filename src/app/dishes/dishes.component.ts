@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DishesService, OrdersService } from '../api.service';
+import { DishesService } from '../api.service';
+declare var $: any;
 
 @Component({
   selector: 'app-dishes',
@@ -15,7 +16,10 @@ export class DishesComponent implements OnInit  {
 
   constructor(private api:DishesService, private router: Router) { } //private api:DishesService, private router: Router
 
+
   ngOnInit(): void {
+    
+    $("select").niceSelect()
     this.loadDishes()
 
     const dish1 = {
