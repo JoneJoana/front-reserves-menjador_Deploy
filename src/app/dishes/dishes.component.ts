@@ -13,11 +13,10 @@ export class DishesComponent implements OnInit  {
   dishes: Dish[] = [];
   retrievedImage: any;
 
-  constructor() {  } //private api:DishesService, private router: Router
+  constructor() { } //private api:DishesService, private router: Router
 
   ngOnInit(): void {
-
-    //this.loadDishes();
+    //this.loadDishes()
 
     const dish1: Dish = {
       name: 'arroz',
@@ -37,10 +36,9 @@ export class DishesComponent implements OnInit  {
     this.dishes.push(dish1);
     this.dishes.push(dish2);
     this.dishes.push(dish3);
-
   }
 
-  /*loadDishes() {
+  /* loadDishes() {
     this.api.getDishes().subscribe(
       response => {
         this.dishes = response

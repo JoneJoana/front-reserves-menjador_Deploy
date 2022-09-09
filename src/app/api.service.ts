@@ -19,3 +19,24 @@ export class OrdersService {
     return this.http.get(BASE+"/api/orders", headers);
   }
 }
+
+/* export class DishesService {
+
+  constructor(private http: HttpClient) { }
+
+  getDishes(): Observable<any> {
+    return this.http.get(BASE+"/api/dishes", headers);
+  }
+
+}
+
+export class CategoriesService {
+
+  constructor(private http: HttpClient) { }
+
+  getCategories(): Observable<any> {
+    return this.http.get(BASE+"/api/categories", headers);
+  }
+
+}
+ */
