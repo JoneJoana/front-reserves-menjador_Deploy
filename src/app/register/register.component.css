@@ -1,0 +1,58 @@
+#mid {
+
+    background-image: url("src/assets/images/fons.png");
+    display: flex;
+}
+.izq {
+    width: 50vw;
+    height: 80vh;
+    display: flex;
+    padding: 0 auto;
+}
+
+#cont-izq {
+
+    width: 35vw;
+    height: 60vh;
+    margin: 80px auto 0;
+
+}
+
+.der {
+    width: 50vw;
+    height: 80vh;
+    border-left: #ffffff solid;
+
+}
+
+#cont-der {
+
+    width: 35vw;
+    height: 60vh;
+    margin: 80px auto 0;
+
+}
+
+button {
+    display: inline-block;
+    padding: 8px 30px;
+    background-color: #E30075;
+    color: #ffffff;
+    border-radius: 45px;
+    transition: all 0.3s;
+    border: none;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 60px;
+}
+
+.form-label {
+    color: #ffffff;
+}
+.form-control form-control-lg {
+    color: #ffffff;
+
+}
