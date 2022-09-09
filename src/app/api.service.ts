@@ -20,7 +20,10 @@ export class OrdersService {
   }
 }
 
-/* export class DishesService {
+@Injectable({
+  providedIn: 'root'
+})
+ export class DishesService {
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +33,9 @@ export class OrdersService {
 
 }
 
+@Injectable({
+  providedIn: 'root'
+})
 export class CategoriesService {
 
   constructor(private http: HttpClient) { }
@@ -39,4 +45,4 @@ export class CategoriesService {
   }
 
 }
- */
+

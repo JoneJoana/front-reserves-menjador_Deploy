@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrdersService } from '../api.service';
+import { DishesService, OrdersService } from '../api.service';
 
 @Component({
   selector: 'app-dishes',
@@ -10,25 +10,25 @@ import { OrdersService } from '../api.service';
 export class DishesComponent implements OnInit  {
 
   admin: boolean = true;
-  dishes: Dish[] = [];
+  dishes: any; //Dish[] = [];
   retrievedImage: any;
 
-  constructor() { } //private api:DishesService, private router: Router
+  constructor(private api:DishesService, private router: Router) { } //private api:DishesService, private router: Router
 
   ngOnInit(): void {
-    //this.loadDishes()
+    this.loadDishes()
 
-    const dish1: Dish = {
+    const dish1 = {
       name: 'arroz',
       popularity: 2,
       status: true
     }
-    const dish2: Dish = {
+    const dish2 = {
       name: 'salmon',
       popularity: 5,
       status: true
     }
-    const dish3: Dish = {
+    const dish3 = {
       name: 'pollo al horno',
       popularity: 3,
       status: false
@@ -38,7 +38,7 @@ export class DishesComponent implements OnInit  {
     this.dishes.push(dish3);
   }
 
-  /* loadDishes() {
+  loadDishes() {
     this.api.getDishes().subscribe(
       response => {
         this.dishes = response
@@ -50,7 +50,7 @@ export class DishesComponent implements OnInit  {
         console.log("ERROR REQUEST")
       }
     )
-  } */
+  }
 
 }
 
