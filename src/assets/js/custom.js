@@ -18,4 +18,3 @@ $(window).on('load', function () {
         }
     })
 });
-
