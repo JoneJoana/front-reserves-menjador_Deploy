@@ -1,11 +1,23 @@
 body {
   background-size: 100% 100%; /* 100% 600px*/
 }
+.btn {
+  background-color: white;
+}
+.btn:hover {
+  background-color: #E30075;
+}
+.plus {
+  color: #E30075;
+}
+.btn[disabled] {
+  background-color: #8f5c77;
+}
 .ordre {
   display: flex;
   flex-direction: column;
   color: white;
-  border-bottom: 1px solid white;
+  border-top: 1px solid white;
 }
 .ordre div {
   padding: 5px 0px;
@@ -35,7 +47,10 @@ body {
   display: flex;
   flex-direction: column;
 }
-.ordre-bottom-info span {
+.ordre-bottom-info span button {
+  margin-right: 10px;
+}
+.ordre-bottom-info > div, .ordre-bottom-info > span  {
   padding: 3px 20px;
 }
 .s-14 {
