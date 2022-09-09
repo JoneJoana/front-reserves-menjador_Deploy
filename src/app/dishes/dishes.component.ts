@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrdersService } from '../api.service';
 
@@ -7,7 +7,7 @@ import { OrdersService } from '../api.service';
   templateUrl: './dishes.component.html',
   styleUrls: ['./dishes.component.css']
 })
-export class DishesComponent implements OnInit {
+export class DishesComponent implements OnInit  {
 
   admin: boolean = true;
   dishes: Dish[] = [];
@@ -36,6 +36,10 @@ export class DishesComponent implements OnInit {
     this.dishes.push(dish2);
     this.dishes.push(dish3);
   }
+
+initialize() {
+  alert('test')
+}
 
   /* loadDishes() {
     this.api.getDishes().subscribe(
