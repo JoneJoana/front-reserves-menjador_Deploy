@@ -13,6 +13,7 @@ export class OrdersComponent implements OnInit,AfterViewInit {
   admin = false;
   orders:any;
   retrievedImage: any;
+  modifying: boolean = false
 
   constructor(private api:OrdersService, private router: Router) { }
 
@@ -38,6 +39,8 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     // Si es modifica, cal canviar-ho també a dates.pipe.ts!!!!
     const MARGIN = 20
 
+    console.log("isModifiable()")
+
     var d:any = document.getElementById("modifyDate"+id)?.innerHTML
     // Hora i minuts data entrega
     var hDel = Number.parseInt(d.split(":")[0])
@@ -47,6 +50,7 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     var mAct = new Date().getMinutes();
 
     // Validacions
+    // Només funciona si les hores son del mateix dia
     if(hAct > hDel) return false;
     if(hAct == hDel && mAct >= mDel) return false;
     if(hAct <= hDel && Math.abs(mAct-mDel) < 20) return false;
@@ -55,6 +59,7 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
   }
 
   loadOrders() {
+    console.log("loadOrders()")
     this.api.gerOrders().subscribe(
       response => {
         this.orders = response
@@ -65,12 +70,8 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     )
   }
 
-  loadImage() {
-    console.log("ok")
-    /*
-    var img:HTMLImageElement|any = document.getElementById("imatge"+o.id)
-    img.src("data:image/jpeg;base64,"+ o.dishes[0].image)
-    */
+  onBtnModify(){
+    this.modifying = true
   }
 
 }

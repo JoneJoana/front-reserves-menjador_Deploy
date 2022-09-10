@@ -51,8 +51,22 @@ body {
   margin-right: 10px;
 }
 .ordre-bottom-info > div, .ordre-bottom-info > span  {
-  padding: 3px 20px;
+  margin: 3px 20px;
 }
 .s-14 {
   font-size: 14px;
+}
+.plat {
+  border: 1px solid red;
+  border-radius: 20px;
+  padding: 10px;
+}
+.plat svg {
+  color: red;
+}
+.plat:hover {
+  background-color: red;
+}
+.plat:hover svg {
+  color: white;
 }

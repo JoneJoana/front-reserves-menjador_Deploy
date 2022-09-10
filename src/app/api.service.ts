@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 const BASE = 'https://tch-db.herokuapp.com';
 const headers = {
   headers: new HttpHeaders(
-    { "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NjE5NjM4NDUsImlzcyI6ImFkbWluIiwic3ViIjoicm9vdCIsImV4cCI6MTY2MjgyNzg0NX0.OuH-CkYfq6WmaBBQkd3w6aWRk77uEp5P5whuCAgyUVzooQmqgIdQlc7M-DoJxBj3seXgdtnoGmWfOkx4eQ7aBQ" })
+    { "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NjI4MzA5MzMsImlzcyI6ImFkbWluIiwic3ViIjoicHJvdmVzIiwiZXhwIjoxNjYzNjk0OTMzfQ.ZbM6j8BLKNEV0wRZ3NJolByLVqpM-rMx_NnFzPU1Xd6E4aJVUiWnYt6jpDcbCOrOre4Yh9VUvs5rV9CmFKYhAw" })
 };
 
 @Injectable({
