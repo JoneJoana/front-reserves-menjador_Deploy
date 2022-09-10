@@ -6,7 +6,7 @@ import { Dish } from './dishes/dishes.component';
 const BASE = 'https://tch-db.herokuapp.com';
 const headers = {
   headers: new HttpHeaders(
-    { "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NjE5NjM4NDUsImlzcyI6ImFkbWluIiwic3ViIjoicm9vdCIsImV4cCI6MTY2MjgyNzg0NX0.OuH-CkYfq6WmaBBQkd3w6aWRk77uEp5P5whuCAgyUVzooQmqgIdQlc7M-DoJxBj3seXgdtnoGmWfOkx4eQ7aBQ" })
+    { "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NjI4MzYxNTAsImlzcyI6ImFkbWluIiwic3ViIjoiQWRtaW4xIiwiZXhwIjoxNjYzNzAwMTUwfQ.o6jqDky5fDdWvY63G9H1F5jV99MPSIHNYwFcygvWscxOt6dI7qIvviS8-SmVy4UsUPdfh8GXCxcnJNtJN0XQuQ" })
 };
 
 @Injectable({
