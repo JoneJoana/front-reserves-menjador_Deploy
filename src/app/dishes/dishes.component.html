@@ -54,10 +54,14 @@
                 </div>
               </td>
               <td>
-                <select class="form-select">
+                <div class="form-check form-check-inline" *ngFor="let category of possibleCategories">
+                  <input class="form-check-input" type="checkbox" [checked]="dish.categories.includes(category)">
+                  <label class="form-check-label">{{category}}</label>
+                </div>
+                <!-- <select class="form-select">
                   <option *ngFor="let category of dish.categories">{{category}}</option>
-                  <!-- .name al agafarho d bbdd -->
-                </select>
+                   .name al agafarho d bbdd
+                </select> -->
               </td>
               <td>
                 <div class="btn-group-vertical btn-group-sm" role="group">
