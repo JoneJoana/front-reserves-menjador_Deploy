@@ -81,33 +81,38 @@
                         <img src="data:image/jpeg;base64,{{o.dishes[0].image}}" width="150px" height="150px" />
                         <div class="ordre-bottom-info">
                             <!-- VISTA PLATS NORMAL-->
-                            <div *ngIf="!plats.has(o.id)">
+                            <div *ngIf="!modifying.has(o.id)">
                                 <span *ngFor="let d of o.dishes; let i = index">
                                   <span *ngIf="i>0" class="plus"> + </span>
                                   <span>{{d.name}}</span>
                                 </span>
                             </div>
                             <!-- VISTA PLATS MODIFICAR-->
-                            <div *ngIf="plats.has(o.id)">
-                              <span *ngFor="let d of plats.get(o.id); let i = index">
+                            <div *ngIf="modifying.has(o.id)">
+
+                              <span *ngFor="let d of o.dishes; let i = index">
                                 <span *ngIf="i>0" class="plus"> + </span>
-                                <span (click)="eliminarPlat(o.id,d.id)" class="plat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                                </svg> <span class="nomPlat">{{d.name}}</span></span>
+                                <div class="caixaPlat">
+                                  <span (click)="eliminarPlat(o.id,d.id)" class="plat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                  </svg> <span class="nomPlat">{{d.name}}</span></span>
+                                </div>
                               </span>
                               <span class="plus"> + </span>
-                              <select>
 
+
+                              <select (change)="onSelectPlato(o.id,$event)" class="selectPlats">
+                                <option selected value="{{null}}">Seleccionar Plato</option>
+                                <option *ngFor="let p of plats; let i = index" value="{{i}}">{{p.name}}</option>
                               </select>
-
-                            </div>
+                          </div>
 
                             <div>
                               <span class="s-14">Modifiable until </span>
                               <span id="modifyDate{{o.id}}" class="s-14">{{o.deliveryOn | dates:"modifiableTill"}}</span>
                             </div>
 
-                            <span *ngIf="!plats.has(o.id)">
+                            <span *ngIf="!modifying.has(o.id)">
                                 <button (click)="onBtnModify(o.id)" *ngIf="isModifiable(o.delivered,o.deliveryOn)" class="btn">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -130,7 +135,7 @@
                                 </button>
                             </span>
                             <!-- BOTONS QUE SURTEN QUAN ESTEM MODIFICANT UNA ORDRE-->
-                            <span *ngIf="plats.has(o.id)">
+                            <span *ngIf="modifying.has(o.id)">
                               <button (click)="update(o.id)" class="btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -139,8 +144,8 @@
                                 Update
                               </button>
                               <button class="btn" (click)="cancelModification(o.id)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                  <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
                                 </svg>
                                 Back
                               </button>

@@ -26,6 +26,11 @@ export class OrdersService {
   deleteOrder(id: any): Observable<any> {
     return this.http.delete(BASE+"/api/orders/delete/"+id, headers);
   }
+
+  updateOrder(order: any): Observable<any> {
+    return this.http.put(BASE+"/api/orders/update", order, headers);
+  }
+
 }
 
 @Injectable({

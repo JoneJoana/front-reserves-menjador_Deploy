@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrdersService } from '../api.service';
+import { DishesService, OrdersService } from '../api.service';
 
 @Component({
   selector: 'app-orders',
@@ -12,14 +12,14 @@ export class OrdersComponent implements OnInit,AfterViewInit {
 
   admin = false;
   orders:any;
-  retrievedImage: any;
-  // idOrdre, array idPlats
-  plats:any = new Map<number,Array<number>>()
+  modifying:any = new Map<number,boolean>()
+  platsTmp:any = new Map<number,any>()
+  plats:any;
 
-  constructor(private api:OrdersService, private router: Router) { }
+  constructor(private api:OrdersService, private dishes:DishesService, private router: Router) { }
 
   ngAfterViewInit(): void {
-
+    this.getDishes()
   }
 
   ngOnInit(): void {
@@ -33,6 +33,7 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
       });
     }, 60000)
     */
+
   }
 
   isModifiable(status:any,dd:any): boolean {
@@ -42,7 +43,7 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
 
     // Si la ordre no esta pendent (esta entregada), que no deixi modificar
     if(status != "P") return false;
-    console.log("isModifiable()")
+    //console.log("isModifiable()")
 
     // Es converteix de string a Date la data d'entrega
     var deliveryDate:any = new Date(dd.split("+")[0]);
@@ -74,8 +75,8 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
   }
 
   onBtnModify(id:any){
-    this.plats.set(id,this.getDishesByOrderId(id))
-    console.log(this.plats.get(id))
+    this.modifying.set(id,true)
+    this.platsTmp.set(id,this.orders[this.getIndexByOrderId(id)].dishes)
   }
 
   getDishesByOrderId(id:number) {
@@ -88,10 +89,19 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
 
   update(id:any){
     // fer update
-    this.orders[this.getIndexByOrderId(id)].dishes = this.plats.get(id)
-    //console.log(this.orders[this.getIndexByOrderId(id)].id)
+    this.api.updateOrder(this.orders[this.getIndexByOrderId(id)]).subscribe(
+      response => {
+        alert("Ordre actualitzada correctament")
+        this.loadOrders()
+      },
+      error => {
+        alert("ERROR")
+        console.log("ERROR REQUEST:\n "+error.message)
+      }
+    )
     // recarregar llista
-    this.plats.delete(id)
+    this.platsTmp.delete(id)
+    this.modifying.delete(id)
   }
 
   getIndexByOrderId(id:any) {
@@ -103,22 +113,25 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
   }
 
   cancelModification(id:any){
-    // netejar
-    this.plats.delete(id)
+    this.orders[this.getIndexByOrderId(id)].dishes = this.platsTmp.get(id)
+    this.platsTmp.delete(id)
+    this.modifying.delete(id)
   }
 
   eliminarPlat(idOrdre:number,idPlat:number) {
-    var llista:Array<number> = [];
-    this.plats.get(idOrdre).forEach((d:any) => {
-      if(d.id != idPlat) llista.push(d)
+    var llista = new Array()
+    this.orders[this.getIndexByOrderId(idOrdre)].dishes.forEach((d:any) => {
+      if(d.id != idPlat) {
+        llista.push(d)
+      }
     });
-    this.plats.set(idOrdre,llista)
-    console.log(this.plats.get(idOrdre))
+    this.orders[this.getIndexByOrderId(idOrdre)].dishes = llista
   }
 
 
   eliminar(id:any){
-    console.log("eliminar")
+    let segur = confirm("Do you really want to delete this order?");
+    if(!segur) return
     this.api.deleteOrder(id).subscribe(
       response => {
         alert("Ordre eliminada correctament")
@@ -129,6 +142,38 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
         console.log("ERROR REQUEST:\n "+error.message)
       }
     )
+  }
+
+  getDishes() {
+    this.dishes.getDishes().subscribe(
+      response => {
+        this.plats = response
+      },
+      error => {
+        console.log("ERROR REQUEST:\n "+error.message)
+      }
+    )
+  }
+
+  onSelectPlato(idOrdre:any, e:any) {
+    // Index del plat seleccionat
+    var i:number = e.target.value
+
+    // Comprovar si existeix plat a la llista de plats de la ordre
+    var exists:boolean = false
+    this.orders[this.getIndexByOrderId(idOrdre)].dishes.forEach((d:any) => {
+      if(d.id == this.plats[i].id) {
+        exists = true
+      }
+    });
+
+    // Si no existeix, afegir-lo
+    if(!exists) {
+      this.orders[this.getIndexByOrderId(idOrdre)].dishes.push(this.plats[i])
+    }
+
+    // Reset de la opcio seleccionada per defecte
+    e.target.selectedIndex = 0
   }
 
 }

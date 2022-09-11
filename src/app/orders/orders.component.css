@@ -1,10 +1,11 @@
 body {
   background-size: 100% 100%; /* 100% 600px*/
 }
+
 .btn {
   background-color: white;
 }
-.btn:hover {
+.btn:hover, .btn:focus {
   background-color: #E30075;
 }
 .plus {
@@ -46,6 +47,7 @@ body {
 .ordre-bottom-info {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .ordre-bottom-info span button {
   margin-right: 10px;
@@ -57,16 +59,41 @@ body {
   font-size: 14px;
 }
 .plat {
-  border: 1px solid red;
-  border-radius: 20px;
   padding: 10px;
+  cursor: pointer;
 }
 .plat svg {
   color: red;
 }
-.plat:hover {
+.caixaPlat:hover {
   background-color: red;
 }
 .plat:hover svg {
   color: white;
+}
+.selectPlats {
+  width: fit-content;
+  cursor: pointer;
+  border: 1px solid green;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: transparent;
+  color: black;
+  margin-top: 5px;
+}
+.caixaPlat {
+  margin: 10px;
+  border-radius: 20px;
+  margin: 5px;
+  border: 1px solid red;
+  display: inline-block
+}
+.selectPlats:focus {
+  border: 1px solid green;
+}
+/* Amagar imatge ordre quan la pantalla sigui massa petita */
+@media screen and (max-width: 550px) {
+  .ordre-bottom img {
+    display: none;
+  }
 }
