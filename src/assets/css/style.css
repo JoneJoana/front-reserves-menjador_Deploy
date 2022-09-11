@@ -143,6 +143,17 @@ a:focus {
 
 .header_section {
   padding: 15px 0;
+  background-color: white;
+  border-bottom: 5px solid #e30075;
+  color: #E30075;
+}
+
+.header_section a, .header_section a:active {
+  color: #E30075;
+}
+
+.header_section a:hover {
+  color: #97004E;
 }
 
 .header_section .container-fluid {
@@ -154,10 +165,13 @@ a:focus {
   font-family: 'Dancing Script', cursive;
 }
 
+.navbar-brand:focus {
+  color: #E30075;
+}
+
 .navbar-brand span {
   font-weight: bold;
-  font-size: 32px;
-  color: #97004E;
+  font-size: 40px;
 }
 
 .custom_nav-container {
@@ -208,14 +222,6 @@ a:focus {
   margin: 0 10px;
 }
 
-.user_option .user_link {
-  color: #ffffff;
-}
-
-.user_option .user_link:hover {
-  color: #E30075;
-}
-
 .user_option .cart_link {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -231,12 +237,11 @@ a:focus {
 .user_option .cart_link svg {
   width: 17px;
   height: auto;
-  fill: #ffffff;
   margin-bottom: 2px;
 }
 
 .user_option .cart_link:hover svg {
-  fill: #E30075;
+  fill: #a90b5c;
 }
 
 .user_option .order_online {
@@ -921,7 +926,7 @@ a:focus {
 }
 
 .footer_section p {
-  color: #97004E;
+  color: #ffffff;
 }
 
 .footer_section .footer-col {
@@ -948,7 +953,7 @@ a:focus {
 }
 
 .footer_section .footer_contact .contact_link_box a:hover {
-  color: #E30075;
+  color: #ffffff;
 }
 
 .footer_section .footer-logo {
@@ -956,7 +961,7 @@ a:focus {
   font-weight: bold;
   font-size: 38px;
   line-height: 1;
-  color: #97004E;
+  color: #e31a82;
 }
 
 .footer_section .footer_social {
@@ -1008,3 +1013,11 @@ a:focus {
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
+
+.color-primary {
+  color: #E30075;
+}
+
+.color-primary:hover {
+  color: #97004E;
+}
