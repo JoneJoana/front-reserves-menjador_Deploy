@@ -11,22 +11,29 @@
       <label class="form-check-label" for="admin" style="color: white">Admin</label>
   </div> -->
 
-    <table class="table table-hover" style="background-color: rgb(235, 224, 224);" *ngIf="admin">
+  <div class="card mask-custom">
+    <table class="table table-borderless text-white mb-0" *ngIf="admin">
       <thead>
-        <tr>
+        <tr id="cabecera">
           <th scope="col">Dish</th>
           <th scope="col">Image</th>
           <th scope="col">Popularity</th>
           <th scope="col">Active</th>
           <th scope="col">Categories</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let dish of dishes">
-          <td><input type="text" id="nombrePlato" [(ngModel)]="dish.name"></td>
+        <tr *ngFor="let dish of dishes; let i = index">
+          <td><input class="form-input" type="text" id="nombrePlato" [(ngModel)]="dish.name"></td>
           <td>
             <div class="mb-3">
-              <input class="form-control" id="formFileSm" type="file" style="width: 90%" [(ngModel)]="dish.image">
+              <img src="..\assets\images\f1.png" width="80px" height="80px" *ngIf="visibilityImg" (click)="changeVisibility()"/>
+              <input class="form-control" id="formFileSm" type="file" style="width: 90%" *ngIf="visibilityFormFile">
+              <!-- {{dish.image}} a src;
+                input formFile amagat i al clicar imatge apareix
+                FIXME ho implementa a tots els registres, mirar com extreure a quin element dish concret hem clicat
+              -->
             </div>
           </td>
           <td>
@@ -46,25 +53,23 @@
             </div>
           </td>
           <td>
-            <select class="form-select" [(ngModel)]="dish.categories"> <!-- potser sha de fer metode per accedir a lapi y que extregui la llista de categorias del plat?-->
-              <option *ngFor="let category of categories"></option>
+            <select class="form-select">
+              <option *ngFor="let category of dish.categories">{{category}}</option> <!-- .name al agafarho d bbdd -->
             </select>
           </td>
           <td>
-            <div>
-              <select class="form-select">
-                <option selected="selected">Actions</option>
-                <option value="1" (click)="update(dish)">Update</option>
-                <option value="2" (click)="delete(dish.id)">Delete</option>
-              </select>
+            <div class="btn-group-vertical btn-group-sm" role="group">
+              <button type="button" class="btn btn-light">Update</button>
+              <button type="button" class="btn btn-light">Delete</button>
             </div>
           </td>
         </tr>
         <tr *ngIf="addDish">
-          <td><input type="text" id="nombrePlato" [(ngModel)]="newDish.name"></td>
+          <td><input class="form-input" type="text" id="nombrePlato" [(ngModel)]="newDish.name"></td>
           <td>
             <div class="mb-3">
               <input class="form-control" id="formFileSm" type="file" style="width: 90%">
+              <!-- ngmodel per que agafi la imatge pujada i el foti al plat -->
             </div>
           </td>
           <td>
@@ -84,8 +89,8 @@
             </div>
           </td>
           <td>
-            <select class="form-select" [(ngModel)]="categories"> <!-- accedir a la taula categories per veure les disponibles i que tingui alguna clase de check per marcar quines te -->
-              <option *ngFor="let category of categories"></option>
+            <select class="form-select" [(ngModel)]="possibleCategories"> <!-- plato nuevo ha de mostrar lista de posibles categorias con check -->
+              <option *ngFor="let category of possibleCategories"></option>
             </select>
           </td>
         </tr>
@@ -104,6 +109,7 @@
       <button (click)="add()" *ngIf="!addDish">
         New Dish
       </button>
+    </div>
     </div>
   </div>
 

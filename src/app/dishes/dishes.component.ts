@@ -11,42 +11,58 @@ import { DishesService, OrdersService } from '../api.service';
 export class DishesComponent implements OnInit  {
 
   admin: boolean = true;
-  dishes: any; //Dish[] = []; en el cas dutilitzar les dades const dish1 etc
+  dishes: Dish[] = []; // any; agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
   retrievedImage: any;
-  categories: any;
+  possibleCategories: any;
+  addDish = false;
   newDish: Dish = {
     name: '',
+    image: '',
     popularity: 0,
-    status: false
+    status: false,
+    categories: []
   }
-  addDish = false;
+  visibilityImg: boolean = true;
+  visibilityFormFile: boolean = false;
+
 
   constructor(private api:DishesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadDishes();
+    //this.loadDishes();
     /* setTimeout(() => {
       $("select").niceSelect()
     },500) */
 
-    /* const dish1 = {
-      name: 'arroz',
+     const dish1 = {
+      name: 'arroz con gambas',
+      image: '',
       popularity: 2,
-      status: true
+      status: true,
+      categories: ['arroz','marisco','primero']
     }
     const dish2 = {
-      name: 'salmon',
+      name: 'salmon plancha',
+      image: '',
       popularity: 5,
-      status: true
+      status: true,
+      categories: ['pescado','segundo']
     }
     const dish3 = {
       name: 'pollo al horno',
+      image: '',
       popularity: 3,
-      status: false
+      status: false,
+      categories: ['carne','segundo']
     }
     this.dishes.push(dish1);
     this.dishes.push(dish2);
-    this.dishes.push(dish3); */
+    this.dishes.push(dish3);
+  }
+
+  changeVisibility(){
+    this.visibilityFormFile = true;
+    this.visibilityImg = false;
   }
 
   loadDishes() {  //esta dando warning en console :ERROR Error: Uncaught (in promise): InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
@@ -96,8 +112,10 @@ export class DishesComponent implements OnInit  {
   clearNewDish(){
     this.newDish = {
       name: '',
+      image: '',
       popularity: 0,
-      status: false
+      status: false,
+      categories: []
     }
   }
 
@@ -117,8 +135,6 @@ export class DishesComponent implements OnInit  {
         this.dishes = response
         //this.retrievedImage = ;
         this.loadDishes();
-        this.clearNewDish();
-        this.addDish = false;
       },
       error => {
         console.log("ERROR REQUEST" + error.message)
@@ -150,6 +166,8 @@ export class DishesComponent implements OnInit  {
 
 export interface Dish{
   name: string,
+  image: any,
   popularity: number,
-  status: boolean
+  status: boolean,
+  categories: string[];
 }
