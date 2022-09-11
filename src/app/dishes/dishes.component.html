@@ -28,11 +28,10 @@
             <td><input class="form-input" type="text" id="nombrePlato" [(ngModel)]="dish.name"></td>
             <td>
               <div class="mb-3">
-                <img src="..\assets\images\f1.png" width="80px" height="80px" *ngIf="visibilityImg"(click)="changeVisibility()" />
-                <input class="form-control" id="formFileSm" type="file" style="width: 90%" *ngIf="visibilityFormFile">
+                <img src="..\assets\images\f1.png" width="80px" height="80px" *ngIf="visibilityImg[i]" (click)="changeVisibility(i)" />
+                <input class="form-control" type="file" style="width: 90%" *ngIf="visibilityFormFile[i]">
                 <!-- {{dish.image}} a src;
                 input formFile amagat i al clicar imatge apareix
-                FIXME ho implementa a tots els registres, mirar com extreure a quin element dish concret hem clicat
               -->
               </div>
             </td>
@@ -68,7 +67,7 @@
             <td><input class="form-input" type="text" id="nombrePlato" [(ngModel)]="newDish.name"></td>
             <td>
               <div class="mb-3">
-                <input class="form-control" id="formFileSm" type="file" style="width: 90%">
+                <input class="form-control" type="file" style="width: 90%">
                 <!-- ngmodel per que agafi la imatge pujada i el foti al plat -->
               </div>
             </td>

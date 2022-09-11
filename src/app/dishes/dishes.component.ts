@@ -21,11 +21,12 @@ export class DishesComponent implements OnInit  {
     status: false,
     categories: []
   }
-  visibilityImg: boolean = true;
-  visibilityFormFile: boolean = false;
+
+  //sabiendo que hay 3 platos
+  visibilityImg: boolean[] = [true,true,true];
+  visibilityFormFile: boolean[] = [false,false,false];
 
   possibleCategories = ['pescado','carne','arroz','shushi','primero','segundo','postre']
-
 
   constructor(private api:DishesService, private router: Router) { }
 
@@ -59,14 +60,15 @@ export class DishesComponent implements OnInit  {
     this.dishes.push(dish1);
     this.dishes.push(dish2);
     this.dishes.push(dish3);
+
   }
 
-  changeVisibility(){
-    this.visibilityFormFile = true;
-    this.visibilityImg = false;
+  changeVisibility(indexDish: number){
+    this.visibilityFormFile[indexDish] = true;
+    this.visibilityImg[indexDish] = false;
   }
 
-  loadDishes() {  //esta dando warning en console :ERROR Error: Uncaught (in promise): InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+  loadDishes() {
     this.api.getDishes().subscribe(
       response => {
         this.dishes = response
