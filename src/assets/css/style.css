@@ -157,7 +157,7 @@ a:focus {
 .navbar-brand span {
   font-weight: bold;
   font-size: 32px;
-  color: #ffffff;
+  color: #97004E;
 }
 
 .custom_nav-container {
@@ -170,7 +170,7 @@ a:focus {
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
   padding: 5px 20px;
-  color: #ffffff;
+  color: #97004E;
   text-align: center;
   text-transform: uppercase;
   border-radius: 5px;
@@ -187,7 +187,7 @@ a:focus {
   height: auto;
   padding: 0;
   border: none;
-  color: #ffffff;
+  color: #97004E;
   margin: 0 10px;
 }
 
@@ -502,7 +502,7 @@ a:focus {
 
 .food_section .filters_menu li.active {
   background-color: #222831;
-  color: #ffffff;
+  color: #97004E;
 }
 
 .food_section .box {
@@ -618,7 +618,7 @@ a:focus {
 }
 
 .about_section {
-  background: #222831;
+  background: #97004e2e;
   color: #ffffff;
 }
 
@@ -903,7 +903,7 @@ a:focus {
 
 /* footer section*/
 .footer_section {
-  background-color: #222831;
+  /*background-color: #97004e1b;*/
   color: #ffffff;
   padding: 75px 0 40px 0;
   text-align: center;
@@ -921,7 +921,7 @@ a:focus {
 }
 
 .footer_section p {
-  color: #dbdbdb;
+  color: #97004E;
 }
 
 .footer_section .footer-col {
@@ -956,7 +956,7 @@ a:focus {
   font-weight: bold;
   font-size: 38px;
   line-height: 1;
-  color: #ffffff;
+  color: #97004E;
 }
 
 .footer_section .footer_social {
@@ -1000,7 +1000,7 @@ a:focus {
 }
 
 .footer_section .footer-info p {
-  color: #ffffff;
+  color: #97004E;
   margin: 0;
 }
 
