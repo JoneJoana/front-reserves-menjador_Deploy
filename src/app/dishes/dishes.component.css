@@ -30,3 +30,7 @@ select,input,button{
   background-color: rgb(219, 60, 142);
   margin-left: -1em;
 }
+
+.form-check-label{
+  padding-left: 10px;
+}

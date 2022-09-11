@@ -13,7 +13,6 @@ export class DishesComponent implements OnInit  {
   admin: boolean = true;
   dishes: Dish[] = []; // any; agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
   retrievedImage: any;
-  possibleCategories: any;
   addDish = false;
   newDish: Dish = {
     name: '',
@@ -24,6 +23,8 @@ export class DishesComponent implements OnInit  {
   }
   visibilityImg: boolean = true;
   visibilityFormFile: boolean = false;
+
+  possibleCategories = ['pescado','carne','arroz','shushi','primero','segundo','postre']
 
 
   constructor(private api:DishesService, private router: Router) { }
@@ -39,7 +40,7 @@ export class DishesComponent implements OnInit  {
       image: '',
       popularity: 2,
       status: true,
-      categories: ['arroz','marisco','primero']
+      categories: ['arroz','primero']
     }
     const dish2 = {
       name: 'salmon plancha',
