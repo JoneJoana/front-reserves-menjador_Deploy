@@ -93,7 +93,7 @@ export class DatesPipe implements PipeTransform {
     var months = [ "Jan.", "Feb.", "Mar.", "Apr.", "May", "June",
            "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec." ];
 
-    return months[dia];
+    return months[--dia];
   }
 
 }
