@@ -13,7 +13,8 @@ export class OrdersComponent implements OnInit,AfterViewInit {
   admin = false;
   orders:any;
   retrievedImage: any;
-  modifying:any = new Map()
+  // idOrdre, array idPlats
+  plats:any = new Map<number,Array<number>>()
 
   constructor(private api:OrdersService, private router: Router) { }
 
@@ -73,25 +74,46 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
   }
 
   onBtnModify(id:any){
-    this.modifying.set(id,true)
+    this.plats.set(id,this.getDishesByOrderId(id))
+    console.log(this.plats.get(id))
+  }
+
+  getDishesByOrderId(id:number) {
+    var order:any;
+    this.orders.forEach((o:any) => {
+      if(o.id == id) order = o
+    });
+    return order.dishes
   }
 
   update(id:any){
     // fer update
+    this.orders[this.getIndexByOrderId(id)].dishes = this.plats.get(id)
+    //console.log(this.orders[this.getIndexByOrderId(id)].id)
     // recarregar llista
-    this.modifying.set(id,false)
+    this.plats.delete(id)
+  }
+
+  getIndexByOrderId(id:any) {
+    var index:any;
+    this.orders.forEach((o:any , i:number) => {
+      if(o.id == id) index = i
+    });
+    return index
   }
 
   cancelModification(id:any){
     // netejar
-    this.modifying.set(id,false)
+    this.plats.delete(id)
   }
 
-  eliminarPlat(idOrdre:number,idPlat:number,e:any) {
-    if(e.target.style.textDecoration == "line-through")
-      e.target.style.textDecoration = ""
-    else
-      e.target.style.textDecoration = "line-through"
+  eliminarPlat(idOrdre:number,idPlat:number) {
+    var llista:Array<number> = [];
+    this.plats.get(idOrdre).forEach((d:any) => {
+      if(d.id != idPlat) llista.push(d)
+    });
+    this.plats.set(idOrdre,llista)
+    console.log(this.plats.get(idOrdre))
   }
 
 
