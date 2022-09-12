@@ -24,12 +24,15 @@ export class DatesPipe implements PipeTransform {
             return " on " + d[2]+"/"+d[1]+"/"+d[0]+" at "+d[3]+":"+d[4]
         }
         case "deliveryOn": {
+          const dd = d[3]+":"+d[4]
           if(this.isToday(d[2], d[1], d[0]))
-            return ' today at '+d[3]+":"+d[4]
+            return ' today at '+dd
           else if(this.isYesterday(d[2], d[1], d[0]))
-            return ' yesterday at '+d[3]+":"+d[4]
+            return ' yesterday at '+dd
+          else if(this.isTomorrow(d[2], d[1], d[0]))
+            return ' tomorrow at '+dd
           else
-            return d[3]+":"+d[4];
+            return " on "+this.getDay(d[2])+" "+this.getDayWeek(d[1])+" at "+dd;
         }
         case "modifiableTill": {
           var h = d[3];
@@ -48,6 +51,12 @@ export class DatesPipe implements PipeTransform {
           }
 
           return h+":"+m;
+        } case "hh": {
+          console.log(d[3])
+          return d[3]
+        } case "mm": {
+          console.log(d[4])
+          return d[4]
         }
       }
     }
@@ -65,6 +74,32 @@ export class DatesPipe implements PipeTransform {
   isYesterday(dia:any, mes:any, any:any) {
     var d = new Date();
     return d.getDate()-1 == dia && d.getMonth()+1 == mes && d.getFullYear() == any
+  }
+
+  isTomorrow(dia:any, mes:any, any:any) {
+    var d = new Date();
+    return d.getDate()+1 == dia && d.getMonth()+1 == mes && d.getFullYear() == any
+  }
+
+  getDay(dia:number): string {
+    dia = +dia // Convertir str a number
+    var sufix = "th"
+    if(dia == 1 || dia == 21 || dia == 31)
+    sufix = "st"
+    else if(dia == 2 || dia == 22)
+    sufix = "nd"
+    else if(dia == 3 || dia == 23)
+    sufix = "rd"
+
+    return dia+sufix
+  }
+
+  getDayWeek(dia:number): string {
+    dia = +dia // Convertir str a number
+    var months = [ "Jan.", "Feb.", "Mar.", "Apr.", "May", "June",
+           "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec." ];
+
+    return months[--dia];
   }
 
 }

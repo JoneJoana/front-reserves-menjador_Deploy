@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DishesService, OrdersService } from '../api.service';
 //declare var $: any;
 
+
 @Component({
   selector: 'app-dishes',
   templateUrl: './dishes.component.html',
@@ -27,6 +28,7 @@ export class DishesComponent implements OnInit  {
   visibilityFormFile: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false];
 
   possibleCategories = ['pescado','carne','arroz','shushi','primero','segundo','postre']
+
 
   constructor(private api:DishesService, private router: Router) { }
 
@@ -66,13 +68,16 @@ export class DishesComponent implements OnInit  {
   changeVisibility(indexDish: number){
     this.visibilityFormFile[indexDish] = true;
     this.visibilityImg[indexDish] = false;
+
   }
 
   loadDishes() {
     this.api.getDishes().subscribe(
       response => {
         this.dishes = response
+
         //this.retrievedImage = ;
+
       },
       error => {
         console.log("ERROR REQUEST")

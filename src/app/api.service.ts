@@ -19,6 +19,19 @@ export class OrdersService {
   gerOrders(): Observable<any> {
     return this.http.get(BASE+"/api/orders", headers);
   }
+
+  gerOrdersByUser(user:string): Observable<any> {
+    return this.http.get(BASE+"/api/orders/user/"+user, headers);
+  }
+
+  deleteOrder(id: any): Observable<any> {
+    return this.http.delete(BASE+"/api/orders/delete/"+id, headers);
+  }
+
+  updateOrder(order: any): Observable<any> {
+    return this.http.put(BASE+"/api/orders/update", order, headers);
+  }
+
 }
 
 @Injectable({

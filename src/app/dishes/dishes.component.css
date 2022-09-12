@@ -30,3 +30,6 @@ select,input,button{
   background-color: rgb(219, 60, 142);
 
 }
+select {
+  display: none;
+}
