@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DishesService, OrdersService } from '../api.service';
+declare var loadListeners: () => void;
 
 @Component({
   selector: 'app-orders',
@@ -77,6 +78,9 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
   onBtnModify(id:any){
     this.modifying.set(id,true)
     this.platsTmp.set(id,this.orders[this.getIndexByOrderId(id)].dishes)
+    setTimeout(() => {
+      loadListeners()
+    }, 100)
   }
 
   getDishesByOrderId(id:number) {
@@ -174,6 +178,24 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
 
     // Reset de la opcio seleccionada per defecte
     e.target.selectedIndex = 0
+  }
+
+  dateInput(tipus:string, accio:string, event:any) {
+    var input = event.target.closest("div.wrapper-dateinput").firstChild
+    if (tipus == "hh") {
+    	if(accio == "-") {
+        input.stepDown()
+      } else{
+        input.stepUp()
+      }
+    } else {
+      if(accio == "-"){
+        if(input.value == "00") return;
+        input.value == 15 ? input.value = "00" : input.stepDown(15)
+      } else{
+        input.value == 45 ? input.value = "00" : input.stepUp(15)
+      }
+    }
   }
 
 }

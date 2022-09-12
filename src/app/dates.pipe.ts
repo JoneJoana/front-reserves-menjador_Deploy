@@ -51,6 +51,12 @@ export class DatesPipe implements PipeTransform {
           }
 
           return h+":"+m;
+        } case "hh": {
+          console.log(d[3])
+          return d[3]
+        } case "mm": {
+          console.log(d[4])
+          return d[4]
         }
       }
     }

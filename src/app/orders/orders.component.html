@@ -63,7 +63,7 @@
         <div *ngIf="!admin">
             <!-- Implementar vista client -->
             <div class="ordres">
-                <div *ngFor="let o of orders" class="ordre">
+                <div *ngFor="let o of orders; let iOrd = index" class="ordre">
                     <div class="ordre-top">
                         <div class="ordre-top-top">
                             <div class="ordre-top-createdOn">
@@ -73,8 +73,36 @@
                                 ORDER N.º 00{{o.id}}
                             </div>
                         </div>
-                        <div class="ordre-top-bottom">
-                            Delivery {{o.deliveryOn | dates:"deliveryOn"}}
+                        <div *ngIf="!modifying.has(o.id)" class="ordre-top-bottom">
+                          Delivery {{o.deliveryOn | dates:"deliveryOn"}}
+                        </div>
+                        <!-- MODIFICAR DATA ENTREGA -->
+                        <div *ngIf="modifying.has(o.id)">
+                          <div class="container-dateInput">
+                            <p>Delivery on</p>
+                            <div class="wrapper-dateinput hora">
+                              <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}" disabled min="12" max="15" type="number"  />
+                              <div class="plus-minus">
+                                <span class="boto" (click)="dateInput('hh','+',$event)">
+                                  <i class="fa fa-plus"></i>
+                                </span>
+                                <span class="boto" (click)="dateInput('hh','-',$event)">
+                                  <i class="fa fa-minus"></i>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="wrapper-dateinput minut">
+                              <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'mm'}}" disabled min="0" max="45" type="number"  />
+                              <div class="plus-minus">
+                                <span class="boto" (click)="dateInput('mm','+',$event)">
+                                  <i class="fa fa-plus"></i>
+                                </span>
+                                <span class="boto" (click)="dateInput('mm','-',$event)">
+                                  <i class="fa fa-minus"></i>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                     </div>
                     <div class="ordre-bottom">
