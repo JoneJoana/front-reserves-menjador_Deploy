@@ -11,7 +11,7 @@ import { DishesService, OrdersService } from '../api.service';
 export class DishesComponent implements OnInit  {
 
   admin: boolean = true;
-  dishes: Dish[] = []; // any; agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
+  dishes: any; //agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
   retrievedImage: any;
   addDish = false;
   newDish: Dish = {
@@ -23,20 +23,20 @@ export class DishesComponent implements OnInit  {
   }
 
   //sabiendo que hay 3 platos
-  visibilityImg: boolean[] = [true,true,true];
-  visibilityFormFile: boolean[] = [false,false,false];
+  visibilityImg: boolean[] = [true,true,true,true,true,true,true,true,true,true,true,true,true];
+  visibilityFormFile: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false];
 
   possibleCategories = ['pescado','carne','arroz','shushi','primero','segundo','postre']
 
   constructor(private api:DishesService, private router: Router) { }
 
   ngOnInit(): void {
-    //this.loadDishes();
+    this.loadDishes();
     /* setTimeout(() => {
       $("select").niceSelect()
     },500) */
 
-     const dish1 = {
+    /*  const dish1 = {
       name: 'arroz con gambas',
       image: '',
       popularity: 2,
@@ -59,7 +59,7 @@ export class DishesComponent implements OnInit  {
     }
     this.dishes.push(dish1);
     this.dishes.push(dish2);
-    this.dishes.push(dish3);
+    this.dishes.push(dish3); */
 
   }
 
@@ -137,6 +137,7 @@ export class DishesComponent implements OnInit  {
       response => {
         this.dishes = response
         //this.retrievedImage = ;
+        console.log(response + 'hola')
         this.loadDishes();
       },
       error => {
