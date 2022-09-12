@@ -1,62 +1,156 @@
+<!-- header/navbar section -->
 <div class="hero_area">
-    <header class="header_section">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg custom_nav-container ">
-                <a
-                    class="navbar-brand"
-                    [routerLink]="['home']"
-                    routerLinkActive="router-link-active">
-                    <span>
-                        TComo
-                    </span>
-                </a>
+  <header class="header_section">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <a class="navbar-brand" [routerLink]="['home']" routerLinkActive="router-link-active">
+          <span>
+            T-Como
+          </span>
+        </a>
 
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class=""></span>
-                </button>
+        <!-- TODO cuando se contrae pantalla, ha de desplegarse y ser funcional-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class=""></span>
+        </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav  mx-auto ">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                [routerLinkActive]="['active']"
-                                [routerLinkActiveOptions]="{exact:true}"
-                                [routerLink]="['/dishes']">Dishes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                [routerLinkActive]="['active']"
-                                [routerLinkActiveOptions]="{exact:true}"
-                                [routerLink]="['/orders']">Orders</a>
-                        </li>
-                       <li class="nav-item">
-                            <a class="nav-link">Users</a>
-                        </li>
-                    </ul>
-                    <div class="user_option">
-                        <a href="" class="user_link">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                        </a>
-
-                        <a class="cart_link" href="#">
-                          <i class="fa fa-shopping-cart"></i>
-                        </a>
-
-                    </div>
-                </div>
-            </nav>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav  mx-auto ">
+            <!-- ESTAS SE VEN A NIVEL PUBLIC -->
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['home']">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['/menu']">MENU</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['/about']">NOSOTROS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['/sugerencias']">SUGERENCIAS</a>
+            </li>
+            <!-- ESTA SE VE A NIVEL ADMIN -->
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['/dishes']">Dishes</a>
+            </li>
+            <!-- ESTA SE VE A NIVEL PUBLIC USER I ADMIN (HAY 2 VISTAS))-->
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['/orders']">Orders</a>
+            </li>
+            <!-- ESTAS SE VEN A NIVEL PUBLIC - REDIRIGEN A LOGIN SINO ESTA LOGUEADO -->
+            <li class="nav-item">
+              <a class="nav-link">Users</a>
+            </li>
+          </ul>
+          <div class="user_option">
+            <a href="" class="user_link">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </a>
+            <a class="cart_link" href="#">
+              <i class="fa fa-shopping-cart"></i>
+            </a>
+          </div>
         </div>
-    </header>
 
-    <router-outlet></router-outlet>
+      </nav>
+    </div>
+  </header>
+  <!-- header/navbar section -->
+
+  <router-outlet></router-outlet>
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Contáctanos
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Carrer del Camí de Valls, 81-87
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  977 666 666
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  t-como@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              T-Como
+            </a>
+            <p>
+              T-Systems
+            </p>
+            <p>
+              Como en casa
+            </p>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Nuestros horarios
+          </h4>
+          <p>
+            Cada dia
+          </p>
+          <p>
+            10.00 Am - 18.00 Pm
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy;
+          <span id="displayYear"></span>
+          All Rights Reserved<br><br>
+          &copy;
+          <span id="displayYear"></span>
+          Distributed By TComo
+        </p>
+      </div>
+    </div>
+  </footer>
+  <!-- footer section -->
 
 </div>
