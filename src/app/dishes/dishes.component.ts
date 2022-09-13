@@ -21,7 +21,15 @@ export class DishesComponent implements OnInit {
   retrievedImage: any;
   addDish = false;
 
-  newDish: Dish = {
+  compareJson(ctg:any,dishCtg:any){
+    if (JSON.stringify(ctg) == JSON.stringify(dishCtg)) {
+      return true;
+    }
+    return false;
+  }
+
+
+  newDish = {
     name: '',
     image: '',
     popularity: 0,
@@ -193,8 +201,6 @@ export class DishesComponent implements OnInit {
 
       this.api.putDish(this.dishes[id]).subscribe(
         (response) => {
-          this.dishes = response;
-          //this.retrievedImage = ;
           this.loadDishes();
         },
         (error) => {
