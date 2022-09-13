@@ -80,13 +80,25 @@
                         <div *ngIf="modifying.has(o.id)">
                           <div class="container-dateInput">
                             <p>Delivery on</p>
-                            <div class="wrapper-dateinput hora">
-                              <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}" disabled min="12" max="15" type="number"  />
+                            <div class="wrapper-dateinput dia">
+                              <input class="hores" value="{{orders[iOrd].deliveryOn | dates:'dd'}}" disabled type="text"  />
                               <div class="plus-minus">
-                                <span class="boto" (click)="dateInput('hh','+',$event)">
+                                <span class="boto" (click)="dateInput('dd','+',$event,o);">
                                   <i class="fa fa-plus"></i>
                                 </span>
-                                <span class="boto" (click)="dateInput('hh','-',$event)">
+                                <span class="boto" (click)="dateInput('dd','-',$event,o)">
+                                  <i class="fa fa-minus"></i>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="wrapper-dateinput hora">
+                              <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}"
+                              (ngModelChange)="onModelChange($event, orders[iOrd])" disabled min="12" max="15" type="number"  />
+                              <div class="plus-minus">
+                                <span class="boto" (click)="dateInput('hh','+',$event,o)">
+                                  <i class="fa fa-plus"></i>
+                                </span>
+                                <span class="boto" (click)="dateInput('hh','-',$event,o)">
                                   <i class="fa fa-minus"></i>
                                 </span>
                               </div>
@@ -94,10 +106,10 @@
                             <div class="wrapper-dateinput minut">
                               <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'mm'}}" disabled min="0" max="45" type="number"  />
                               <div class="plus-minus">
-                                <span class="boto" (click)="dateInput('mm','+',$event)">
+                                <span class="boto" (click)="dateInput('mm','+',$event,o)">
                                   <i class="fa fa-plus"></i>
                                 </span>
-                                <span class="boto" (click)="dateInput('mm','-',$event)">
+                                <span class="boto" (click)="dateInput('mm','-',$event,o)">
                                   <i class="fa fa-minus"></i>
                                 </span>
                               </div>

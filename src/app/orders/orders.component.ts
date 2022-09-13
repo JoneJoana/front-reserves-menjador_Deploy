@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DishesService, OrdersService } from '../api.service';
-declare var loadListeners: () => void;
 
 @Component({
   selector: 'app-orders',
@@ -78,9 +77,6 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
   onBtnModify(id:any){
     this.modifying.set(id,true)
     this.platsTmp.set(id,this.orders[this.getIndexByOrderId(id)].dishes)
-    setTimeout(() => {
-      loadListeners()
-    }, 100)
   }
 
   getDishesByOrderId(id:number) {
@@ -92,6 +88,9 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
   }
 
   update(id:any){
+    console.log(this.orders[this.getIndexByOrderId(id)])
+    let segur = confirm("Do you really want to update this order?");
+    if(!segur) return
     // fer update
     this.api.updateOrder(this.orders[this.getIndexByOrderId(id)]).subscribe(
       response => {
@@ -180,7 +179,7 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     e.target.selectedIndex = 0
   }
 
-  dateInput(tipus:string, accio:string, event:any) {
+  dateInput(tipus:string, accio:string, event:any, ord:any) {
     var input = event.target.closest("div.wrapper-dateinput").firstChild
     if (tipus == "hh") {
     	if(accio == "-") {
@@ -188,14 +187,36 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
       } else{
         input.stepUp()
       }
-    } else {
+      //ord.deliveryOn.replace(//,"");
+    } else if(tipus == "mm") {
       if(accio == "-"){
         if(input.value == "00") return;
         input.value == 15 ? input.value = "00" : input.stepDown(15)
       } else{
         input.value == 45 ? input.value = "00" : input.stepUp(15)
       }
+    } else {
+      var dies = [ "Mon.", "Tue.", "Wed.", "Thu.", "Fri."];
+      if(accio == "-"){
+        var i = dies.indexOf(input.value)
+        if(i<0 || i>4) return;
+        console.log(i, dies[i-1])
+        event.target.closest("div.wrapper-dateinput").firstChild.value == dies[i-1]
+      } else{
+
+        var i = dies.indexOf(input.value)
+        if(i<0 || i>4) return;
+        console.log(i, dies[i+1])
+        event.target.closest("div.wrapper-dateinput").firstChild.value == dies[i+1]
+      }
     }
+
+    console.log(input.value)
+  }
+
+  onModelChange(e:any,o:any) {
+    console.log(e.target.value)
+    console.log(o)
   }
 
 }

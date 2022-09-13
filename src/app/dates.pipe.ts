@@ -32,7 +32,7 @@ export class DatesPipe implements PipeTransform {
           else if(this.isTomorrow(d[2], d[1], d[0]))
             return ' tomorrow at '+dd
           else
-            return " on "+this.getDay(d[2])+" "+this.getDayWeek(d[1])+" at "+dd;
+            return " on "+this.getDay(d[2])+" "+this.getMonth(d[1])+" at "+dd;
         }
         case "modifiableTill": {
           var h = d[3];
@@ -51,12 +51,17 @@ export class DatesPipe implements PipeTransform {
           }
 
           return h+":"+m;
-        } case "hh": {
-          console.log(d[3])
+        }
+        case "hh": {
           return d[3]
-        } case "mm": {
-          console.log(d[4])
+        }
+        case "mm": {
           return d[4]
+        }
+        case "dd": {
+          var dow = new Date()
+          dow.setDate(d[2])
+          return this.getDayOfWeek(dow.getDay())
         }
       }
     }
@@ -94,12 +99,18 @@ export class DatesPipe implements PipeTransform {
     return dia+sufix
   }
 
-  getDayWeek(dia:number): string {
+  getMonth(dia:number): string {
     dia = +dia // Convertir str a number
     var months = [ "Jan.", "Feb.", "Mar.", "Apr.", "May", "June",
            "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec." ];
 
     return months[--dia];
+  }
+
+  getDayOfWeek(dia:number): string {
+    dia = +dia // Convertir str a number
+    var dies = [ "Mon.", "Tue.", "Wed.", "Thu.", "Fri."];
+    return dies[dia];
   }
 
 }
