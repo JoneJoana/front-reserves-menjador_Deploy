@@ -908,7 +908,7 @@ a:focus {
 
 /* footer section*/
 .footer_section {
-  /*background-color: #97004e1b;*/
+  border-top: 5px solid #e30075;
   color: #ffffff;
   padding: 75px 0 40px 0;
   text-align: center;
