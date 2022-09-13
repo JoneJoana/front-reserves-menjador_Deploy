@@ -179,7 +179,7 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     e.target.selectedIndex = 0
   }
 
-  dateInput(tipus:string, accio:string, event:any, ord:any) {
+  dateInput(tipus:string, accio:string, event:any, iOrd:any) {
     var input = event.target.closest("div.wrapper-dateinput").firstChild
     if (tipus == "hh") {
     	if(accio == "-") {
@@ -187,7 +187,8 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
       } else{
         input.stepUp()
       }
-      //ord.deliveryOn.replace(//,"");
+      //this.orders[iOrd].deliveryOn = this.orders[iOrd].deliveryOn.replace(/T\d\d:/,input.value);
+      console.log(this.orders[iOrd].deliveryOn.replace(/T\d\d:/,"T"+input.value+":"));
     } else if(tipus == "mm") {
       if(accio == "-"){
         if(input.value == "00") return;

@@ -83,10 +83,10 @@
                             <div class="wrapper-dateinput dia">
                               <input class="hores" value="{{orders[iOrd].deliveryOn | dates:'dd'}}" disabled type="text"  />
                               <div class="plus-minus">
-                                <span class="boto" (click)="dateInput('dd','+',$event,o);">
+                                <span class="boto" (click)="dateInput('dd','+',$event,iOrd);">
                                   <i class="fa fa-plus"></i>
                                 </span>
-                                <span class="boto" (click)="dateInput('dd','-',$event,o)">
+                                <span class="boto" (click)="dateInput('dd','-',$event,iOrd)">
                                   <i class="fa fa-minus"></i>
                                 </span>
                               </div>
@@ -95,10 +95,10 @@
                               <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}"
                               (ngModelChange)="onModelChange($event, orders[iOrd])" disabled min="12" max="15" type="number"  />
                               <div class="plus-minus">
-                                <span class="boto" (click)="dateInput('hh','+',$event,o)">
+                                <span class="boto" (click)="dateInput('hh','+',$event,iOrd)">
                                   <i class="fa fa-plus"></i>
                                 </span>
-                                <span class="boto" (click)="dateInput('hh','-',$event,o)">
+                                <span class="boto" (click)="dateInput('hh','-',$event,iOrd)">
                                   <i class="fa fa-minus"></i>
                                 </span>
                               </div>
@@ -106,10 +106,10 @@
                             <div class="wrapper-dateinput minut">
                               <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'mm'}}" disabled min="0" max="45" type="number"  />
                               <div class="plus-minus">
-                                <span class="boto" (click)="dateInput('mm','+',$event,o)">
+                                <span class="boto" (click)="dateInput('mm','+',$event,iOrd)">
                                   <i class="fa fa-plus"></i>
                                 </span>
-                                <span class="boto" (click)="dateInput('mm','-',$event,o)">
+                                <span class="boto" (click)="dateInput('mm','-',$event,iOrd)">
                                   <i class="fa fa-minus"></i>
                                 </span>
                               </div>
