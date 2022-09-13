@@ -15,6 +15,7 @@ export class DishesComponent implements OnInit  {
   dishes: any; //agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
   retrievedImage: any;
   addDish = false;
+
   newDish: Dish = {
     name: '',
     image: '',
@@ -27,7 +28,7 @@ export class DishesComponent implements OnInit  {
   visibilityImg: boolean[] = [true,true,true,true,true,true,true,true,true,true,true,true,true];
   visibilityFormFile: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false];
 
-  possibleCategories = ['pescado','carne','arroz','shushi','primero','segundo','postre']
+  possibleCategories = ['Pescado','carne','arroz','shushi','primero','segundo','postre']
 
 
   constructor(private api:DishesService, private router: Router) { }
@@ -75,9 +76,8 @@ export class DishesComponent implements OnInit  {
     this.api.getDishes().subscribe(
       response => {
         this.dishes = response
-
+        console.log(this.dishes);
         //this.retrievedImage = ;
-
       },
       error => {
         console.log("ERROR REQUEST")
