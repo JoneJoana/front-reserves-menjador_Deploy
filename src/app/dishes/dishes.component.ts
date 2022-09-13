@@ -127,16 +127,6 @@ export class DishesComponent implements OnInit  {
     }
   }
 
-
-  /*DA ERROR: (no modifica bbdd)
-    XHROPTIONShttps://tch-db.herokuapp.com/api/dishes/delete/121
-    CORS Missing Allow Origin
-
-    Solicitud desde otro origen bloqueada: la política de mismo origen impide leer el recurso remoto en https://tch-db.herokuapp.com/api/dishes/delete/121 (razón: falta la cabecera CORS 'Access-Control-Allow-Origin'). Código de estado: 403.
-
-    Solicitud de origen cruzado bloqueada: La misma política de origen no permite la lectura de recursos remotos en https://tch-db.herokuapp.com/api/dishes/delete/121. (Razón: Solicitud CORS sin éxito). Código de estado: (null).
-
-    ERROR REQUESTHttp failure response for https://tch-db.herokuapp.com/api/dishes/delete/121: 0 Unknown Error dishes.component.ts:109:16 */
   delete(id: number){
     this.api.deleteDish(id).subscribe(
       response => {
@@ -151,7 +141,7 @@ export class DishesComponent implements OnInit  {
     )
   }
 
-  update(dish: any){//fallo como delete (no modifica bbdd)
+  update(dish: any){
     if(dish.name != ''){
       this.api.putDish(dish).subscribe(
         response => {
