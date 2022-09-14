@@ -54,18 +54,16 @@
                 </div>
               </td>
               <td>
-                <div class="form-check form-check-inline" *ngFor="let category of possibleCategories">
-                  <input class="form-check-input" type="checkbox" [checked]="dish.categories.includes(category)">
-                  <label class="form-check-label">{{category}}</label>
+                <!-- no funciona el check -->
+                <div class="form-check form-check-inline" *ngFor="let category of categories">
+                  <input class="form-check-input" type="checkbox" [checked]="compareJson(dish.categories,category)">
+                  <label class="form-check-label">{{category.name}}</label>
                 </div>
-                <!--
-                  .name al agafarho d bbdd
-                -->
               </td>
               <td>
                 <div class="btn-group-vertical btn-group-sm" role="group">
                   <button type="button" class="btn btn-light" (click)="update(i)">Update</button>
-                  <button type="button" class="btn btn-light" (click)="delete(131)">Delete</button>
+                  <button type="button" class="btn btn-light" (click)="delete(dish.id)">Delete</button>
                 </div>
               </td>
             </tr>
@@ -95,9 +93,9 @@
               </td>
               <td colspan="2">
                 <!-- plato nuevo ha de mostrar lista de posibles categorias con check -->
-                <div class="form-check form-check-inline" *ngFor="let category of possibleCategories">
+                <div class="form-check form-check-inline" *ngFor="let category of categories">
                   <input class="form-check-input" type="checkbox">
-                  <label class="form-check-label">{{category}}</label>
+                  <label class="form-check-label">{{category.name}}</label>
                 </div>
               </td>
             </tr>

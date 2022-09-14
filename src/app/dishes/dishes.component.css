@@ -28,8 +28,5 @@ select,input,button{
 
 .form-check-input{
   background-color: rgb(219, 60, 142);
+}
 
-}
-select {
-  display: none;
-}

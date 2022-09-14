@@ -45,11 +45,11 @@ export class OrdersService {
     return this.http.get(BASE+"/api/dishes", headers);
   }
 
-  postDish(newDish: Dish): Observable<any> {
+  postDish(newDish: any): Observable<any> {
     return this.http.post(BASE+"/api/dishes/add", newDish, headers);
   }
 
-  putDish(dish: Dish): Observable<any> {
+  putDish(dish: any): Observable<any> {
     return this.http.put(BASE+"/api/dishes/update", dish, headers);
   }
 
