@@ -1,46 +1,30 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { data } from 'jquery';
 import { DishesService, OrdersService } from '../api.service';
+import { MARGIN, MAX_HOUR, MIN_HOUR, USER } from '../Constants';
+
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
-
-export class OrdersComponent implements OnInit,AfterViewInit {
+export class OrdersComponent implements OnInit {
 
   admin = false;
   orders:any;
   modifying:any = new Map<number,boolean>()
-  platsTmp:any = new Map<number,any>()
   plats:any;
 
   constructor(private api:OrdersService, private dishes:DishesService, private router: Router) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    this.loadOrders()
     this.getDishes()
   }
 
-  ngOnInit(): void {
-    this.loadOrders()
-/* De moment ho deixo comentat, pero poso aixo per que recalculi el temps que queda per modificar
-la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
-    setInterval(() => {
-      // No canviar component, actualitzar nomes llista orders
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['/orders']);
-      });
-    }, 60000)
-    */
-
-  }
-
   isModifiable(status:any,dd:any): boolean {
-    // Minuts permesos per modificar ordre abans d'entrega
-    // Si es modifica, cal canviar-ho també a dates.pipe.ts!!!!
-    const MARGIN = 20
-
     // Si la ordre no esta pendent (esta entregada), que no deixi modificar
     if(status != "P") return false;
     //console.log("isModifiable()")
@@ -61,24 +45,26 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
   }
 
   loadOrders() {
-    var usuariTemp = "Cliente1"
-    console.log("loadOrders() "+usuariTemp)
-
-    this.api.gerOrdersByUser(usuariTemp).subscribe(
+    this.api.gerOrdersByUser(USER).subscribe(
       response => {
         this.orders = response
       },
       error => {
-        console.log("ERROR REQUEST:\n "+error.message)
+        console.log("[ERROR] loadOrders()\n "+error.message)
       }
     )
   }
 
-  onBtnModify(id:any){
-    this.modifying.set(id,true)
-    this.platsTmp.set(id,this.orders[this.getIndexByOrderId(id)].dishes)
+  onBtnModify(i:number,id:any){
+    this.modifying.set(id,
+      {
+        "deliveryOn": this.orders[i].deliveryOn,
+        "dishes": this.orders[i].dishes
+      }
+    )
   }
 
+  // Obtenir plats d'una ordre
   getDishesByOrderId(id:number) {
     var order:any;
     this.orders.forEach((o:any) => {
@@ -87,12 +73,12 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     return order.dishes
   }
 
-  update(id:any){
-    console.log(this.orders[this.getIndexByOrderId(id)])
+  update(i:number,id:any){
+    console.log(this.orders[i])
     let segur = confirm("Do you really want to update this order?");
     if(!segur) return
     // fer update
-    this.api.updateOrder(this.orders[this.getIndexByOrderId(id)]).subscribe(
+    this.api.updateOrder(this.orders[i]).subscribe(
       response => {
         alert("Ordre actualitzada correctament")
         this.loadOrders()
@@ -103,32 +89,23 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
       }
     )
     // recarregar llista
-    this.platsTmp.delete(id)
     this.modifying.delete(id)
   }
 
-  getIndexByOrderId(id:any) {
-    var index:any;
-    this.orders.forEach((o:any , i:number) => {
-      if(o.id == id) index = i
-    });
-    return index
-  }
-
-  cancelModification(id:any){
-    this.orders[this.getIndexByOrderId(id)].dishes = this.platsTmp.get(id)
-    this.platsTmp.delete(id)
+  cancelModification(i:any,id:any){
+    this.orders[i].dishes = this.modifying.get(id).dishes
+    this.orders[i].deliveryOn = this.modifying.get(id).deliveryOn
     this.modifying.delete(id)
   }
 
-  eliminarPlat(idOrdre:number,idPlat:number) {
+  eliminarPlat(i:number,idPlat:number) {
     var llista = new Array()
-    this.orders[this.getIndexByOrderId(idOrdre)].dishes.forEach((d:any) => {
+    this.orders[i].dishes.forEach((d:any) => {
       if(d.id != idPlat) {
         llista.push(d)
       }
     });
-    this.orders[this.getIndexByOrderId(idOrdre)].dishes = llista
+    this.orders[i].dishes = llista
   }
 
 
@@ -158,66 +135,96 @@ la ordre, i que el bloquegi, si cal. S'executa un cop per minut.
     )
   }
 
-  onSelectPlato(idOrdre:any, e:any) {
+  onSelectPlato(iOrd:number, e:any) {
     // Index del plat seleccionat
-    var i:number = e.target.value
+    var iPlato:number = e.target.value
 
     // Comprovar si existeix plat a la llista de plats de la ordre
     var exists:boolean = false
-    this.orders[this.getIndexByOrderId(idOrdre)].dishes.forEach((d:any) => {
-      if(d.id == this.plats[i].id) {
+    this.orders[iOrd].dishes.forEach((d:any) => {
+      if(d.id == this.plats[iPlato].id) {
         exists = true
       }
     });
 
     // Si no existeix, afegir-lo
     if(!exists) {
-      this.orders[this.getIndexByOrderId(idOrdre)].dishes.push(this.plats[i])
+      this.orders[iOrd].dishes.push(this.plats[iPlato])
     }
 
     // Reset de la opcio seleccionada per defecte
     e.target.selectedIndex = 0
   }
 
-  dateInput(tipus:string, accio:string, event:any, iOrd:any) {
-    var input = event.target.closest("div.wrapper-dateinput").firstChild
-    if (tipus == "hh") {
-    	if(accio == "-") {
-        input.stepDown()
-      } else{
-        input.stepUp()
-      }
-      //this.orders[iOrd].deliveryOn = this.orders[iOrd].deliveryOn.replace(/T\d\d:/,input.value);
-      console.log(this.orders[iOrd].deliveryOn.replace(/T\d\d:/,"T"+input.value+":"));
-    } else if(tipus == "mm") {
-      if(accio == "-"){
-        if(input.value == "00") return;
-        input.value == 15 ? input.value = "00" : input.stepDown(15)
-      } else{
-        input.value == 45 ? input.value = "00" : input.stepUp(15)
-      }
-    } else {
-      var dies = [ "Mon.", "Tue.", "Wed.", "Thu.", "Fri."];
-      if(accio == "-"){
-        var i = dies.indexOf(input.value)
-        if(i<0 || i>4) return;
-        console.log(i, dies[i-1])
-        event.target.closest("div.wrapper-dateinput").firstChild.value == dies[i-1]
-      } else{
+  dateInput(tipus:string, accio:string, iOrd:any) {
 
-        var i = dies.indexOf(input.value)
-        if(i<0 || i>4) return;
-        console.log(i, dies[i+1])
-        event.target.closest("div.wrapper-dateinput").firstChild.value == dies[i+1]
+    // Guardar data original per recuperar en cas de cancel·lar ordre
+    // ToDo...
+
+    // Valors actuals data entrega
+    var d:Date = new Date(this.orders[iOrd].deliveryOn);
+    if (tipus == "hh") {
+      // Compensar offset per fer els calculs
+      var hh = d.getHours() - (Math.abs(d.getTimezoneOffset())/60)
+
+    	if(accio == "-") {
+        if(hh-1 < MIN_HOUR) return;
+        d.setHours(d.getHours()-1)
+      } else{
+        if(hh+1 > MAX_HOUR) return;
+        d.setHours(d.getHours()+1)
+        if(hh+1==15) d.setMinutes(0)
       }
+    } else if(tipus == "mm") {
+      var mm = d.getMinutes()
+      if(d.getHours() - (Math.abs(d.getTimezoneOffset())/60) == 15) return
+      if(accio == "-"){
+        if(mm == 0) return;
+        mm == 15 ? mm = 0 : mm-=15
+      } else{
+        if(mm == 45) return;
+        mm == 45 ? mm = 0 : mm+=15
+      }
+      d.setMinutes(mm)
+    } else {
+      if(accio == "-"){
+        /*
+        The getDay() method returns the day of the week (0 to 6) of a date.
+        Sunday = 0, Monday = 1, ...
+        */
+        // Controlar dies anteriors a avui
+        if(d.getDay()-1 < new Date().getDay()) return
+
+        d.setDate(d.getDate()-1)
+      } else{
+        d.setDate(d.getDate()+1)
+      }
+      // Controlar caps de setmana 6=Dissabte 0=Diumenge
+      if(d.getDay() == 6) d.setDate(d.getDate()-1)
+      if(d.getDay() == 0) d.setDate(d.getDate()+1)
+
     }
 
-    console.log(input.value)
+    // Controlar hores
+    hh = d.getHours() - (Math.abs(d.getTimezoneOffset())/60)
+    mm = d.getMinutes()
+    //console.log("modif"+new Date(d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+hh+":"+mm+"Z"))
+    //console.log("ara"+new Date())
+
+    var dNew = new Date(d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+hh+":"+mm)
+    var dMinim = new Date()
+    dMinim.setMinutes(dMinim.getMinutes()+MARGIN)
+    console.log(dNew)
+    console.log(dMinim)
+    console.log(dNew < dMinim)
+    if(dNew < dMinim) return
+
+    // Actualitzar data entraga
+    this.orders[iOrd].deliveryOn = d.toISOString();
   }
 
   onModelChange(e:any,o:any) {
-    console.log(e.target.value)
-    console.log(o)
+
   }
 
 }

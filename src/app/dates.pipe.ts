@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { MARGIN } from './Constants';
 
 @Pipe({
   name: 'dates'
@@ -7,11 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DatesPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-
-    // Minuts permesos per modificar ordre abans d'entrega
-    // Si es modifica, cal canviar-ho també a orders.components.ts!!!!
-    const MARGIN = 20
-
     if(args != null){
       var d = value.split(/[- :T.]/) // ['2022', '09', '08', '13', '40', '00', '000+00', '00']
       switch(args){
@@ -109,7 +105,7 @@ export class DatesPipe implements PipeTransform {
 
   getDayOfWeek(dia:number): string {
     dia = +dia // Convertir str a number
-    var dies = [ "Mon.", "Tue.", "Wed.", "Thu.", "Fri."];
+    var dies = [ "Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
     return dies[dia];
   }
 
