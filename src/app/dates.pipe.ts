@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { MARGIN } from './Constants';
 
 @Pipe({
   name: 'dates'
@@ -7,11 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DatesPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-
-    // Minuts permesos per modificar ordre abans d'entrega
-    // Si es modifica, cal canviar-ho també a orders.components.ts!!!!
-    const MARGIN = 20
-
     if(args != null){
       var d = value.split(/[- :T.]/) // ['2022', '09', '08', '13', '40', '00', '000+00', '00']
       switch(args){
@@ -32,7 +28,7 @@ export class DatesPipe implements PipeTransform {
           else if(this.isTomorrow(d[2], d[1], d[0]))
             return ' tomorrow at '+dd
           else
-            return " on "+this.getDay(d[2])+" "+this.getDayWeek(d[1])+" at "+dd;
+            return " on "+this.getDay(d[2])+" "+this.getMonth(d[1])+" at "+dd;
         }
         case "modifiableTill": {
           var h = d[3];
@@ -51,12 +47,17 @@ export class DatesPipe implements PipeTransform {
           }
 
           return h+":"+m;
-        } case "hh": {
-          console.log(d[3])
+        }
+        case "hh": {
           return d[3]
-        } case "mm": {
-          console.log(d[4])
+        }
+        case "mm": {
           return d[4]
+        }
+        case "dd": {
+          var dow = new Date()
+          dow.setDate(d[2])
+          return this.getDayOfWeek(dow.getDay())
         }
       }
     }
@@ -94,12 +95,18 @@ export class DatesPipe implements PipeTransform {
     return dia+sufix
   }
 
-  getDayWeek(dia:number): string {
+  getMonth(dia:number): string {
     dia = +dia // Convertir str a number
     var months = [ "Jan.", "Feb.", "Mar.", "Apr.", "May", "June",
            "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec." ];
 
     return months[--dia];
+  }
+
+  getDayOfWeek(dia:number): string {
+    dia = +dia // Convertir str a number
+    var dies = [ "Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+    return dies[dia];
   }
 
 }
