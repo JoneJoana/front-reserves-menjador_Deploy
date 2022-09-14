@@ -13,8 +13,8 @@ import { MARGIN, MAX_HOUR, MIN_HOUR, USER } from '../Constants';
 export class OrdersComponent implements OnInit {
 
   admin = false;
-  orders:any;
-  modifying:any = new Map<number,boolean>()
+  orders:any = null;
+  modifying:any = new Map<number,boolean>();
   plats:any;
 
   constructor(private api:OrdersService, private dishes:DishesService, private router: Router) { }

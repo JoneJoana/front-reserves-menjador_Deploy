@@ -62,7 +62,7 @@
         <!-- VISTA CLIENT -->
         <div *ngIf="!admin">
             <!-- Implementar vista client -->
-            <div class="ordres">
+            <div *ngIf="orders != null;else loading" class="ordres">
                 <div *ngFor="let o of orders; let iOrd = index" class="ordre">
                     <div class="ordre-top">
                         <div class="ordre-top-top">
@@ -144,7 +144,7 @@
 
                               <select (change)="onSelectPlato(iOrd,$event)" class="selectPlats">
                                 <option selected value="{{null}}">Seleccionar Plato</option>
-                                <option *ngFor="let p of plats; let i = index" value="{{i}}">{{p.name}}</option>
+                                <option *ngFor="let p of plats; let i = index" value="{{i}}"><span>{{p.name}}</span></option>
                               </select>
                           </div>
 
@@ -195,7 +195,13 @@
                     </div>
                 </div>
             </div>
-
+            <ng-template #loading>
+              <div class="text-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </ng-template>
         </div>
     </div>
 </section>
