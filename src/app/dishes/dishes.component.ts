@@ -15,19 +15,15 @@ import {
 })
 export class DishesComponent implements OnInit {
   admin: boolean = true;
-  dishes: any; //agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
-  categories: any;
-  ctgName: any;
+  dishes: Dish[] = []; //agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
+  categories: Category[] = [];
+  //categDish: any;
   retrievedImage: any;
   addDish = false;
 
-  compareJson(ctg:any,dishCtg:any){
-    if (JSON.stringify(ctg) == JSON.stringify(dishCtg)) {
-      return true;
-    }
-    return false;
+  compare(dish: Dish, category: Category): Category | undefined{
+    return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
   }
-
 
   newDish = {
     name: '',
@@ -37,37 +33,8 @@ export class DishesComponent implements OnInit {
     categories: [],
   };
 
-  //sabiendo que hay 13 platos
-  visibilityImg: boolean[] = [
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-  ];
-  visibilityFormFile: boolean[] = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
+  visibilityImg: boolean[] = [];
+  visibilityFormFile: boolean[] = [];
 
   constructor(
     private api: DishesService,
@@ -82,30 +49,34 @@ export class DishesComponent implements OnInit {
       $("select").niceSelect()
     },500) */
 
-    /*  const dish1 = {
+    /*
+      const dish1 = {
+      id: 1,
       name: 'arroz con gambas',
-      image: '',
+      image: '/assets/images/f1.png',
       popularity: 2,
       status: true,
       categories: ['arroz','primero']
     }
     const dish2 = {
+      id: 2,
       name: 'salmon plancha',
-      image: '',
+      image: '/assets/images/f2.png',
       popularity: 5,
       status: true,
       categories: ['pescado','segundo']
     }
     const dish3 = {
+      id: 3,
       name: 'pollo al horno',
-      image: '',
+      image: '/assets/images/f3.png',
       popularity: 3,
       status: false,
       categories: ['carne','segundo']
     }
     this.dishes.push(dish1);
     this.dishes.push(dish2);
-    this.dishes.push(dish3); */
+    this.dishes.push(dish3);*/
   }
 
   changeVisibility(indexDish: number) {
@@ -131,17 +102,12 @@ export class DishesComponent implements OnInit {
       (response) => {
         this.categories = response;
         console.log(this.categories);
-        /* for (let i = 0; i < this.categories.length; i++) {
-          console.log(this.categories[i].name);
-          this.ctgName.push(this.categories[i].getName());
-        } */
       },
       (error) => {
         console.log('ERROR REQUEST');
       }
     );
   }
-
 
 
   add() {
@@ -153,7 +119,6 @@ export class DishesComponent implements OnInit {
       this.api.postDish(this.newDish).subscribe(
         (response) => {
           this.dishes = response;
-          //this.retrievedImage = ;
           this.loadDishes();
           this.clearNewDish();
           this.addDish = false;
@@ -188,7 +153,6 @@ export class DishesComponent implements OnInit {
   delete(id: number) {
     this.api.deleteDish(id).subscribe(
       (response) => {
-        this.dishes = response;
         this.loadDishes();
       },
       (error) => {
@@ -198,7 +162,6 @@ export class DishesComponent implements OnInit {
   }
 
   update(id: number) {
-
       this.api.putDish(this.dishes[id]).subscribe(
         (response) => {
           this.loadDishes();
@@ -207,14 +170,19 @@ export class DishesComponent implements OnInit {
           console.log('ERROR REQUEST' + error.message);
         }
       );
-
   }
 }
 
 export interface Dish {
+  id: number;
   name: string;
   image: any;
   popularity: number;
   status: boolean;
-  categories: string[];
+  categories: Category[];
+}
+
+export interface Category {
+  id: number;
+  name: string;
 }
