@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   dishes:any
   categories:any
   isotope = false
+  buscar: string = '';
 
   constructor(private api:DishesService, private api2: CategoriesService,) { }
 
@@ -94,6 +95,7 @@ export class HomeComponent implements OnInit {
     $('.filters_menu li').removeClass('active');
     $(e.target).addClass('active');
 
+    this.buscar = '';
   }
 
 }
