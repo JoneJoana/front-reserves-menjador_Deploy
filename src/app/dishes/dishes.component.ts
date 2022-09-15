@@ -21,7 +21,7 @@ export class DishesComponent implements OnInit {
   retrievedImage: any;
   addDish = false;
 
-  newCategDishChecked: Number[] = [];
+  newCategDishChecked: Category[] = [];
 
   newDish = {
     name: '',
@@ -94,15 +94,15 @@ export class DishesComponent implements OnInit {
   //guardem al array newCategDishChecked, les noves categories checked per tal dactualitzar al clicar update - falta implementar la crida al endpoint addCategToDish
   updateCheckedOptions(category: Category,event: any){
     if(event.target.checked) {
-      this.newCategDishChecked.push(category.id);
+      this.newCategDishChecked.push(category);
     } else {
       for(var i=0 ; i < this.categories.length; i++) {
-        if(this.newCategDishChecked[i] == category.id) {
+        if(this.newCategDishChecked[i].id == category.id) {
           this.newCategDishChecked.splice(i,1);
         }
       }
     }
-    console.log(this.newCategDishChecked);
+    console.log("newCat"+this.newCategDishChecked);
   }
 
   changeVisibility(indexDish: number) {
@@ -114,7 +114,7 @@ export class DishesComponent implements OnInit {
     this.api.getDishes().subscribe(
       (response) => {
         this.dishes = response;
-        console.log(this.dishes);
+        //console.log(this.dishes);
         //this.retrievedImage = ;
       },
       (error) => {
@@ -128,7 +128,7 @@ export class DishesComponent implements OnInit {
     this.api2.getCategories().subscribe(
       (response) => {
         this.categories = response;
-        console.log(this.categories);
+        //console.log(this.categories);
       },
       (error) => {
         console.log('ERROR REQUEST');
@@ -193,6 +193,9 @@ export class DishesComponent implements OnInit {
 
   update(id: number) {
     if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
+      this.dishes[id].categories = this.dishes[id].categories.concat(this.newCategDishChecked)
+      console.log(this.dishes[id].categories)
+      this.newCategDishChecked = []
       this.api.putDish(this.dishes[id]).subscribe(
         (response) => {
           this.loadDishes();
