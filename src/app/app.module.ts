@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { OrdersComponent } from './orders/orders.component';
 import { DatesPipe } from './dates.pipe';
+import { DishPipe } from './dish.pipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { DatesPipe } from './dates.pipe';
     HomeComponent,
     OrdersComponent,
     DatesPipe,
+    DishPipe,
   ],
   imports: [
     BrowserModule,
