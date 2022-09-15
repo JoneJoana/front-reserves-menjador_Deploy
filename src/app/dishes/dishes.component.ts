@@ -1,5 +1,5 @@
 import { NgForOf } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CategoriesService,
@@ -14,16 +14,14 @@ import {
   styleUrls: ['./dishes.component.css'],
 })
 export class DishesComponent implements OnInit {
+
   admin: boolean = true;
-  dishes: Dish[] = []; //agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
+  dishes: Dish[] = [];
   categories: Category[] = [];
-  //categDish: any;
   retrievedImage: any;
   addDish = false;
 
-  compare(dish: Dish, category: Category): Category | undefined{
-    return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
-  }
+  newCategDishChecked: Number[] = [];
 
   newDish = {
     name: '',
@@ -86,6 +84,25 @@ export class DishesComponent implements OnInit {
     this.dishes.push(dish1);
     this.dishes.push(dish2);
     this.dishes.push(dish3);*/
+  }
+
+  //compara les categ del plat amb la llista completa de categ, per tal que surtin checked a la llista
+  compare(dish: Dish, category: Category): Category | undefined{
+    return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
+  }
+
+  //guardem al array newCategDishChecked, les noves categories checked per tal dactualitzar al clicar update - falta implementar la crida al endpoint addCategToDish
+  updateCheckedOptions(category: Category,event: any){
+    if(event.target.checked) {
+      this.newCategDishChecked.push(category.id);
+    } else {
+      for(var i=0 ; i < this.categories.length; i++) {
+        if(this.newCategDishChecked[i] == category.id) {
+          this.newCategDishChecked.splice(i,1);
+        }
+      }
+    }
+    console.log(this.newCategDishChecked);
   }
 
   changeVisibility(indexDish: number) {
