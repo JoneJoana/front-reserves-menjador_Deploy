@@ -161,17 +161,21 @@ export class DishesComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.api.deleteDish(id).subscribe(
-      (response) => {
-        this.loadDishes();
-      },
-      (error) => {
-        console.log('ERROR REQUEST' + error.message);
-      }
-    );
+    if(confirm('¿Seguro que quieres cambiar el estado a Inactivo?')){
+      this.api.deleteDish(id).subscribe(
+        (response) => {
+          this.loadDishes();
+        },
+        (error) => {
+          console.log('ERROR REQUEST' + error.message);
+        }
+      );
+    }
+
   }
 
   update(id: number) {
+    if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
       this.api.putDish(this.dishes[id]).subscribe(
         (response) => {
           this.loadDishes();
@@ -180,6 +184,7 @@ export class DishesComponent implements OnInit {
           console.log('ERROR REQUEST' + error.message);
         }
       );
+    }
   }
 }
 
