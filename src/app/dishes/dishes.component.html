@@ -29,7 +29,7 @@
               <td><input class="form-input" type="text" id="nombrePlato" [(ngModel)]="dish.name"></td>
               <td>
                 <div class="mb-3">
-                  <img src="{{dish.image}}" width="80px" height="80px"
+                  <img src="data:image/jpeg;base64,{{dish.image}}" width="80px" height="80px"
                     (click)="changeVisibility(i)" /> <!-- quito la visibilidad de img, asi siempre la ves, al cargar imagen se recarga img -->
                   <input class="form-control" type="file" style="width: 90%" *ngIf="visibilityFormFile[i]">
                   <!-- {{dish.image}} a src;
@@ -54,17 +54,19 @@
                 </div>
               </td>
               <td>
-                <div class="form-check form-check-inline" *ngFor="let category of categories"><!--solo categories-->
-                  <input class="form-check-input" type="checkbox" [checked]="compare(dish,category)">
-                  <label class="form-check-label">{{category.name}}</label> <!--.name-->
-
+                <div class="form-check form-check-inline" *ngFor="let category of categories">
+                  <input class="form-check-input" type="checkbox" [checked]="compare(dish,category)" (change)="updateCheckedOptions(category, $event)">
+                  <label class="form-check-label">{{category.name}}</label>
                 </div>
               </td>
               <td>
-                <div class="btn-group-vertical btn-group-sm" role="group">
-                  <button type="button" class="btn btn-light" (click)="update(i)">Update</button>
-                  <button type="button" class="btn btn-light" (click)="delete(dish.id)">Delete</button> <!--dish.id-->
-                </div>
+                  <a (click)="update(i)">
+                    <i class="fa fas fa-edit"></i>
+                  </a>
+                  <br>
+                  <a (click)="delete(dish.id)">
+                    <i class="fa fa-solid fa-trash"></i>
+                  </a>
               </td>
             </tr>
 

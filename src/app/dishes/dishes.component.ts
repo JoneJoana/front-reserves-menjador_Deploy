@@ -1,5 +1,5 @@
 import { NgForOf } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CategoriesService,
@@ -14,16 +14,14 @@ import {
   styleUrls: ['./dishes.component.css'],
 })
 export class DishesComponent implements OnInit {
+
   admin: boolean = true;
-  dishes: Dish[] = []; //agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
+  dishes: Dish[] = [];
   categories: Category[] = [];
-  //categDish: any;
   retrievedImage: any;
   addDish = false;
 
-  compare(dish: Dish, category: Category): Category | undefined{
-    return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
-  }
+  newCategDishChecked: Category[] = [];
 
   newDish = {
     name: '',
@@ -45,9 +43,18 @@ export class DishesComponent implements OnInit {
   ngOnInit(): void {
     this.loadDishes();
     this.loadCategories();
-    /* setTimeout(() => {
-      $("select").niceSelect()
-    },500) */
+
+    /*mirar como hacerlo bien
+    if(this.dishes === null){
+      this.loadDishes();
+    }else{
+      return this.dishes;
+    }
+    if(this.categories === null){
+      this.loadCategories();
+    }else{
+      return this.categories;
+    } */
 
     /*
       const dish1 = {
@@ -79,6 +86,25 @@ export class DishesComponent implements OnInit {
     this.dishes.push(dish3);*/
   }
 
+  //compara les categ del plat amb la llista completa de categ, per tal que surtin checked a la llista
+  compare(dish: Dish, category: Category): Category | undefined{
+    return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
+  }
+
+  //guardem al array newCategDishChecked, les noves categories checked per tal dactualitzar al clicar update - falta implementar la crida al endpoint addCategToDish
+  updateCheckedOptions(category: Category,event: any){
+    if(event.target.checked) {
+      this.newCategDishChecked.push(category);
+    } else {
+      for(var i=0 ; i < this.categories.length; i++) {
+        if(this.newCategDishChecked[i].id == category.id) {
+          this.newCategDishChecked.splice(i,1);
+        }
+      }
+    }
+    console.log("newCat"+this.newCategDishChecked);
+  }
+
   changeVisibility(indexDish: number) {
     this.visibilityFormFile[indexDish] = true;
     this.visibilityImg[indexDish] = false;
@@ -88,20 +114,21 @@ export class DishesComponent implements OnInit {
     this.api.getDishes().subscribe(
       (response) => {
         this.dishes = response;
-        console.log(this.dishes);
+        //console.log(this.dishes);
         //this.retrievedImage = ;
       },
       (error) => {
         console.log('ERROR REQUEST');
       }
     );
+
   }
 
   loadCategories() {
     this.api2.getCategories().subscribe(
       (response) => {
         this.categories = response;
-        console.log(this.categories);
+        //console.log(this.categories);
       },
       (error) => {
         console.log('ERROR REQUEST');
@@ -151,17 +178,24 @@ export class DishesComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.api.deleteDish(id).subscribe(
-      (response) => {
-        this.loadDishes();
-      },
-      (error) => {
-        console.log('ERROR REQUEST' + error.message);
-      }
-    );
+    if(confirm('¿Seguro que quieres cambiar el estado a Inactivo?')){
+      this.api.deleteDish(id).subscribe(
+        (response) => {
+          this.loadDishes();
+        },
+        (error) => {
+          console.log('ERROR REQUEST' + error.message);
+        }
+      );
+    }
+
   }
 
   update(id: number) {
+    if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
+      this.dishes[id].categories = this.dishes[id].categories.concat(this.newCategDishChecked)
+      console.log(this.dishes[id].categories)
+      this.newCategDishChecked = []
       this.api.putDish(this.dishes[id]).subscribe(
         (response) => {
           this.loadDishes();
@@ -170,6 +204,7 @@ export class DishesComponent implements OnInit {
           console.log('ERROR REQUEST' + error.message);
         }
       );
+    }
   }
 }
 
