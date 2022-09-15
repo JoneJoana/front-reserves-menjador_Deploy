@@ -496,7 +496,8 @@ a:focus {
       -ms-flex-pack: center;
           justify-content: center;
   list-style-type: none;
-  margin: 45px 0 20px 0;
+  margin: 30px auto;
+  width: 70%;
 }
 
 .food_section .filters_menu li {
