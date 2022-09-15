@@ -45,9 +45,18 @@ export class DishesComponent implements OnInit {
   ngOnInit(): void {
     this.loadDishes();
     this.loadCategories();
-    /* setTimeout(() => {
-      $("select").niceSelect()
-    },500) */
+
+    /*mirar como hacerlo bien
+    if(this.dishes === null){
+      this.loadDishes();
+    }else{
+      return this.dishes;
+    }
+    if(this.categories === null){
+      this.loadCategories();
+    }else{
+      return this.categories;
+    } */
 
     /*
       const dish1 = {
@@ -95,6 +104,7 @@ export class DishesComponent implements OnInit {
         console.log('ERROR REQUEST');
       }
     );
+
   }
 
   loadCategories() {
