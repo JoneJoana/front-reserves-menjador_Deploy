@@ -13,22 +13,22 @@ export class DatesPipe implements PipeTransform {
       switch(args){
         case "createdOn": {
           if(this.isToday(d[2], d[1], d[0]))
-            return ' today at '+d[3]+":"+d[4]
+            return ' hoy a las '+d[3]+":"+d[4]
           else if(this.isYesterday(d[2], d[1], d[0]))
-            return ' yesterday at '+d[3]+":"+d[4]
+            return ' ayer a las '+d[3]+":"+d[4]
           else
-            return " on " + d[2]+"/"+d[1]+"/"+d[0]+" at "+d[3]+":"+d[4]
+            return " el " + d[2]+"/"+d[1]+"/"+d[0]+" a las "+d[3]+":"+d[4]
         }
         case "deliveryOn": {
           const dd = d[3]+":"+d[4]
           if(this.isToday(d[2], d[1], d[0]))
-            return ' today at '+dd
+            return ' hoy a las '+dd
           else if(this.isYesterday(d[2], d[1], d[0]))
-            return ' yesterday at '+dd
+            return ' ayer a las at '+dd
           else if(this.isTomorrow(d[2], d[1], d[0]))
-            return ' tomorrow at '+dd
+            return ' mañana a las '+dd
           else
-            return " on "+this.getDay(d[2])+" "+this.getMonth(d[1])+" at "+dd;
+            return " el "+this.getDay(d[2])+" "+this.getMonth(d[1])+" a las "+dd;
         }
         case "modifiableTill": {
           var h = d[3];
@@ -84,28 +84,21 @@ export class DatesPipe implements PipeTransform {
 
   getDay(dia:number): string {
     dia = +dia // Convertir str a number
-    var sufix = "th"
-    if(dia == 1 || dia == 21 || dia == 31)
-    sufix = "st"
-    else if(dia == 2 || dia == 22)
-    sufix = "nd"
-    else if(dia == 3 || dia == 23)
-    sufix = "rd"
-
+    var sufix = "º"
     return dia+sufix
   }
 
   getMonth(dia:number): string {
     dia = +dia // Convertir str a number
-    var months = [ "Jan.", "Feb.", "Mar.", "Apr.", "May", "June",
-           "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec." ];
+    var months = [ "Ene.", "Feb.", "Mar.", "Abr.", "May", "Jun",
+           "Jul", "Ago.", "Sept.", "Oct.", "Nov.", "Dic." ];
 
     return months[--dia];
   }
 
   getDayOfWeek(dia:number): string {
     dia = +dia // Convertir str a number
-    var dies = [ "Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+    var dies = [ "Dom.", "Lun.", "Mar.", "Mie.", "Jue.", "Vie.", "Sab."];
     return dies[dia];
   }
 
