@@ -1,59 +1,62 @@
 <!-- header/navbar section -->
 <div class="hero_area">
   <header class="header_section">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg custom_nav-container ">
-        <a class="navbar-brand" [routerLink]="['home']" routerLinkActive="router-link-active">
-          <span>
-            T-Como
-          </span>
-        </a>
 
-        <!-- TODO cuando se contrae pantalla, ha de desplegarse y ser funcional-->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class=""></span>
-        </button>
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <div class="container-fluid">
+          <a class="navbar-brand" [routerLink]="['home']" routerLinkActive="router-link-active">
+            <span>
+              T-Como
+            </span>
+          </a>
+          <!-- FIXME no se contrae -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+            aria-label="Toggle navigation">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav  mx-auto ">
-            <!-- ESTAS SE VEN A NIVEL PUBLIC -->
-            <li class="nav-item">
-              <a class="nav-link" href='/home#menu'>Menu</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href='/home#nosotros'>NOSOTROS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href='/home#sugerencias'>SUGERENCIAS</a>
-            </li>
-            <!-- ESTA SE VE A NIVEL ADMIN -->
-            <li class="nav-item">
-              <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                [routerLink]="['/dishes']">Dishes</a>
-            </li>
-            <!-- ESTA SE VE A NIVEL PUBLIC USER I ADMIN (HAY 2 VISTAS))-->
-            <li class="nav-item">
-              <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                [routerLink]="['/orders']">Orders</a>
-            </li>
-            <!-- ESTAS SE VEN A NIVEL PUBLIC - REDIRIGEN A LOGIN SINO ESTA LOGUEADO -->
-            <li class="nav-item">
-              <a class="nav-link">Users</a>
-            </li>
-          </ul>
-          <div class="user_option">
-            <a href="" class="user_link">
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </a>
-            <a class="cart_link" href="#">
-              <i class="fa fa-shopping-cart"></i>
-            </a>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <!-- ESTAS SE VEN A NIVEL PUBLIC -->
+              <li class="nav-item">
+                <a class="nav-link" href='/home#menu'>Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href='/home#nosotros'>NOSOTROS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href='/home#sugerencias'>SUGERENCIAS</a>
+              </li>
+              <!-- ESTA SE VE A NIVEL ADMIN -->
+              <li class="nav-item">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                  [routerLink]="['/dishes']">Dishes</a>
+              </li>
+              <!-- ESTA SE VE A NIVEL PUBLIC USER I ADMIN (HAY 2 VISTAS))-->
+              <li class="nav-item">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                  [routerLink]="['/orders']">Orders</a>
+              </li>
+              <!-- ESTAS SE VEN A NIVEL PUBLIC - REDIRIGEN A LOGIN SINO ESTA LOGUEADO -->
+              <li class="nav-item">
+                <a class="nav-link">Users</a>
+              </li>
+            </ul>
+            <div class="user_option">
+              <a href="" class="user_link">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+              <a class="cart_link" href="#">
+                <i class="fa fa-shopping-cart"></i>
+              </a>
+            </div>
           </div>
-        </div>
 
+        </div>
       </nav>
-    </div>
+
   </header>
   <!-- header/navbar section -->
 

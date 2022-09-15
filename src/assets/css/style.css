@@ -275,7 +275,7 @@ a:focus {
   display: block;
   width: 35px;
   height: 4px;
-  background-color: #ffffff;
+  background-color: #E30075;
   margin: 7px 0;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -496,7 +496,8 @@ a:focus {
       -ms-flex-pack: center;
           justify-content: center;
   list-style-type: none;
-  margin: 45px 0 20px 0;
+  margin: 30px auto;
+  width: 70%;
 }
 
 .food_section .filters_menu li {

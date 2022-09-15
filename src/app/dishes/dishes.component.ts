@@ -1,5 +1,5 @@
 import { NgForOf } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CategoriesService,
@@ -14,20 +14,14 @@ import {
   styleUrls: ['./dishes.component.css'],
 })
 export class DishesComponent implements OnInit {
+
   admin: boolean = true;
-  dishes: any; //agafant dades de la bbdd // Dish[] en el cas dutilitzar les dades const dish1 etc
-  categories: any;
-  ctgName: any;
+  dishes: Dish[] = [];
+  categories: Category[] = [];
   retrievedImage: any;
   addDish = false;
 
-  compareJson(ctg:any,dishCtg:any){
-    if (JSON.stringify(ctg) == JSON.stringify(dishCtg)) {
-      return true;
-    }
-    return false;
-  }
-
+  newCategDishChecked: Category[] = [];
 
   newDish = {
     name: '',
@@ -37,37 +31,8 @@ export class DishesComponent implements OnInit {
     categories: [],
   };
 
-  //sabiendo que hay 13 platos
-  visibilityImg: boolean[] = [
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-  ];
-  visibilityFormFile: boolean[] = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
+  visibilityImg: boolean[] = [];
+  visibilityFormFile: boolean[] = [];
 
   constructor(
     private api: DishesService,
@@ -78,34 +43,66 @@ export class DishesComponent implements OnInit {
   ngOnInit(): void {
     this.loadDishes();
     this.loadCategories();
-    /* setTimeout(() => {
-      $("select").niceSelect()
-    },500) */
 
-    /*  const dish1 = {
+    /*mirar como hacerlo bien
+    if(this.dishes === null){
+      this.loadDishes();
+    }else{
+      return this.dishes;
+    }
+    if(this.categories === null){
+      this.loadCategories();
+    }else{
+      return this.categories;
+    } */
+
+    /*
+      const dish1 = {
+      id: 1,
       name: 'arroz con gambas',
-      image: '',
+      image: '/assets/images/f1.png',
       popularity: 2,
       status: true,
       categories: ['arroz','primero']
     }
     const dish2 = {
+      id: 2,
       name: 'salmon plancha',
-      image: '',
+      image: '/assets/images/f2.png',
       popularity: 5,
       status: true,
       categories: ['pescado','segundo']
     }
     const dish3 = {
+      id: 3,
       name: 'pollo al horno',
-      image: '',
+      image: '/assets/images/f3.png',
       popularity: 3,
       status: false,
       categories: ['carne','segundo']
     }
     this.dishes.push(dish1);
     this.dishes.push(dish2);
-    this.dishes.push(dish3); */
+    this.dishes.push(dish3);*/
+  }
+
+  //compara les categ del plat amb la llista completa de categ, per tal que surtin checked a la llista
+  compare(dish: Dish, category: Category): Category | undefined{
+    return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
+  }
+
+  //guardem al array newCategDishChecked, les noves categories checked per tal dactualitzar al clicar update - falta implementar la crida al endpoint addCategToDish
+  updateCheckedOptions(category: Category,event: any){
+    if(event.target.checked) {
+      this.newCategDishChecked.push(category);
+    } else {
+      for(var i=0 ; i < this.categories.length; i++) {
+        if(this.newCategDishChecked[i].id == category.id) {
+          this.newCategDishChecked.splice(i,1);
+        }
+      }
+    }
+    console.log("newCat"+this.newCategDishChecked);
   }
 
   changeVisibility(indexDish: number) {
@@ -117,31 +114,27 @@ export class DishesComponent implements OnInit {
     this.api.getDishes().subscribe(
       (response) => {
         this.dishes = response;
-        console.log(this.dishes);
+        //console.log(this.dishes);
         //this.retrievedImage = ;
       },
       (error) => {
         console.log('ERROR REQUEST');
       }
     );
+
   }
 
   loadCategories() {
     this.api2.getCategories().subscribe(
       (response) => {
         this.categories = response;
-        console.log(this.categories);
-        /* for (let i = 0; i < this.categories.length; i++) {
-          console.log(this.categories[i].name);
-          this.ctgName.push(this.categories[i].getName());
-        } */
+        //console.log(this.categories);
       },
       (error) => {
         console.log('ERROR REQUEST');
       }
     );
   }
-
 
 
   add() {
@@ -153,7 +146,6 @@ export class DishesComponent implements OnInit {
       this.api.postDish(this.newDish).subscribe(
         (response) => {
           this.dishes = response;
-          //this.retrievedImage = ;
           this.loadDishes();
           this.clearNewDish();
           this.addDish = false;
@@ -186,19 +178,24 @@ export class DishesComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.api.deleteDish(id).subscribe(
-      (response) => {
-        this.dishes = response;
-        this.loadDishes();
-      },
-      (error) => {
-        console.log('ERROR REQUEST' + error.message);
-      }
-    );
+    if(confirm('¿Seguro que quieres cambiar el estado a Inactivo?')){
+      this.api.deleteDish(id).subscribe(
+        (response) => {
+          this.loadDishes();
+        },
+        (error) => {
+          console.log('ERROR REQUEST' + error.message);
+        }
+      );
+    }
+
   }
 
   update(id: number) {
-
+    if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
+      this.dishes[id].categories = this.dishes[id].categories.concat(this.newCategDishChecked)
+      console.log(this.dishes[id].categories)
+      this.newCategDishChecked = []
       this.api.putDish(this.dishes[id]).subscribe(
         (response) => {
           this.loadDishes();
@@ -207,14 +204,20 @@ export class DishesComponent implements OnInit {
           console.log('ERROR REQUEST' + error.message);
         }
       );
-
+    }
   }
 }
 
 export interface Dish {
+  id: number;
   name: string;
   image: any;
   popularity: number;
   status: boolean;
-  categories: string[];
+  categories: Category[];
+}
+
+export interface Category {
+  id: number;
+  name: string;
 }
