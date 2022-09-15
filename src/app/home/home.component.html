@@ -135,7 +135,9 @@
 
   <ul class="filters_menu">
     <li id="*" class="active">All</li>
-    <li *ngFor="let c of categories" id=".{{c.name}}" (click)="prova($event)">{{c.name}}</li>
+    <li *ngFor="let c of categories" id=".{{c.name}}" [attr.id-cat]="c.id" (click)="doIsotopeMagic($event)">
+      {{c.name}}
+    </li>
   </ul>
 
   <div class="filters-content">

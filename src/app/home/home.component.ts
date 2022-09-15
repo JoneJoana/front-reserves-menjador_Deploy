@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as Isotope from 'isotope-layout';
 import { CategoriesService, DishesService } from '../api.service';
+import { MAIN_CATEGORIES } from '../Constants';
+declare var $: any;
 
 
 @Component({
@@ -36,6 +38,18 @@ export class HomeComponent implements OnInit {
     this.api2.getCategories().subscribe(
       response => {
         this.categories = response;
+
+        // Posar les categories principals al principi i la resta al final
+        var mainCat = Array()
+        var extraCat = Array()
+        this.categories.forEach((c:any) => {
+          if(MAIN_CATEGORIES.includes(c.id))
+            mainCat.push(c)
+          else
+            extraCat.push(c)
+        });
+        this.categories = mainCat.concat(extraCat)
+
       },
       error => {
         console.log("ERROR REQUEST:\n "+error.message);
@@ -43,7 +57,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  prova(e:any){
+  doIsotopeMagic(e:any){
 
     // Inicialitzar isotope un cop cada vegada que es carrega el component Home
     if(!this.isotope) {
@@ -63,9 +77,17 @@ export class HomeComponent implements OnInit {
       var filtersElem = document.querySelector('.filters_menu')!;
       filtersElem.addEventListener( 'click', function( event ) {
         var filterValue = (event.target as any).getAttribute('id');
-        console.log(filterValue)
         iso.arrange({ filter: filterValue });
       });
+
+
+      var llista = $('.filters_menu li')
+      for (let i = 0; i < llista.length; i++) {
+        const li = llista[i];
+        if(isMainCategory(li.getAttribute("id-cat")))
+          li.style.backgroundColor = "#741b47"
+
+      }
     }
 
     // Actualitzar boto actiu
@@ -74,7 +96,9 @@ export class HomeComponent implements OnInit {
 
   }
 
-
 }
 
 
+function isMainCategory(idCat:number):boolean {
+  return MAIN_CATEGORIES.includes(+idCat)
+}
