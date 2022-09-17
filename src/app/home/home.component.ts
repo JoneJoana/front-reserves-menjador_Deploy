@@ -16,12 +16,16 @@ export class HomeComponent implements OnInit {
   categories:any
   isotope = false
   buscar: string = '';
+  // quick search regex
+  qsRegex:any = undefined;
 
-  constructor(private api:DishesService, private api2: CategoriesService,) { }
+  constructor(private api:DishesService, private api2: CategoriesService) { }
 
   ngOnInit(): void {
     this.getDishes()
     this.loadCategories();
+
+
   }
 
   getDishes() {
@@ -59,51 +63,91 @@ export class HomeComponent implements OnInit {
   }
 
   doIsotopeMagic(e:any){
-
+/*
     // Inicialitzar isotope un cop cada vegada que es carrega el component Home
     if(!this.isotope) {
       console.log("ISOTOPE INICIALITZAT")
       this.isotope = true
+    // Inicialitzar
+    var iso = new Isotope( '.grid', {
+      itemSelector: '.all',
+      percentPosition: false,
+      masonry: {
+        columnWidth: ".all"
+      }
+    });
 
-      // Inicialitzar
-      var iso = new Isotope( '.grid', {
-        itemSelector: '.all',
-        percentPosition: false,
-        masonry: {
-          columnWidth: ".all"
-        }
-      });
 
       // Carregar listeners botons
       var filtersElem = document.querySelector('.filters_menu')!;
-      filtersElem.addEventListener( 'click', function( event ) {
+      filtersElem.addEventListener( 'click', ( event ) => {
+        // Obtenir element per filtrar
         var filterValue = (event.target as any).getAttribute('id');
-        iso.arrange({ filter: filterValue });
+
+
+          iso.arrange({ filter: filterValue });
       });
 
-
-      var llista = $('.filters_menu li')
-      for (let i = 0; i < llista.length; i++) {
-        const li = llista[i];
-        if(isMainCategory(li.getAttribute("id-cat")))
-          li.style.backgroundColor = "#741b47"
-      }
     }
 
-    // Actualitzar boto actiu
+    // Actualitzar estil boto actiu
     $('.filters_menu li').removeClass('active');
     $(e.target).addClass('active');
+    */
+  }
+/*
+  onSearchKeyUp(e:any) {
+        // Inicialitzar
+        var iso = new Isotope( '.grid', {
+          itemSelector: '.all',
+          layoutMode: 'fitRows',
 
-    this.buscar = '';
+        });
+    //var qsRegex;
+    // Passar filtre buscador
+    iso.arrange({ filter: function() {
+      var nom = $(this).find('.nomPlat').text();
+      var valor = e.target.value
+      //new RegExp( $quicksearch.val(), 'gi' );
+      //if(nom.includes(valor))
+      var qsRegex = new RegExp( valor, 'gi' )
+      console.log(qsRegex ? nom.match(qsRegex) : true)
+      return qsRegex ? nom.match(qsRegex) : true;
+    }});
+    //this.qsRegex = new RegExp( this.buscar, 'gi' );
+    //$grid.isotope();
   }
 
-  prova() {
-    console.log("IEI")
+*/
+
+  onSearchKeyUp(e:any) {
+    var iso = new Isotope( '.grid', {
+      itemSelector: '.all',
+      layoutMode: 'fitRows',
+      filter: function() {
+        //console.log(qsRegex ? $(this).text().match( qsRegex ) : true)
+        var nom = $(this).find('.nomPlat').text();
+        var valor = e.target.value
+        var qsRegex = new RegExp( valor, 'gi' )
+        console.log("nom: "+nom)
+        console.log("valor: "+valor)
+        console.log("qsRegex: "+qsRegex)
+        console.log(qsRegex ? nom.match(qsRegex) : true)
+        console.log("-------------------")
+        return qsRegex ? nom.match(qsRegex) : true;
+      }
+    });
+
+    if(this.buscar=="")iso.destroy()
   }
+
+
 
 }
-
 
 function isMainCategory(idCat:number):boolean {
   return MAIN_CATEGORIES.includes(+idCat)
 }
+
+
+
