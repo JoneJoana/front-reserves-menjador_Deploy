@@ -1,150 +1,127 @@
-<!-- book section -->
+<!-- dish section -->
 <section class="book_section layout_padding">
   <div class="container">
-      <table class="table table-hover" style="background-color: rgb(235, 224, 224);">
+    <!-- <div class="form-check form-switch">
+      <input
+          [(ngModel)]="admin"
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="admin"/>
+      <label class="form-check-label" for="admin" style="color: white">Admin</label>
+  </div> -->
+
+    <div class="card mask-custom">
+      <div class="table-responsive">
+        <table class="table table-borderless text-white mb-0" *ngIf="admin">
           <thead>
-              <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Dish</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Popularity</th>
-                  <th scope="col">Status</th>
-              </tr>
+            <tr id="cabecera">
+              <th scope="col">Dish</th>
+              <th scope="col">Image</th>
+              <th scope="col">Popularity</th>
+              <th scope="col">Active</th>
+              <th scope="col">Categories</th>
+              <th scope="col">Actions</th>
+            </tr>
           </thead>
           <tbody>
-              <tr>
-                  <th scope="row">1</th>
-                  <td><input type="text" id="nombrePlato"></td>
-                  <td>
-                      <div class="mb-3">
-                          <input
-                              class="form-control form-control-sm"
-                              id="formFileSm"
-                              type="file"
-                              style="width: 90%">
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option value="0">0</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                          </select>
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option value="1">Active</option>
-                              <option value="2">Inactive</option>
-                          </select>
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option selected="selected">Actions</option>
-                              <option value="1">Save</option>
-                              <option value="2">Delete</option>
-                          </select>
-                      </div>
-                  </td>
-              </tr>
-              <tr>
-                  <th scope="row">2</th>
-                  <td>
-                      <input type="text" id="nombrePlato">
-                  </td>
-                  <td>
-                      <div class="mb-3">
-                          <input
-                              class="form-control form-control-sm"
-                              id="formFileSm"
-                              type="file"
-                              style="width: 90%">
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option value="0">0</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                          </select>
-                      </div>
-                  </td>
-                  <td>
-                      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                          <option value="1">Active</option>
-                          <option value="2">Inactive</option>
-                      </select>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option selected="selected">Actions</option>
-                              <option value="1">Save</option>
-                              <option value="2">Delete</option>
-                          </select>
-                      </div>
-                  </td>
-              </tr>
-              <tr>
-                  <th scope="row">3</th>
-                  <td><input type="text" id="nombrePlato"></td>
-                  <td>
-                      <div class="mb-3">
-                          <input
-                              class="form-control form-control-sm"
-                              id="formFileSm"
-                              type="file"
-                              style="width: 90%">
-                      </div>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option value="0">0</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                          </select>
-                      </div>
-                  </td>
-                  <td>
-                      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                          <option value="1">Active</option>
-                          <option value="2">Inactive</option>
-                      </select>
-                  </td>
-                  <td>
-                      <div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                              <option selected="selected">Actions</option>
-                              <option value="1">Save</option>
-                              <option value="2">Delete</option>
-                          </select>
-                      </div>
-                  </td>
-              </tr>
+            <tr *ngFor="let dish of dishes; let i = index">
+              <td><input class="form-input" type="text" id="nombrePlato" [(ngModel)]="dish.name"></td>
+              <td>
+                <div class="mb-3">
+                  <img src="data:image/jpeg;base64,{{dish.image}}" width="80px" height="80px"
+                    (click)="changeVisibility(i)" /> <!-- quito la visibilidad de img, asi siempre la ves, al cargar imagen se recarga img -->
+                  <input class="form-control" type="file" style="width: 90%" *ngIf="visibilityFormFile[i]">
+                  <!-- {{dish.image}} a src;
+                input formFile amagat i al clicar imatge apareix
+              -->
+                </div>
+              </td>
+              <td>
+                <select class="form-select" [(ngModel)]="dish.popularity">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </td>
+              <td>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                    [(ngModel)]="dish.status">
+                </div>
+              </td>
+              <td>
+                <div class="form-check form-check-inline" *ngFor="let category of categories">
+                  <input class="form-check-input" type="checkbox" [checked]="compare(dish,category)" (change)="updateCheckedOptions(category, $event)">
+                  <label class="form-check-label">{{category.name}}</label>
+                </div>
+              </td>
+              <td>
+                  <a (click)="update(i)">
+                    <i class="fa fas fa-edit"></i>
+                  </a>
+                  <br>
+                  <a (click)="delete(dish.id)">
+                    <i class="fa fa-solid fa-trash"></i>
+                  </a>
+              </td>
+            </tr>
+
+            <!-- nuevo plato -->
+            <tr *ngIf="addDish">
+              <td><input class="form-input" type="text" id="nombrePlato" [(ngModel)]="newDish.name"></td>
+              <td>
+                <div class="mb-3">
+                  <input class="form-control" type="file" style="width: 90%">
+                  <!-- ngmodel per que agafi la imatge pujada i el foti al plat -->
+                </div>
+              </td>
+              <td>
+                <select class="form-select" [(ngModel)]="newDish.popularity">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </td>
+              <td>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                    [(ngModel)]="newDish.status">
+                </div>
+              </td>
+              <td colspan="2">
+                <!-- plato nuevo ha de mostrar lista de posibles categorias con check -->
+                <div class="form-check form-check-inline" *ngFor="let category of categories">
+                  <input class="form-check-input" type="checkbox">
+                  <label class="form-check-label">{{category.name}}</label>
+                </div>
+              </td>
+            </tr>
           </tbody>
-      </table>
-      <div class="form_container">
-          <button>
-              New Dish
-          </button>
+        </table>
       </div>
+      <div class="form_container">
+        <div *ngIf="addDish">
+          <button (click)="save()">
+            Save New Dish
+          </button>
+          <br>
+          <button (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+        <button (click)="add()" *ngIf="!addDish">
+          New Dish
+        </button>
+      </div>
+    </div>
   </div>
 
 </section>
-<!-- end book section -->
-
+<!-- end dish section -->

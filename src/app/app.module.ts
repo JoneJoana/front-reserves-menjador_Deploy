@@ -2,14 +2,20 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { OrdersComponent } from './orders/orders.component';
+
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+
+import { DatesPipe } from './dates.pipe';
+import { DishPipe } from './dish.pipe';
+
 
 @NgModule({
   declarations: [
@@ -20,11 +26,15 @@ import { LoginComponent } from './login/login.component';
     RegisterComponent,
     ProfileComponent,
     LoginComponent
+    DatesPipe,
+    DishPipe,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

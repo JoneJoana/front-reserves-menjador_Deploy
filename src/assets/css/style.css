@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
 body {
   font-family: "Open Sans", sans-serif;
-  color: #0c0c0c;
+  color: white;
   background-color: #ffffff;
   overflow-x: hidden;
   background-image: url('/assets/images/fons.png');
@@ -143,6 +143,17 @@ a:focus {
 
 .header_section {
   padding: 15px 0;
+  background-color: white;
+  border-bottom: 5px solid #e30075;
+  color: #E30075;
+}
+
+.header_section a, .header_section a:active {
+  color: #E30075;
+}
+
+.header_section a:hover {
+  color: #97004E;
 }
 
 .header_section .container-fluid {
@@ -154,10 +165,13 @@ a:focus {
   font-family: 'Dancing Script', cursive;
 }
 
+.navbar-brand:focus {
+  color: #E30075;
+}
+
 .navbar-brand span {
   font-weight: bold;
-  font-size: 32px;
-  color: #ffffff;
+  font-size: 40px;
 }
 
 .custom_nav-container {
@@ -170,7 +184,7 @@ a:focus {
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
   padding: 5px 20px;
-  color: #ffffff;
+  color: #97004E;
   text-align: center;
   text-transform: uppercase;
   border-radius: 5px;
@@ -187,7 +201,7 @@ a:focus {
   height: auto;
   padding: 0;
   border: none;
-  color: #ffffff;
+  color: #97004E;
   margin: 0 10px;
 }
 
@@ -208,14 +222,6 @@ a:focus {
   margin: 0 10px;
 }
 
-.user_option .user_link {
-  color: #ffffff;
-}
-
-.user_option .user_link:hover {
-  color: #E30075;
-}
-
 .user_option .cart_link {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -231,12 +237,11 @@ a:focus {
 .user_option .cart_link svg {
   width: 17px;
   height: auto;
-  fill: #ffffff;
   margin-bottom: 2px;
 }
 
 .user_option .cart_link:hover svg {
-  fill: #E30075;
+  fill: #a90b5c;
 }
 
 .user_option .order_online {
@@ -270,7 +275,7 @@ a:focus {
   display: block;
   width: 35px;
   height: 4px;
-  background-color: #ffffff;
+  background-color: #E30075;
   margin: 7px 0;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -491,7 +496,8 @@ a:focus {
       -ms-flex-pack: center;
           justify-content: center;
   list-style-type: none;
-  margin: 45px 0 20px 0;
+  margin: 30px auto;
+  width: 70%;
 }
 
 .food_section .filters_menu li {
@@ -502,7 +508,7 @@ a:focus {
 
 .food_section .filters_menu li.active {
   background-color: #222831;
-  color: #ffffff;
+  color: #97004E;
 }
 
 .food_section .box {
@@ -618,7 +624,7 @@ a:focus {
 }
 
 .about_section {
-  background: #222831;
+  background: #97004e2e;
   color: #ffffff;
 }
 
@@ -903,7 +909,7 @@ a:focus {
 
 /* footer section*/
 .footer_section {
-  background-color: #222831;
+  border-top: 5px solid #e30075;
   color: #ffffff;
   padding: 75px 0 40px 0;
   text-align: center;
@@ -921,7 +927,7 @@ a:focus {
 }
 
 .footer_section p {
-  color: #dbdbdb;
+  color: #ffffff;
 }
 
 .footer_section .footer-col {
@@ -948,7 +954,7 @@ a:focus {
 }
 
 .footer_section .footer_contact .contact_link_box a:hover {
-  color: #E30075;
+  color: #ffffff;
 }
 
 .footer_section .footer-logo {
@@ -956,7 +962,7 @@ a:focus {
   font-weight: bold;
   font-size: 38px;
   line-height: 1;
-  color: #ffffff;
+  color: #e31a82;
 }
 
 .footer_section .footer_social {
@@ -1000,7 +1006,7 @@ a:focus {
 }
 
 .footer_section .footer-info p {
-  color: #ffffff;
+  color: #97004E;
   margin: 0;
 }
 
@@ -1008,3 +1014,11 @@ a:focus {
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
+
+.color-primary {
+  color: #E30075;
+}
+
+.color-primary:hover {
+  color: #97004E;
+}

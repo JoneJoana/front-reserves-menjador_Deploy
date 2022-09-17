@@ -1,11 +1,24 @@
 body {
   background-size: 100% 100%; /* 100% 600px*/
 }
+
+.btn {
+  background-color: white;
+}
+.btn:hover, .btn:focus {
+  background-color: #E30075;
+}
+.plus {
+  color: #E30075;
+}
+.btn[disabled] {
+  background-color: #8f5c77;
+}
 .ordre {
   display: flex;
   flex-direction: column;
   color: white;
-  border-bottom: 1px solid white;
+  border-top: 1px solid white;
 }
 .ordre div {
   padding: 5px 0px;
@@ -34,10 +47,134 @@ body {
 .ordre-bottom-info {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
-.ordre-bottom-info span {
-  padding: 3px 20px;
+.ordre-bottom-info span button {
+  margin-right: 10px;
+}
+.ordre-bottom-info > div, .ordre-bottom-info > span  {
+  margin: 3px 20px;
 }
 .s-14 {
   font-size: 14px;
 }
+.plat {
+  padding: 10px;
+  cursor: pointer;
+}
+.plat svg {
+  color: red;
+}
+.caixaPlat:hover {
+  background-color: red;
+}
+.plat:hover svg {
+  color: white;
+}
+.selectPlats {
+  width: fit-content;
+  cursor: pointer;
+  border: 1px solid green;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: inherit;
+  color: white;
+  margin-top: 5px;
+}
+.selectPlats option {
+  background-color: #495057;
+}
+.caixaPlat {
+  margin: 10px;
+  border-radius: 20px;
+  margin: 5px;
+  border: 1px solid red;
+  display: inline-block
+}
+.selectPlats:focus {
+  border: 1px solid green;
+}
+/* Amagar imatge ordre quan la pantalla sigui massa petita */
+@media screen and (max-width: 550px) {
+  .ordre-bottom img {
+    display: none;
+  }
+}
+/* CSS INPUT DATA PERSONALITZAT */
+.inline-group {
+  max-width: 9rem;
+  padding: .5rem;
+}
+.inline-group .form-control {
+  text-align: center;
+}
+.form-control[type="number"]::-webkit-inner-spin-button,
+.form-control[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.boto{
+  padding:2px 0px;
+  height:fit-content;
+  background-color: white;
+  cursor: pointer;
+}
+div .boto:active {
+  background-color: #8f5c77;
+}
+.boto i{
+  color: #8f5c77;
+}
+.wrapper-dateinput{
+  display:flex;
+
+}
+.plus-minus {
+  display:flex;
+  flex-direction:column;
+  padding: 0px 0px;
+  right: 17px;
+  position: relative;
+}
+.hores{
+    width: 40%;
+    padding: 5px 10px;
+    height: auto;
+    display: block;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    overflow: visible;
+    margin: 5px 0px;
+    text-rendering: optimizeLegibility;
+}
+.hores:disabled, .hores[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+.hores::after, .hores::before {
+  box-sizing: content-box;
+}
+*, ::after, ::before {
+  box-sizing: content-box;
+}
+.minut {
+  margin-left: -27px;
+}
+div.container {
+  width: auto;
+}
+.container-dateInput {
+  display: flex;
+  align-items: center;
+}
+.container-dateInput p {
+  margin-right: 10px;
+}
+.w-70{width: 70px;}
