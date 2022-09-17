@@ -18,7 +18,6 @@ export class SugerenciasComponent implements OnInit {
   }
 
   completeLogin(login :NgForm){
-    alert("Mensaje Recibido. Te contestaremos lo antes posible! Gracias :)");
     login.reset();
   }
 
