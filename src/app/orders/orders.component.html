@@ -62,24 +62,24 @@
         <!-- VISTA CLIENT -->
         <div *ngIf="!admin">
             <!-- Implementar vista client -->
-            <div class="ordres">
+            <div *ngIf="orders != null;else loading" class="ordres">
                 <div *ngFor="let o of orders; let iOrd = index" class="ordre">
                     <div class="ordre-top">
                         <div class="ordre-top-top">
                             <div class="ordre-top-createdOn">
-                                Created {{o.createdOn | dates:"createdOn"}}
+                                Creada {{o.createdOn | dates:"createdOn"}}
                             </div>
                             <div class="ordre-top-orderId s-14">
                                 ORDER N.º 00{{o.id}}
                             </div>
                         </div>
                         <div *ngIf="!modifying.has(o.id)" class="ordre-top-bottom">
-                          Delivery {{o.deliveryOn | dates:"deliveryOn"}}
+                          Entrega {{o.deliveryOn | dates:"deliveryOn"}}
                         </div>
                         <!-- MODIFICAR DATA ENTREGA -->
                         <div *ngIf="modifying.has(o.id)">
                           <div class="container-dateInput">
-                            <p>Delivery on</p>
+                            <p>Entrega el</p>
                             <div class="wrapper-dateinput dia">
                               <input class="hores w-70" value="{{orders[iOrd].deliveryOn | dates:'dd'}}" disabled type="text"  />
                               <div class="plus-minus">
@@ -91,7 +91,7 @@
                                 </span>
                               </div>
                             </div>
-                            <p>at</p>
+                            <p>a las</p>
                             <div class="wrapper-dateinput hora">
                               <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}"
                               (ngModelChange)="onModelChange($event, orders[iOrd])" disabled min="12" max="15" type="number"  />
@@ -144,12 +144,12 @@
 
                               <select (change)="onSelectPlato(iOrd,$event)" class="selectPlats">
                                 <option selected value="{{null}}">Seleccionar Plato</option>
-                                <option *ngFor="let p of plats; let i = index" value="{{i}}">{{p.name}}</option>
+                                <option *ngFor="let p of plats; let i = index" value="{{i}}"><span>{{p.name}}</span></option>
                               </select>
                           </div>
 
                             <div>
-                              <span class="s-14">Modifiable until </span>
+                              <span class="s-14">Modificable hasta </span>
                               <span id="modifyDate{{o.id}}" class="s-14">{{o.deliveryOn | dates:"modifiableTill"}}</span>
                             </div>
 
@@ -159,20 +159,20 @@
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                   </svg>
-                                  Modify
+                                  Modificar
                                 </button>
                                 <button *ngIf="!isModifiable(o.delivered,o.deliveryOn)" disabled class="btn">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                   </svg>
-                                  Modify
+                                  Modificar
                                 </button>
                                 <button class="btn" (click)="eliminar(o.id)">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
                                   </svg>
-                                  Delete
+                                  Eliminar
                                 </button>
                             </span>
                             <!-- BOTONS QUE SURTEN QUAN ESTEM MODIFICANT UNA ORDRE-->
@@ -182,20 +182,26 @@
                                   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                 </svg>
-                                Update
+                                Actualizar
                               </button>
                               <button class="btn" (click)="cancelModification(iOrd,o.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
                                   <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
                                 </svg>
-                                Back
+                                Atrás
                               </button>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <ng-template #loading>
+              <div class="text-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Cargando...</span>
+                </div>
+              </div>
+            </ng-template>
         </div>
     </div>
 </section>
