@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 
 import { DatesPipe } from './dates.pipe';
 import { DishPipe } from './dish.pipe';
+import { SugerenciasComponent } from './sugerencias/sugerencias.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { DishPipe } from './dish.pipe';
     LoginComponent,
     DatesPipe,
     DishPipe,
+    SugerenciasComponent,
   ],
   imports: [
     BrowserModule,
