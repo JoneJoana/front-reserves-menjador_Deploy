@@ -25,10 +25,9 @@ import { DishPipe } from './dish.pipe';
     OrdersComponent,
     RegisterComponent,
     ProfileComponent,
-    LoginComponent
+    LoginComponent,
     DatesPipe,
     DishPipe,
-
   ],
   imports: [
     BrowserModule,
