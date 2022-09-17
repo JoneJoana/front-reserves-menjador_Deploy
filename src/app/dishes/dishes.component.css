@@ -30,3 +30,6 @@ select,input,button{
   background-color: rgb(219, 60, 142);
 }
 
+#flexSwitchCheckChecked{
+  margin-left: 0px;
+}

@@ -91,7 +91,7 @@ export class DishesComponent implements OnInit {
     return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
   }
 
-  //guardem al array newCategDishChecked, les noves categories checked per tal dactualitzar al clicar update - falta implementar la crida al endpoint addCategToDish
+  //guardem al array newCategDishChecked, les noves categories checked per tal dactualitzar al clicar update
   updateCheckedOptions(category: Category,event: any){
     if(event.target.checked) {
       this.newCategDishChecked.push(category);
