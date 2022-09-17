@@ -2,3 +2,8 @@
   height: auto;
 }
 
+#imgSlide1{
+  border: 2px solid #E30075;
+  border-radius: 10em;
+  float: right;
+}
