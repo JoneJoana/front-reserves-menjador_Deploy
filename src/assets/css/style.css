@@ -1036,3 +1036,11 @@ a:focus {
 .modal-body{
   color: black;
 }
+
+#logueate{
+  color: black;
+  font-size: 30px;
+  border-radius: 5em;
+  text-align: center;
+  background-color: white;
+}
