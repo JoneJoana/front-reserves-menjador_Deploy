@@ -9,7 +9,6 @@
               T-Como
             </span>
           </a>
-          <!-- FIXME no se contrae -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -30,20 +29,21 @@
                 <a class="nav-link" href='/home#sugerencias'>SUGERENCIAS</a>
               </li>
               <!-- ESTA SE VE A NIVEL ADMIN -->
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="logAdmin">
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                   [routerLink]="['/dishes']">Dishes</a>
               </li>
               <!-- ESTA SE VE A NIVEL PUBLIC USER I ADMIN (HAY 2 VISTAS))-->
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="isLogin">
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                   [routerLink]="['/orders']">Orders</a>
               </li>
               <!-- ESTAS SE VEN A NIVEL PUBLIC - REDIRIGEN A LOGIN SINO ESTA LOGUEADO -->
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="logAdmin">
                 <a class="nav-link">Users</a>
               </li>
-              <li class="nav-item">
+             <!-- se envia donde toca segun isLogin (app.component.ts)
+                <li class="nav-item">
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                   [routerLink]="['/registro']">Registro</a>
               </li>
@@ -51,17 +51,24 @@
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                   [routerLink]="['/login']">Login</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" >
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                   [routerLink]="['/profile']">Profile
                 </a>
-              </li>
+              </li> -->
             </ul>
             <div class="user_option">
-              <a href="" class="user_link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-              [routerLink]="['/']">
+              <!-- de public reenvia a login -->
+              <a *ngIf="!isLogin" href="" class="user_link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+              [routerLink]="['/login']">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
+              <!-- si esta logueado reenvia a profile // mirar manera mejor de hacer el if -->
+              <a *ngIf="isLogin" href="" class="user_link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+              [routerLink]="['/profile']">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+
               <a class="cart_link" href="#" data-bs-toggle="modal" data-bs-target="#tu-carrito">
                 <i class="fa fa-shopping-cart"></i>
               </a>
@@ -71,7 +78,10 @@
               <!-- Modal Carrito -->
               <div class="modal fade" id="tu-carrito" tabindex="-1" aria-labelledby="carrito" aria-hidden="true">
                 <div class="modal-dialog">
-                  <div class="modal-content">
+                  <div *ngIf="!isLogin" style="color: black; font-size: 35px; ">
+                    Logueate para poder reservar!
+                  </div>
+                  <div class="modal-content" *ngIf="isLogin">
                     <div class="modal-header">
                       <h5 class="modal-title" id="carrito"><strong>Tu Carrito</strong></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

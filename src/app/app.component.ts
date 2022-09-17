@@ -9,6 +9,7 @@ export class AppComponent {
   title = 'frontend-tComo';
 
   isLogin = true;
+  logAdmin = false;
 
   logout(): void{
     //this.tokenStorageService.signOut();
