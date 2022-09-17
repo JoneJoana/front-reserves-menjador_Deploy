@@ -65,7 +65,10 @@
               <a class="cart_link" href="#" data-bs-toggle="modal" data-bs-target="#tu-carrito">
                 <i class="fa fa-shopping-cart"></i>
               </a>
-              <!-- Modal -->
+              <a *ngIf="isLogin" href="#">
+                <i class="fa fa-solid fa-power-off" (click)="logout()"></i>
+              </a>
+              <!-- Modal Carrito -->
               <div class="modal fade" id="tu-carrito" tabindex="-1" aria-labelledby="carrito" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -82,7 +85,6 @@
                   </div>
                 </div>
               </div>
-
             </div>
 
           </div>
