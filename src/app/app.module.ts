@@ -27,7 +27,7 @@ import { DishPipe } from './dish.pipe';
     ProfileComponent,
     LoginComponent,
     DatesPipe,
-    DishPipe,
+    DishPipe
 
   ],
   imports: [
