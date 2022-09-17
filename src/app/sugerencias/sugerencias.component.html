@@ -1,0 +1,32 @@
+<section class="book_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>
+        Déjanos tu comentario
+      </h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form_container">
+          <form #login="ngForm" (ngSubmit)="completeLogin(login)">
+            <div>
+              <input type="text" class="form-control" placeholder="Tu nombre" name="nombre" [(ngModel)]="nombre"/>
+            </div>
+            <div>
+              <input type="email" class="form-control" placeholder="Tu email" name="email" [(ngModel)]="email"/>
+            </div>
+            <div>
+              <label for="message-text" class="col-form-label">Tu mensaje:</label>
+              <textarea class="form-control" id="message-text" style="height: 169px;" name="mensaje" [(ngModel)]="mensaje"></textarea>
+            </div>
+            <div class="btn_box">
+              <button type="submit">
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

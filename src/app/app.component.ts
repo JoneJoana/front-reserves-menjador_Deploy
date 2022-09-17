@@ -8,4 +8,15 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'frontend-tComo';
 
+  isLogin = true;
+  logAdmin = false;
+
+  logout(): void{
+    //this.tokenStorageService.signOut();
+    this.isLogin = false;
+    //this.roles = ''
+    //this.router.navigate(['/home']);
+  }
+
+
 }

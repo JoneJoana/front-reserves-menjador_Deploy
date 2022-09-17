@@ -8,8 +8,15 @@ import { DishesComponent } from './dishes/dishes.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { OrdersComponent } from './orders/orders.component';
+
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+
 import { DatesPipe } from './dates.pipe';
 import { DishPipe } from './dish.pipe';
+import { SugerenciasComponent } from './sugerencias/sugerencias.component';
+
 
 @NgModule({
   declarations: [
@@ -17,8 +24,12 @@ import { DishPipe } from './dish.pipe';
     DishesComponent,
     HomeComponent,
     OrdersComponent,
+    RegisterComponent,
+    ProfileComponent,
+    LoginComponent,
     DatesPipe,
     DishPipe,
+    SugerenciasComponent,
   ],
   imports: [
     BrowserModule,
