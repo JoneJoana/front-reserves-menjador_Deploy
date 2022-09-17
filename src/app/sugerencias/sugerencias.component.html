@@ -10,14 +10,14 @@
         <div class="form_container">
           <form #login="ngForm" (ngSubmit)="completeLogin(login)">
             <div>
-              <input type="text" class="form-control" placeholder="Tu nombre" [(ngModel)]="nombre"/>
+              <input type="text" class="form-control" placeholder="Tu nombre" name="nombre" [(ngModel)]="nombre"/>
             </div>
             <div>
-              <input type="email" class="form-control" placeholder="Tu email" [(ngModel)]="email"/>
+              <input type="email" class="form-control" placeholder="Tu email" name="email" [(ngModel)]="email"/>
             </div>
             <div>
               <label for="message-text" class="col-form-label">Tu mensaje:</label>
-              <textarea class="form-control" id="message-text" style="height: 169px;" [(ngModel)]="mensaje"></textarea>
+              <textarea class="form-control" id="message-text" style="height: 169px;" name="mensaje" [(ngModel)]="mensaje"></textarea>
             </div>
             <div class="btn_box">
               <button type="submit">
@@ -25,11 +25,6 @@
               </button>
             </div>
           </form>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="map_container ">
-          <div id="googleMap"></div>
         </div>
       </div>
     </div>
