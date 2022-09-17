@@ -1022,3 +1022,17 @@ a:focus {
 .color-primary:hover {
   color: #97004E;
 }
+
+.btn2{
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #E30075;
+  color: #ffffff;
+  border-radius: 45px;
+  transition: all 0.3s;
+  border: none;
+}
+
+.modal-body{
+  color: black;
+}
