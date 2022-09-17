@@ -43,6 +43,19 @@
               <li class="nav-item">
                 <a class="nav-link">Users</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                  [routerLink]="['/registro']">Registro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                  [routerLink]="['/login']">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                  [routerLink]="['/profile']">Profile
+                </a>
+              </li>
             </ul>
             <div class="user_option">
               <a href="" class="user_link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
