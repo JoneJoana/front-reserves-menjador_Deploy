@@ -87,7 +87,6 @@ export class HomeComponent implements OnInit {
         const li = llista[i];
         if(isMainCategory(li.getAttribute("id-cat")))
           li.style.backgroundColor = "#741b47"
-
       }
     }
 
@@ -96,6 +95,10 @@ export class HomeComponent implements OnInit {
     $(e.target).addClass('active');
 
     this.buscar = '';
+  }
+
+  prova() {
+    console.log("IEI")
   }
 
 }
