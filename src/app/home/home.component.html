@@ -119,7 +119,7 @@
 
 
   <ul class="filters_menu">
-    <li id="*" class="active">Todo</li>
+    <li id="*" class="active" (click)="doIsotopeMagic($event)">Todo</li>
     <li *ngFor="let c of categories" id=".{{c.name}}" [attr.id-cat]="c.id" (click)="doIsotopeMagic($event)">
       {{c.name}}
     </li>
@@ -131,7 +131,7 @@
         <div class="box">
           <div>
             <div class="img-box">
-              <img src="data:image/jpeg;base64,{{d.image}}" width="150px" height="150px">
+              <img src="data:image/jpeg;base64,{{d.image}}" width="100%" height="100%">
             </div>
             <div class="detail-box">
               <h5 class="nomPlat">{{d.name}}</h5>
@@ -157,8 +157,8 @@
 
   <div class="row">
     <div class="col-md-6 ">
-      <div class="img-box">
-        <img src="/assets/images/about-img.png" alt="">
+      <div id="img-about">
+        <img src="/assets/images/equip.jpg" alt="" style="width:500px">
       </div>
     </div>
     <div class="col-md-6">

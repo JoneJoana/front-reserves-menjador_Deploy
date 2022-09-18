@@ -25,4 +25,18 @@
   cursor: pointer;
 }
 
+#menu {
+  background-image: url(src\assets\images\fons.png);
+}
+#menu *{
+  color: white;
+}
+
+#menu .container{
+  padding: 0px 10px;
+}
+
+#nosotros {
+  background-color: white;
+}
 

@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   username?: string;
   password?: string;
 
+
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -55,6 +56,10 @@ export class LoginComponent implements OnInit {
         console.log(error.message);
       }
     );
+  }
+
+  onSubmit(): void{
+    alert('login correcto');
   }
 
 }

@@ -16,13 +16,6 @@ export class AppComponent implements OnInit{
   constructor( private router: Router) {}
 
   carrito: Dish[] = [];
-  message:string = "aa"
-
-  receiveMessage($event: any) {
-    this.message = $event
-    console.log(this.message)
-  }
-
   title = 'frontend-tComo';
 
   isLogin = false;
