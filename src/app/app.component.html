@@ -12,7 +12,6 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
             aria-label="Toggle navigation">
-
             <span class="navbar-toggler-icon"></span>
           </button>
 
@@ -38,24 +37,10 @@
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                   [routerLink]="['/orders']">Orders</a>
               </li>
-              <!-- ESTAS SE VEN A NIVEL PUBLIC - REDIRIGEN A LOGIN SINO ESTA LOGUEADO -->
+              <!-- ESTA SE VEN A NIVEL ADMIN -->
               <li class="nav-item" *ngIf="logAdmin">
                 <a class="nav-link">Users</a>
               </li>
-             <!-- se envia donde toca segun isLogin (app.component.ts)
-                <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/registro']">Registro</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/login']">Login</a>
-              </li>
-              <li class="nav-item" >
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/profile']">Profile
-                </a>
-              </li> -->
             </ul>
             <div class="user_option">
               <!-- de public reenvia a login -->
@@ -78,7 +63,7 @@
               <!-- Modal Carrito -->
               <div class="modal fade" id="tu-carrito" tabindex="-1" aria-labelledby="carrito" aria-hidden="true">
                 <div class="modal-dialog">
-                  <div *ngIf="!isLogin" style="color: black; font-size: 35px; ">
+                  <div *ngIf="!isLogin" id="logueate">
                     Logueate para poder reservar!
                   </div>
                   <div class="modal-content" *ngIf="isLogin">
@@ -87,7 +72,48 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      carregar plats escollits
+                      <div *ngFor="let dish of carrito">
+                        {{dish}}
+                      </div>
+                    </div>
+                    <div class="modal-body">
+                      <!-- DATA ENTREGA -->
+                      <div class="container-dateInput">
+                        <div class="wrapper-dateinput dia">
+                          <input class="hores w-70" disabled type="text" value="Lun."  />
+                          <div class="plus-minus">
+                            <span class="boto" >
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" >
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="wrapper-dateinput hora">
+                          <input class="hores" disabled min="12" max="15" value="12" type="number"  />
+                          <div class="plus-minus">
+                            <span class="boto" >
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" >
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="wrapper-dateinput minut">
+                          <input class="hores" disabled min="0" max="45" value="00" type="number"  />
+                          <div class="plus-minus">
+                            <span class="boto" >
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" >
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn2">Realizar Orden</button>
@@ -102,6 +128,7 @@
       </nav>
     </div>
   </header>
+
   <router-outlet></router-outlet>
 
   <!-- footer section -->
@@ -170,10 +197,10 @@
             Nuestros horarios
           </h4>
           <p>
-            Cada dia
+            Lunes - Viernes
           </p>
           <p>
-            10.00 Am - 18.00 Pm
+            12.00 Am - 15.00 Pm
           </p>
         </div>
       </div>

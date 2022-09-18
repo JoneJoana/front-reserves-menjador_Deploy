@@ -7,3 +7,36 @@
   border-radius: 10em;
   float: right;
 }
+
+#fons-slider{
+  background-color: rgba(250, 235, 215, 0.45);
+  background-image: url(src\assets\images\office-cafeteria-opacitat.jpg);
+  background-size: cover;
+  background-position-y: center;
+  padding: 50px;
+}
+
+.img-box img {
+  border-radius: 10px 10px 0px 45px;
+}
+
+.options a {
+  min-width: 40px;
+  cursor: pointer;
+}
+
+#menu {
+  background-image: url(src\assets\images\fons.png);
+}
+#menu *{
+  color: white;
+}
+
+#menu .container{
+  padding: 0px 10px;
+}
+
+#nosotros {
+  background-color: white;
+}
+

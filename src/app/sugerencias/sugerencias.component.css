@@ -1,0 +1,10 @@
+section {
+  background-image: url(src/assets/images/contact-tsystems-4.png);
+  background-color: #b393ab;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+}
+body{
+  background-size: 100% 100px;
+}

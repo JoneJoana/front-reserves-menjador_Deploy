@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  form: any = {
+    username: null,
+    email: null,
+    password: null
+  }
+  username?: string;
+  email?: string;
+  password?: string;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onSubmit(): void{
+    alert('login correcto');
+  }
 }
