@@ -9,8 +9,12 @@ import { FormGroup, FormControl, NgForm } from '@angular/forms';
 export class SugerenciasComponent implements OnInit {
 
   nombre: string = '';
-  email: string = '';
   mensaje: string = '';
+
+  form: any = {
+    nombre: null,
+    mensaje: null
+  }
 
   constructor() { }
 

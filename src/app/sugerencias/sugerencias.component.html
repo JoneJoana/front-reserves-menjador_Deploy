@@ -8,18 +8,21 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form_container">
-          <form #login="ngForm" (ngSubmit)="completeLogin(login)">
-            <div>
-              <input type="text" class="form-control" placeholder="Tu nombre" name="nombre" [(ngModel)]="nombre" />
+
+          <form #login="ngForm" (ngSubmit)="f.form.valid && completeLogin(login)" #f="ngForm" novalidate>
+
+            <input type="text" class="form-control" placeholder="Tu nombre" name="nombre" required/>
+
+
+            <input type="email" class="form-control" placeholder="Tu email" name="email" input type="email" name="email" ngModel email="true"/>
+            <div class="alert alert-danger" role="alert">
+              Introduce un email valido
             </div>
-            <div>
-              <input type="email" class="form-control" placeholder="Tu email" name="email" [(ngModel)]="email" />
-            </div>
-            <div>
-              <label for="message-text" class="col-form-label">Tu mensaje:</label>
-              <textarea class="form-control" id="message-text" style="height: 169px;" name="mensaje"
-                [(ngModel)]="mensaje"></textarea>
-            </div>
+
+            <label for="message-text" class="col-form-label">Tu mensaje:</label>
+            <textarea class="form-control" id="message-text" style="height: 169px;" name="mensaje"
+              [(ngModel)]="mensaje"></textarea>
+
             <div class="btn_box">
               <button type="submit" data-bs-toggle="modal" data-bs-target="#sugEnv">
                 Enviar
@@ -42,6 +45,7 @@
 
             </div>
           </form>
+
         </div>
       </div>
     </div>
