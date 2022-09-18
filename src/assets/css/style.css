@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
 body {
   font-family: "Open Sans", sans-serif;
-  color: white;
+  /* color: white; */
   background-color: #ffffff;
   overflow-x: hidden;
-  background-image: url('/assets/images/fons.png');
+  background-image: url("/assets/images/fons.png");
   background-repeat: no-repeat;
-  background-size: 100% 100%; /* 100% 600px*/
+  background-size: 100% 600px; /* 100% 600px*/
 }
 
 .layout_padding {
@@ -417,9 +417,10 @@ a:focus {
       -ms-flex-align: center;
           align-items: center;
   margin-top: 45px;
-  border-radius: 5px;
+  border-radius: 25px;
   padding: 20px 15px;
   background-color: #222831;
+
   color: #ffffff;
 }
 
@@ -498,6 +499,7 @@ a:focus {
   list-style-type: none;
   margin: 30px auto;
   width: 70%;
+
 }
 
 .food_section .filters_menu li {
@@ -520,6 +522,7 @@ a:focus {
   border-radius: 15px;
   overflow: hidden;
   background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
+
 }
 
 .food_section .box .img-box {
@@ -533,15 +536,15 @@ a:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 215px;
+  height: 230px;
   border-radius: 0 0 0 45px;
   margin: -1px;
-  padding: 25px;
+  padding: 20px;
 }
 
 .food_section .box .img-box img {
   max-width: 100%;
-  max-height: 145px;
+  max-height: 200px;
   -webkit-transition: all .2s;
   transition: all .2s;
 }
@@ -910,7 +913,7 @@ a:focus {
 /* footer section*/
 .footer_section {
   border-top: 5px solid #e30075;
-  color: #ffffff;
+  /* color: #ffffff; */
   padding: 75px 0 40px 0;
   text-align: center;
 }
@@ -927,7 +930,7 @@ a:focus {
 }
 
 .footer_section p {
-  color: #ffffff;
+  color: #000000;
 }
 
 .footer_section .footer-col {
@@ -946,7 +949,7 @@ a:focus {
 
 .footer_section .footer_contact .contact_link_box a {
   margin: 5px 0;
-  color: #ffffff;
+  color: #000000;
 }
 
 .footer_section .footer_contact .contact_link_box a i {
