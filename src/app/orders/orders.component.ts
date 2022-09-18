@@ -48,6 +48,25 @@ export class OrdersComponent implements OnInit {
     this.api.gerOrdersByUser(USER).subscribe(
       response => {
         this.orders = response
+
+        console.log("Llista:\n")
+        this.orders.forEach((element: { deliveryOn: any; }) => {
+          console.log(element.deliveryOn)
+        });
+        // Ordenar llista per data d'entrega
+        this.orders.sort((a: { deliveryOn: any; }, b: { deliveryOn: any; }) => {
+          if(a.deliveryOn > b.deliveryOn) {
+            return 1;
+          } else if(a.deliveryOn < b.deliveryOn) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        console.log("Llista ordenada:\n")
+        this.orders.forEach((element: { deliveryOn: any; }) => {
+          console.log(element.deliveryOn)
+        });
       },
       error => {
         console.log("[ERROR] loadOrders()\n "+error.message)
@@ -208,15 +227,11 @@ export class OrdersComponent implements OnInit {
     // Controlar hores
     hh = d.getHours() - (Math.abs(d.getTimezoneOffset())/60)
     mm = d.getMinutes()
-    //console.log("modif"+new Date(d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+hh+":"+mm+"Z"))
-    //console.log("ara"+new Date())
 
     var dNew = new Date(d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+hh+":"+mm)
     var dMinim = new Date()
     dMinim.setMinutes(dMinim.getMinutes()+MARGIN)
-    console.log(dNew)
-    console.log(dMinim)
-    console.log(dNew < dMinim)
+
     if(dNew < dMinim) return
 
     // Actualitzar data entraga
