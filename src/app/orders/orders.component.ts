@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { data } from 'jquery';
 import { DishesService, OrdersService } from '../_services/api.service';
-import { MARGIN, MAX_HOUR, MIN_HOUR, USER } from '../Constants';
+import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, USER } from '../Constants';
 
 
 @Component({
@@ -20,6 +20,8 @@ export class OrdersComponent implements OnInit {
   constructor(private api:OrdersService, private dishes:DishesService, private router: Router) { }
 
   ngOnInit(): void {
+    if(window.sessionStorage.getItem(ROL) == ROL_ADMIN)
+      this.admin = true
     this.loadOrders()
     this.getDishes()
   }

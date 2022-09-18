@@ -30,8 +30,10 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     if(window.sessionStorage.getItem(TOKEN)){
+      console.log("logged in")
       this.isLogin = true
       if(window.sessionStorage.getItem(ROL) == ROL_ADMIN){
+        console.log("isAdmin")
         this.logAdmin = true
       }
     }

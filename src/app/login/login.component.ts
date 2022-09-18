@@ -19,7 +19,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(window.sessionStorage.getItem(TOKEN))
+      this.router.navigate(['/home']);
+
+  }
 
   onSubmit(): void{
     console.log("LOGIN")
@@ -45,7 +49,7 @@ export class LoginComponent implements OnInit {
       response => {
         console.log(response.rol.name)
         window.sessionStorage.setItem(ROL, response.rol.name);
-        this.router.navigate(['/home']);
+        window.location.reload()
       },
       error => {
         console.log(error.message);

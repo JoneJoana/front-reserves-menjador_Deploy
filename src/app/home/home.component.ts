@@ -3,6 +3,7 @@ import * as Isotope from 'isotope-layout';
 import { CategoriesService, DishesService } from '../_services/api.service';
 import { MAIN_CATEGORIES, ROL, ROL_CLIENT } from '../Constants';
 import { Dish } from '../dishes/dishes.component';
+import { ActivatedRoute } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -26,11 +27,13 @@ export class HomeComponent implements OnInit {
     this.messageEvent.emit(this.message)
   }
 
-  constructor(private api: DishesService, private api2: CategoriesService) {}
+  constructor(private api: DishesService, private api2: CategoriesService,private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getDishes();
     this.loadCategories();
+
+
   }
 
   getDishes() {
