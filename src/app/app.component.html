@@ -38,24 +38,10 @@
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                   [routerLink]="['/orders']">Orders</a>
               </li>
-              <!-- ESTAS SE VEN A NIVEL PUBLIC - REDIRIGEN A LOGIN SINO ESTA LOGUEADO -->
+              <!-- ESTA SE VEN A NIVEL ADMIN -->
               <li class="nav-item" *ngIf="logAdmin">
                 <a class="nav-link">Users</a>
               </li>
-             <!-- se envia donde toca segun isLogin (app.component.ts)
-                <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/registro']">Registro</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/login']">Login</a>
-              </li>
-              <li class="nav-item" >
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/profile']">Profile
-                </a>
-              </li> -->
             </ul>
             <div class="user_option">
               <!-- de public reenvia a login -->
