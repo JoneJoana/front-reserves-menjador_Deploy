@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ROL, TOKEN, USER, USERNAME } from '../Constants';
+import { AuthService } from '../_services/auth.service'
 
 @Component({
   selector: 'app-login',
@@ -14,13 +17,40 @@ export class LoginComponent implements OnInit {
   username?: string;
   password?: string;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void{
-    alert('login correcto');
+    console.log("LOGIN")
+    this.authService.login(this.form.username, this.form.password)
+      .subscribe(
+        response => {
+
+          window.sessionStorage.setItem(TOKEN, response.token);
+          window.sessionStorage.setItem(USERNAME, this.form.username);
+          console.log(window.sessionStorage.getItem(TOKEN))
+          console.log(window.sessionStorage.getItem(USERNAME))
+          this.getRol();
+        },
+        error => {
+          // gestionar error
+          console.log(error)
+        });
+  }
+
+  getRol() {
+    this.authService.getUser(this.form.username)
+    .subscribe(
+      response => {
+        console.log(response.token)
+        window.sessionStorage.setItem(ROL, response.token);
+        this.router.navigate(['/home']);
+      },
+      error => {
+        console.log(error.message);
+      }
+    );
   }
 
 }

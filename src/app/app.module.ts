@@ -17,7 +17,7 @@ import { DatesPipe } from './dates.pipe';
 import { DishPipe } from './dish.pipe';
 import { SugerenciasComponent } from './sugerencias/sugerencias.component';
 
-import { AuthInterceptor } from './_helpers/authinterceptor';
+import { AuthInterceptor, authInterceptorProviders } from './_helpers/authinterceptor';
 
 
 @NgModule({
@@ -39,7 +39,7 @@ import { AuthInterceptor } from './_helpers/authinterceptor';
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthInterceptor],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
