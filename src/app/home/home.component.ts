@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as Isotope from 'isotope-layout';
 import { CategoriesService, DishesService } from '../api.service';
 import { MAIN_CATEGORIES } from '../Constants';
+import { Dish } from '../dishes/dishes.component';
 declare var $: any;
 
 @Component({
@@ -16,6 +17,14 @@ export class HomeComponent implements OnInit {
   buscar: string = '';
   // quick search regex
   qsRegex: any = undefined;
+  carrito: Dish[] = []
+  message: string = "Hola Mundo!"
+
+  @Output() messageEvent = new EventEmitter<string>();
+
+  sendMessage() {
+    this.messageEvent.emit(this.message)
+  }
 
   constructor(private api: DishesService, private api2: CategoriesService) {}
 
@@ -106,6 +115,11 @@ export class HomeComponent implements OnInit {
     });
 
     if (this.buscar == '') iso.destroy();
+  }
+
+  afegirCarrito(d:Dish) {
+    this.carrito.push(d)
+    this.sendMessage()
   }
 
 }
