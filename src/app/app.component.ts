@@ -12,14 +12,6 @@ export class AppComponent {
   @ViewChild(HomeComponent) home: any;
 
   carrito: Dish[] = [];
-  message:string = "aa"
-
-
-
-  receiveMessage($event: any) {
-    this.message = $event
-    console.log(this.message)
-  }
 
   title = 'frontend-tComo';
 

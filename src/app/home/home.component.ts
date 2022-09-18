@@ -18,12 +18,10 @@ export class HomeComponent implements OnInit {
   // quick search regex
   qsRegex: any = undefined;
   carrito: Dish[] = []
-  message: string = "Hola Mundo!"
 
-  @Output() messageEvent = new EventEmitter<string>();
-
-  sendMessage() {
-    this.messageEvent.emit(this.message)
+  afegirCarrito(d:Dish) {
+    this.carrito.push(d)
+    console.log(this.carrito)
   }
 
   constructor(private api: DishesService, private api2: CategoriesService) {}
@@ -107,11 +105,6 @@ export class HomeComponent implements OnInit {
     });
 
     if (this.buscar == '') iso.destroy();
-  }
-
-  afegirCarrito(d:Dish) {
-    this.carrito.push(d)
-    this.sendMessage()
   }
 
 }
