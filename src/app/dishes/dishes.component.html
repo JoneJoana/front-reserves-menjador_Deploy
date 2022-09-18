@@ -1,18 +1,23 @@
 <!-- dish section -->
 <section class="book_section layout_padding">
   <div class="container">
-    <!-- <div class="form-check form-switch">
-      <input
-          [(ngModel)]="admin"
-          class="form-check-input"
-          type="checkbox"
-          role="switch"
-          id="admin"/>
-      <label class="form-check-label" for="admin" style="color: white">Admin</label>
-  </div> -->
 
     <div class="card mask-custom">
-      <div class="table-responsive">
+      <div class="form_container">
+        <div *ngIf="addDish">
+          <button (click)="save()">
+            Save New Dish
+          </button>
+          <br>
+          <button (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+        <button (click)="add()" *ngIf="!addDish">
+          New Dish
+        </button>
+      </div>
+      <div class="table-responsive" *ngIf="dishes.length != 0;else loading">
         <table class="table table-borderless text-white mb-0" *ngIf="admin">
           <thead>
             <tr id="cabecera">
@@ -108,20 +113,14 @@
           </tbody>
         </table>
       </div>
-      <div class="form_container">
-        <div *ngIf="addDish">
-          <button (click)="save()">
-            Save New Dish
-          </button>
-          <br>
-          <button (click)="cancel()">
-            Cancel
-          </button>
+      <ng-template #loading>
+        <div class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
         </div>
-        <button (click)="add()" *ngIf="!addDish">
-          New Dish
-        </button>
-      </div>
+      </ng-template>
+
     </div>
   </div>
 

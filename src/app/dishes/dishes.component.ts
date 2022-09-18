@@ -6,7 +6,6 @@ import {
   DishesService,
   OrdersService,
 } from '../api.service';
-//declare var $: any;
 
 @Component({
   selector: 'app-dishes',
@@ -149,6 +148,8 @@ export class DishesComponent implements OnInit {
 
       this.api.putDish(this.dishes[id]).subscribe(
         (response) => {
+          this.dishes = [];
+          if(this.dishes.length == 0)
           this.loadDishes();
         },
         (error) => {
