@@ -17,6 +17,8 @@ import { DatesPipe } from './dates.pipe';
 import { DishPipe } from './dish.pipe';
 import { SugerenciasComponent } from './sugerencias/sugerencias.component';
 
+import { AuthInterceptor } from './_helpers/authinterceptor';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ import { SugerenciasComponent } from './sugerencias/sugerencias.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
