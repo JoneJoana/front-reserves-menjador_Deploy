@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ROL, ROL_ADMIN, ROL_CLIENT, TOKEN } from './Constants';
 import { Dish } from './dishes/dishes.component';
 import { HomeComponent } from './home/home.component';
 
@@ -7,14 +9,14 @@ import { HomeComponent } from './home/home.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   @ViewChild(HomeComponent) home: any;
 
+  constructor( private router: Router) {}
+
   carrito: Dish[] = [];
   message:string = "aa"
-
-
 
   receiveMessage($event: any) {
     this.message = $event
@@ -23,14 +25,24 @@ export class AppComponent {
 
   title = 'frontend-tComo';
 
-  isLogin = true;
-  logAdmin = true;
+  isLogin = false;
+  logAdmin = false;
+
+  ngOnInit(): void {
+    if(window.sessionStorage.getItem(TOKEN)){
+      this.isLogin = true
+      if(window.sessionStorage.getItem(ROL) == ROL_ADMIN){
+        this.logAdmin = true
+      }
+    }
+
+  }
 
   logout(): void{
-    //this.tokenStorageService.signOut();
+    window.sessionStorage.clear()
     this.isLogin = false;
-    //this.roles = ''
-    //this.router.navigate(['/home']);
+    this.logAdmin = false;
+    this.router.navigate(['/login']);
   }
 
 

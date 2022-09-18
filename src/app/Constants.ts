@@ -11,3 +11,6 @@ export const MAIN_CATEGORIES:number[] = [5,41,51,61]
 export const TOKEN:string = "auth-token"
 export const ROL:string = "auth-rol"
 export const USERNAME:string = "auth-usernames"
+// ROLS
+export const ROL_ADMIN = "admin"
+export const ROL_CLIENT = "cliente"

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Dish } from './dishes/dishes.component';
+import { Dish } from '../dishes/dishes.component';
 
 const BASE = 'https://tch-db.herokuapp.com';
 const headers = {

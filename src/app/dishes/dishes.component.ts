@@ -5,7 +5,7 @@ import {
   CategoriesService,
   DishesService,
   OrdersService,
-} from '../api.service';
+} from '../_services/api.service';
 
 @Component({
   selector: 'app-dishes',

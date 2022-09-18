@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { data } from 'jquery';
-import { DishesService, OrdersService } from '../api.service';
+import { DishesService, OrdersService } from '../_services/api.service';
 import { MARGIN, MAX_HOUR, MIN_HOUR, USER } from '../Constants';
 
 

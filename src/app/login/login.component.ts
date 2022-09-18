@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
     this.authService.getUser(this.form.username)
     .subscribe(
       response => {
-        console.log(response.token)
-        window.sessionStorage.setItem(ROL, response.token);
+        console.log(response.rol.name)
+        window.sessionStorage.setItem(ROL, response.rol.name);
         this.router.navigate(['/home']);
       },
       error => {

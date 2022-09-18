@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as Isotope from 'isotope-layout';
-import { CategoriesService, DishesService } from '../api.service';
-import { MAIN_CATEGORIES } from '../Constants';
+import { CategoriesService, DishesService } from '../_services/api.service';
+import { MAIN_CATEGORIES, ROL, ROL_CLIENT } from '../Constants';
 import { Dish } from '../dishes/dishes.component';
 declare var $: any;
 
