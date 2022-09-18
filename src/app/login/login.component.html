@@ -9,9 +9,9 @@
 
     <!-- Login Form -->
     <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <input type="email" id="email" class="fadeIn second" name="email" placeholder="Introduce tu Email"  ngModel email="true" required #email="ngModel">
-      <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
-        Introduce un email valido
+      <input type="username" id="username" class="fadeIn second" name="username" placeholder="Introduce tu username" [(ngModel)]="form.username" required #username="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="username.errors && f.submitted">
+        Introduce tu username
       </div>
 
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="Introduce tu Password" [(ngModel)]="form.password" required minlength="6" #password="ngModel">

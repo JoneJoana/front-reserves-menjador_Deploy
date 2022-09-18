@@ -8,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
 
   form: any = {
-    email: null,
+    username: null,
     password: null
   }
-  email?: string;
+  username?: string;
   password?: string;
 
   constructor() { }
