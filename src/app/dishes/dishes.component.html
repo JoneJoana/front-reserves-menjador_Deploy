@@ -31,7 +31,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let dish of dishes; let i = index" id="dish{{i}}">
-              <td><input class="form-input" type="text" id="nombrePlato" [(ngModel)]="dish.name"></td>
+              <td>
+                <input class="form-input" type="text" id="nombrePlato" [(ngModel)]="dish.name" />
+                <textarea class="form-input" [(ngModel)]="dish.descripcion" rows="3" ></textarea>
+              </td>
               <td>
                 <div class="mb-3">
                   <img src="data:image/jpeg;base64,{{dish.image}}" width="80px" height="80px"

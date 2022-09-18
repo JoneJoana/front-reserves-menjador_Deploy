@@ -17,13 +17,18 @@ table th {
   padding: 20px;
 }
 
-select,input,button{
+select,input,button,textarea{
   background-color: rgba(231, 208, 229, 0.811);
 }
 
 .form-input{
   border-radius: 0.375rem;
   padding: .375rem 2.25rem .375rem .75rem;
+}
+
+textarea.form-input  {
+  width: 240px;
+  margin-left: 1px;
 }
 
 .form-check-input{

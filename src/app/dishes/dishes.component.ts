@@ -22,6 +22,7 @@ export class DishesComponent implements OnInit {
 
   newDish = {
     name: '',
+    descripcion: '',
     image: '',
     popularity: 0,
     status: false,
@@ -109,6 +110,7 @@ export class DishesComponent implements OnInit {
   clearNewDish() {
     this.newDish = {
       name: '',
+      descripcion: '',
       image: '',
       popularity: 0,
       status: false,
@@ -163,6 +165,7 @@ export class DishesComponent implements OnInit {
 export interface Dish {
   id: number;
   name: string;
+  descripcion: string;
   image: any;
   popularity: number;
   status: boolean;
