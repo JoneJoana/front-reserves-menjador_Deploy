@@ -21,8 +21,8 @@ export class SugerenciasComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  completeLogin(login :NgForm){
-    login.reset();
+  reload(login :NgForm){
+    window.location.reload();
   }
 
 }
