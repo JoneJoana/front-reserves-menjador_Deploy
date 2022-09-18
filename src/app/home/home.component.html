@@ -119,7 +119,7 @@
 
 
   <ul class="filters_menu">
-    <li id="*" class="active">Todo</li>
+    <li id="*" class="active" (click)="doIsotopeMagic($event)">Todo</li>
     <li *ngFor="let c of categories" id=".{{c.name}}" [attr.id-cat]="c.id" (click)="doIsotopeMagic($event)">
       {{c.name}}
     </li>

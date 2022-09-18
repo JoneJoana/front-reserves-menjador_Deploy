@@ -65,9 +65,8 @@ export class HomeComponent implements OnInit {
   }
 
   doIsotopeMagic(e: any) {
-    // Inicialitzar isotope un cop cada vegada que es carrega el component Home
+    // Inicialitzar isotope (nomes es fa un cop)
     if (!this.isotope) {
-      console.log('ISOTOPE INICIALITZAT');
       this.isotope = true;
       // Inicialitzar
       var iso = new Isotope('.grid', {
@@ -83,7 +82,6 @@ export class HomeComponent implements OnInit {
       filtersElem.addEventListener('click', (event) => {
         // Obtenir element per filtrar
         var filterValue = (event.target as any).getAttribute('id');
-
         iso.arrange({ filter: filterValue });
       });
     }
@@ -101,15 +99,9 @@ export class HomeComponent implements OnInit {
       itemSelector: '.all',
       layoutMode: 'fitRows',
       filter: function () {
-        //console.log(qsRegex ? $(this).text().match( qsRegex ) : true)
         var nom = $(this).find('.nomPlat').text();
         var valor = e.target.value;
         var qsRegex = new RegExp(valor, 'gi');
-        console.log('nom: ' + nom);
-        console.log('valor: ' + valor);
-        console.log('qsRegex: ' + qsRegex);
-        console.log(qsRegex ? nom.match(qsRegex) : true);
-        console.log('-------------------');
         return qsRegex ? nom.match(qsRegex) : true;
       },
     });
@@ -122,8 +114,4 @@ export class HomeComponent implements OnInit {
     this.sendMessage()
   }
 
-}
-
-function isMainCategory(idCat: number): boolean {
-  return MAIN_CATEGORIES.includes(+idCat);
 }
