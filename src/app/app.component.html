@@ -89,6 +89,45 @@
                     <div class="modal-body">
                       carregar plats escollits
                     </div>
+                    <div class="modal-body">
+                      <!-- DATA ENTREGA -->
+                      <div class="container-dateInput">
+                        <div class="wrapper-dateinput dia">
+                          <input class="hores w-70" disabled type="text" value="Lun."  />
+                          <div class="plus-minus">
+                            <span class="boto" >
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" >
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="wrapper-dateinput hora">
+                          <input class="hores" disabled min="12" max="15" value="12" type="number"  />
+                          <div class="plus-minus">
+                            <span class="boto" >
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" >
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="wrapper-dateinput minut">
+                          <input class="hores" disabled min="0" max="45" value="00" type="number"  />
+                          <div class="plus-minus">
+                            <span class="boto" >
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" >
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
                     <div class="modal-footer">
                       <button type="button" class="btn2">Realizar Orden</button>
                     </div>
@@ -102,6 +141,7 @@
       </nav>
     </div>
   </header>
+
   <router-outlet></router-outlet>
 
   <!-- footer section -->

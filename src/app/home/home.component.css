@@ -15,3 +15,7 @@
   background-position-y: center;
   padding: 50px;
 }
+
+.img-box img {
+  border-radius: 10px 10px 0px 45px;
+}
