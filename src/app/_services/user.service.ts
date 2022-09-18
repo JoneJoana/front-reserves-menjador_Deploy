@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-const API_URL = 'https://tch-db.herokuapp.com/';
+const API_URL = 'https://tch-db.herokuapp.com/login';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
