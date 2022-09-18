@@ -19,3 +19,10 @@
 .img-box img {
   border-radius: 10px 10px 0px 45px;
 }
+
+.options a {
+  min-width: 40px;
+  cursor: pointer;
+}
+
+

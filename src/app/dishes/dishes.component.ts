@@ -6,7 +6,6 @@ import {
   DishesService,
   OrdersService,
 } from '../api.service';
-//declare var $: any;
 
 @Component({
   selector: 'app-dishes',
@@ -21,10 +20,9 @@ export class DishesComponent implements OnInit {
   retrievedImage: any;
   addDish = false;
 
-  newCategDishChecked: Category[] = [];
-
   newDish = {
     name: '',
+    descripcion: '',
     image: '',
     popularity: 0,
     status: false,
@@ -43,66 +41,11 @@ export class DishesComponent implements OnInit {
   ngOnInit(): void {
     this.loadDishes();
     this.loadCategories();
-
-    /*mirar como hacerlo bien
-    if(this.dishes === null){
-      this.loadDishes();
-    }else{
-      return this.dishes;
-    }
-    if(this.categories === null){
-      this.loadCategories();
-    }else{
-      return this.categories;
-    } */
-
-    /*
-      const dish1 = {
-      id: 1,
-      name: 'arroz con gambas',
-      image: '/assets/images/f1.png',
-      popularity: 2,
-      status: true,
-      categories: ['arroz','primero']
-    }
-    const dish2 = {
-      id: 2,
-      name: 'salmon plancha',
-      image: '/assets/images/f2.png',
-      popularity: 5,
-      status: true,
-      categories: ['pescado','segundo']
-    }
-    const dish3 = {
-      id: 3,
-      name: 'pollo al horno',
-      image: '/assets/images/f3.png',
-      popularity: 3,
-      status: false,
-      categories: ['carne','segundo']
-    }
-    this.dishes.push(dish1);
-    this.dishes.push(dish2);
-    this.dishes.push(dish3);*/
   }
 
   //compara les categ del plat amb la llista completa de categ, per tal que surtin checked a la llista
   compare(dish: Dish, category: Category): Category | undefined{
     return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
-  }
-
-  //guardem al array newCategDishChecked, les noves categories checked per tal dactualitzar al clicar update
-  updateCheckedOptions(category: Category,event: any){
-    if(event.target.checked) {
-      this.newCategDishChecked.push(category);
-    } else {
-      for(var i=0 ; i < this.categories.length; i++) {
-        if(this.newCategDishChecked[i].id == category.id) {
-          this.newCategDishChecked.splice(i,1);
-        }
-      }
-    }
-    console.log("newCat"+this.newCategDishChecked);
   }
 
   changeVisibility(indexDish: number) {
@@ -114,8 +57,6 @@ export class DishesComponent implements OnInit {
     this.api.getDishes().subscribe(
       (response) => {
         this.dishes = response;
-        //console.log(this.dishes);
-        //this.retrievedImage = ;
       },
       (error) => {
         console.log('ERROR REQUEST');
@@ -128,7 +69,6 @@ export class DishesComponent implements OnInit {
     this.api2.getCategories().subscribe(
       (response) => {
         this.categories = response;
-        //console.log(this.categories);
       },
       (error) => {
         console.log('ERROR REQUEST');
@@ -170,6 +110,7 @@ export class DishesComponent implements OnInit {
   clearNewDish() {
     this.newDish = {
       name: '',
+      descripcion: '',
       image: '',
       popularity: 0,
       status: false,
@@ -192,12 +133,25 @@ export class DishesComponent implements OnInit {
   }
 
   update(id: number) {
+    var llistaCat: any[] = []
+    // Obtenim categories del dish
+    var categories:any = $("#dish0").find(".categories").find("div")
+    // Iterem sobre cada categoria per comprovar si esta seleccionada
+    for (const c of categories) {
+      var isChecked = $(c).find("input")[0].checked
+      if(isChecked) {
+        var idCat = c.getAttribute("cat-id");
+        llistaCat.push({id: idCat})
+      }
+    }
+
     if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
-      this.dishes[id].categories = this.dishes[id].categories.concat(this.newCategDishChecked)
-      console.log(this.dishes[id].categories)
-      this.newCategDishChecked = []
+      this.dishes[id].categories = llistaCat
+
       this.api.putDish(this.dishes[id]).subscribe(
         (response) => {
+          this.dishes = [];
+          if(this.dishes.length == 0)
           this.loadDishes();
         },
         (error) => {
@@ -211,6 +165,7 @@ export class DishesComponent implements OnInit {
 export interface Dish {
   id: number;
   name: string;
+  descripcion: string;
   image: any;
   popularity: number;
   status: boolean;
@@ -221,3 +176,4 @@ export interface Category {
   id: number;
   name: string;
 }
+
