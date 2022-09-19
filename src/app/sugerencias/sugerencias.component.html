@@ -9,19 +9,25 @@
       <div class="col-md-6">
         <div class="form_container">
 
-          <form #login="ngForm" (ngSubmit)="f.form.valid && completeLogin(login)" #f="ngForm" novalidate>
+          <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
 
-            <input type="text" class="form-control" placeholder="Tu nombre" name="nombre" required/>
+            <input type="text" class="form-control" placeholder="Tu nombre" name="nombre"
+                [(ngModel)]="form.nombre" required #nombre="ngModel"/>
+            <div class="alert alert-danger" role="alert" *ngIf="nombre.errors && f.submitted">
+              Introduce tu nombre
+            </div>
 
-
-            <input type="email" class="form-control" placeholder="Tu email" name="email" input type="email" name="email" ngModel email="true"/>
-            <div class="alert alert-danger" role="alert">
+            <input type="email" id="email" class="form-control" placeholder="Tu email" name="email" ngModel email="true" required #email="ngModel"/>
+            <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
               Introduce un email valido
             </div>
 
             <label for="message-text" class="col-form-label">Tu mensaje:</label>
-            <textarea class="form-control" id="message-text" style="height: 169px;" name="mensaje"
-              [(ngModel)]="mensaje"></textarea>
+            <textarea type="text" class="form-control" id="message-text" style="height: 169px;" name="mensaje"
+              [(ngModel)]="form.mensaje" required #mensaje="ngModel"></textarea>
+            <div class="alert alert-danger" role="alert" *ngIf="mensaje.errors && f.submitted">
+              Introduce algun mensaje
+            </div>
 
             <div class="btn_box">
               <button type="submit" data-bs-toggle="modal" data-bs-target="#sugEnv">
@@ -29,12 +35,12 @@
               </button>
               <!-- Modal -->
               <div class="modal fade" id="sugEnv" tabindex="-1" aria-labelledby="ModalMensaje"
-                aria-hidden="true">
+                aria-hidden="true" *ngIf="f.form.valid">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="ModalMensaje" style="color: Black;">Mensaje Enviado</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <button (click)="reload(f)" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       Te contestaremos lo antes posible. Gracias por contactarnos :)
