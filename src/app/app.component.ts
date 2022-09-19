@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ROL, ROL_ADMIN, ROL_CLIENT, TOKEN } from './Constants';
 import { Dish } from './dishes/dishes.component';
 import { HomeComponent } from './home/home.component';
+import { OrdersService } from './_services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,7 @@ export class AppComponent implements OnInit{
 
   @ViewChild(HomeComponent) home: any;
 
-  constructor( private router: Router) {}
+  constructor(private router: Router, private ordService: OrdersService,) {}
 
   carrito: Dish[] = [];
   title = 'frontend-tComo';
@@ -30,6 +32,14 @@ export class AppComponent implements OnInit{
         this.logAdmin = true
       }
     }
+
+    // Ens subscribim al Subject
+    this.ordService.addCarrito.subscribe(
+      // Aquest codi s'executara quan s'afegeixi un dish desde home
+      dish => {
+        this.ordService.carrito.push(dish);
+        this.carrito = this.ordService.carrito;
+    })
 
   }
 

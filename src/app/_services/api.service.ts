@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Dish } from '../dishes/dishes.component';
 
 const BASE = 'https://tch-db.herokuapp.com';
@@ -14,7 +14,14 @@ const headers = {
 })
 export class OrdersService {
 
-  constructor(private http: HttpClient) { }
+  // Subject per compartir informacio carrito desde diferents components
+  addCarrito: Subject<any>;
+  carrito: Array<any>;
+
+  constructor(private http: HttpClient) {
+    this.addCarrito = new Subject<any>();
+    this.carrito = new Array<any>()
+  }
 
   gerOrders(): Observable<any> {
     return this.http.get(BASE+"/api/orders", headers);
@@ -31,6 +38,8 @@ export class OrdersService {
   updateOrder(order: any): Observable<any> {
     return this.http.put(BASE+"/api/orders/update", order, headers);
   }
+
+
 
 }
 

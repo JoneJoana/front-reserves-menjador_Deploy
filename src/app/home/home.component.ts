@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as Isotope from 'isotope-layout';
-import { CategoriesService, DishesService } from '../_services/api.service';
+import { CategoriesService, DishesService, OrdersService } from '../_services/api.service';
 import { MAIN_CATEGORIES, ROL, ROL_CLIENT } from '../Constants';
 import { Dish } from '../dishes/dishes.component';
 import { ActivatedRoute } from '@angular/router';
@@ -18,24 +18,29 @@ export class HomeComponent implements OnInit {
   buscar: string = '';
   // quick search regex
   qsRegex: any = undefined;
-  carrito: Dish[] = []
+  carrito: any[] = []
 
   afegirCarrito(d:Dish) {
+    // Notifiquem un plat nou al Subject
+    this.ordService.addCarrito.next(d)
     this.carrito.push(d)
     console.log(this.carrito)
   }
 
-  constructor(private api: DishesService, private api2: CategoriesService,private _route: ActivatedRoute) {}
+  constructor(
+    private dishService: DishesService,
+    private catService: CategoriesService,
+    private ordService: OrdersService,
+    private _route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.getDishes();
     this.loadCategories();
-
-
   }
 
   getDishes() {
-    this.api.getDishes().subscribe(
+    this.dishService.getDishes().subscribe(
       (response) => {
         this.dishes = response;
       },
@@ -46,7 +51,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadCategories() {
-    this.api2.getCategories().subscribe(
+    this.catService.getCategories().subscribe(
       (response) => {
         this.categories = response;
 
