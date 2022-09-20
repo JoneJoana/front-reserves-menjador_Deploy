@@ -5,20 +5,19 @@ table td{
   color: black;
 }
 table th {
-
   border-bottom: 4px solid rgb(219, 60, 142);/* rgba(197, 103, 191, 0.178); */
   color: black;
   padding-top: 30px;
 }
 
 .mask-custom {
-  /* background: rgba(139, 104, 131, 0.2); */
+  background: rgba(181, 121, 167, 0.148);
   color:black;
   border-radius: 2em;
   backdrop-filter: blur(25px);
   border: 2px solid rgb(219, 60, 142);
   background-clip: padding-box;
-  box-shadow: 15px 15px 15px rgba(235, 208, 233, 0.178);
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.493);
   padding: 20px;
 }
 
