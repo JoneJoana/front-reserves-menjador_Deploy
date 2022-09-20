@@ -48,7 +48,7 @@ export class AppComponent implements OnInit{
     window.sessionStorage.clear()
     this.isLogin = false;
     this.logAdmin = false;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 
   showMessageNotLogin(){
