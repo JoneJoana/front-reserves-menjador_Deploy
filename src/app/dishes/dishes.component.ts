@@ -20,13 +20,15 @@ export class DishesComponent implements OnInit {
   retrievedImage: any;
   addDish = false;
 
+  newDishCategories: Category[] = [];
+
   newDish = {
     name: '',
     descripcion: '',
     image: '',
     popularity: 0,
     status: false,
-    categories: [],
+    categories: {}
   };
 
   visibilityImg: boolean[] = [];
@@ -82,7 +84,23 @@ export class DishesComponent implements OnInit {
   }
 
   save() {
+    var llistaCat: any[] = [];
+    var categories:any = $(".checkNewdish").find("input");
+    console.log("LLISTA INPUTS: "+categories)
+    // Iterem sobre cada categoria per comprovar si esta seleccionada
+    for (let c of categories) {
+      var isChecked = $(c)[0].checked
+      console.log("categ "+c.name+" checkeada?"+isChecked)
+      if(isChecked) {
+        var idCat = c.getAttribute("cat-id");
+        llistaCat.push({id: idCat})
+        console.log("LLISTA CATEG CHECKED: "+llistaCat)
+      }
+    }
+
     if (this.newDish.name != '') {
+      this.newDish.categories = llistaCat;
+
       this.api.postDish(this.newDish).subscribe(
         (response) => {
           this.dishes = response;
@@ -135,7 +153,7 @@ export class DishesComponent implements OnInit {
   update(id: number) {
     var llistaCat: any[] = []
     // Obtenim categories del dish
-    var categories:any = $("#dish0").find(".categories").find("div")
+    var categories:any = $("#dish"+id).find(".categories").find("div")
     // Iterem sobre cada categoria per comprovar si esta seleccionada
     for (const c of categories) {
       var isChecked = $(c).find("input")[0].checked
