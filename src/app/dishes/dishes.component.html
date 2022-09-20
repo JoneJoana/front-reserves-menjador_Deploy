@@ -40,7 +40,7 @@
               </td>
               <td>
                 <div class="mb-3">
-                  <input class="form-control" type="file" style="width: 90%">
+                  <input (change)="onFileChanged($event)" class="form-control" type="file" style="width: 90%">
                   <!-- ngmodel per que agafi la imatge pujada i el foti al plat -->
                 </div>
               </td>
@@ -82,7 +82,7 @@
                   <img src="data:image/jpeg;base64,{{dish.image}}" width="150px" height="130px"
                     (click)="changeVisibility(i)" />
                   <!-- quito la visibilidad de img, asi siempre la ves, al cargar imagen se recarga img -->
-                  <input class="form-control" type="file" style="width: 90%" *ngIf="visibilityFormFile[i]">
+                  <input (change)="onFileChanged($event)" class="form-control" type="file" style="width: 90%" *ngIf="visibilityFormFile[i]">
                   <!-- input formFile amagat i al clicar imatge apareix -->
                 </div>
               </td>

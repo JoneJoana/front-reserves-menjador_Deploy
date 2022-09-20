@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as Isotope from 'isotope-layout';
 import { CategoriesService, DishesService, OrdersService } from '../_services/api.service';
-import { MAIN_CATEGORIES, ROL, ROL_CLIENT } from '../Constants';
+import { MAIN_CATEGORIES, ROL, ROL_ADMIN, ROL_CLIENT, TOKEN } from '../Constants';
 import { Dish } from '../dishes/dishes.component';
 import { ActivatedRoute } from '@angular/router';
 declare var $: any;
@@ -21,20 +21,8 @@ export class HomeComponent implements OnInit {
   qsRegex: any = undefined;
   carrito: any[] = []
 
-  afegirCarrito(d:Dish) {
-    // Notifiquem un plat nou al Subject
-    this.ordService.addCarrito.next(d)
-    this.carrito.push(d)
-    console.log(this.carrito)
-  }
-
-  alert(){
-    swal("Plato añadido a tu carrito!", {
-      icon: "success",
-      buttons: false,
-      timer: 1500,
-    });
-  }
+  isLogged = false
+  isAdmin = false
 
   constructor(
     private dishService: DishesService,
@@ -44,8 +32,18 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLogged = window.sessionStorage.getItem(TOKEN) != null ? true : false
+    this.isAdmin = window.sessionStorage.getItem(ROL) == ROL_ADMIN ? true : false
     this.getDishes();
     this.loadCategories();
+  }
+
+  alert(){
+    swal("Plato añadido a tu carrito!", {
+      icon: "success",
+      buttons: false,
+      timer: 1500,
+    });
   }
 
   getDishes() {
@@ -57,6 +55,13 @@ export class HomeComponent implements OnInit {
         console.log('ERROR REQUEST:\n ' + error.message);
       }
     );
+  }
+
+  afegirCarrito(d:Dish) {
+    // Notifiquem un plat nou al Subject
+    this.ordService.addCarrito.next(d)
+    this.carrito.push(d)
+    console.log(this.carrito)
   }
 
   loadCategories() {

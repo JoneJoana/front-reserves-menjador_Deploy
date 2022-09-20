@@ -25,18 +25,23 @@
   cursor: pointer;
 }
 
-#menu {
+section.food_section {
   background-image: url(src\assets\images\fons.png);
 }
-#menu *{
+section.food_section *{
   color: white;
 }
 
-#menu .container{
-  padding: 0px 10px;
+section.food_section .container{
+  padding: 30px 0px;
 }
 
-#nosotros {
+section.about_section {
   background-color: white;
 }
-
+.alertaLogin {
+  text-align: center;
+  color: pink;
+  font-weight: bold;
+  font-size: 25px;
+}

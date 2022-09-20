@@ -17,8 +17,9 @@ export class DishesComponent implements OnInit {
   admin: boolean = true;
   dishes: Dish[] = [];
   categories: Category[] = [];
-  retrievedImage: any;
+  selectedFile: any;
   addDish = false;
+  imgURL: any;
 
   newDishCategories: Category[] = [];
 
@@ -150,6 +151,11 @@ export class DishesComponent implements OnInit {
 
   }
 
+  onFileChanged(event:any) {
+    console.log("onFileChanged")
+    this.selectedFile = event.target.files[0];
+  }
+
   update(id: number) {
     var llistaCat: any[] = []
     // Obtenim categories del dish
@@ -163,10 +169,14 @@ export class DishesComponent implements OnInit {
       }
     }
 
+    // Pujar imatge plat
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+
     if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
       this.dishes[id].categories = llistaCat
 
-      this.api.putDish(this.dishes[id]).subscribe(
+      this.api.putDish(this.dishes[id],uploadImageData).subscribe(
         (response) => {
           this.dishes = [];
           if(this.dishes.length == 0)

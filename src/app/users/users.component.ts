@@ -8,7 +8,7 @@ import { AuthService } from '../_services/auth.service';
 })
 export class UsersComponent implements OnInit {
 
-  users: any;
+  users: any = [];
 
   constructor(private auth: AuthService) { }
 

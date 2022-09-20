@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Dish } from '../dishes/dishes.component';
 
-const BASE = 'https://tch-db.herokuapp.com';
-
+//const BASE = 'https://tch-db.herokuapp.com';
+const BASE = 'http://localhost:8080';
 
 @Injectable({
   providedIn: 'root'
@@ -61,8 +61,8 @@ export class OrdersService {
     return this.http.post(BASE+"/api/dishes/add", newDish);
   }
 
-  putDish(dish: any): Observable<any> {
-    return this.http.put(BASE+"/api/dishes/update", dish);
+  putDish(dish: any, uploadImageData:any): Observable<any> {
+    return this.http.put(BASE+"/api/dishes/update"+uploadImageData, dish);
   }
 
   deleteDish(id: Number): Observable<any> {

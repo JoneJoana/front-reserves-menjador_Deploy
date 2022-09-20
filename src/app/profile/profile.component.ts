@@ -12,18 +12,18 @@ export class ProfileComponent implements OnInit {
 
   users: any;
   user={
-    username: 'Cliente1',
-    email: 'example@gmail.com',
-    password: 'password123'
+    username: '',
+    email: '',
+    password: ''
   }
 
   constructor(private api: AuthService) { }
 
   ngOnInit(): void {
-    //this.loadUser(window.sessionStorage.getItem(USERNAME));
+    this.loadUser(window.sessionStorage.getItem(USERNAME));
   }
 
-  loadUser(username: string) {
+  loadUser(username: any) {
     this.api.getUser(username).subscribe(
       (response) => {
         this.user = response;
@@ -35,12 +35,27 @@ export class ProfileComponent implements OnInit {
   }
 
   updateInfo(){
-    swal({
-      text: "Datos actualizados! :)",
-      icon: "success",
-      button: false,
-      timer: 1500
-    });
+
+    this.api.updateUser(window.sessionStorage.getItem(USERNAME)!, {email: this.user.email}).subscribe(
+      response => {
+        swal({
+          text: "Datos actualizados! :)",
+          icon: "success",
+          button: false,
+          timer: 1500
+        });
+      },
+      error => {
+        swal({
+          text: "Error desconocido :(",
+          icon: "error",
+          button: false,
+          timer: 1500
+        });
+      }
+    )
+
+
   }
 
 }
