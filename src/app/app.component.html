@@ -54,19 +54,17 @@
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
 
-              <a class="cart_link" href="#" data-bs-toggle="modal" data-bs-target="#tu-carrito">
+              <a class="cart_link" href="#" data-bs-toggle="modal" data-bs-target="#tu-carrito"
+                  (click)='!isLogin ? showMessageNotLogin() : true'>
                 <i class="fa fa-shopping-cart"></i>
               </a>
               <a *ngIf="isLogin" href="#">
                 <i class="fa fa-solid fa-power-off" (click)="logout()"></i>
               </a>
-              <!-- Modal Carrito -->
-              <div class="modal fade" id="tu-carrito" tabindex="-1" aria-labelledby="carrito" aria-hidden="true">
+              <!-- Modal Carrito si esta login -->
+              <div class="modal fade" *ngIf="isLogin" id="tu-carrito" tabindex="-1" aria-labelledby="carrito" aria-hidden="true">
                 <div class="modal-dialog">
-                  <div *ngIf="!isLogin" id="logueate">
-                    Logueate para poder reservar!
-                  </div>
-                  <div class="modal-content" *ngIf="isLogin">
+                  <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="carrito"><strong>Tu Carrito</strong></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

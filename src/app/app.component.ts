@@ -5,6 +5,7 @@ import { ROL, ROL_ADMIN, ROL_CLIENT, TOKEN } from './Constants';
 import { Dish } from './dishes/dishes.component';
 import { HomeComponent } from './home/home.component';
 import { OrdersService } from './_services/api.service';
+declare var swal: any;
 
 @Component({
   selector: 'app-root',
@@ -50,5 +51,13 @@ export class AppComponent implements OnInit{
     this.router.navigate(['/login']);
   }
 
+  showMessageNotLogin(){
+    swal({
+      text: "Logueate para poder reservar :)",
+      buttons: false,
+      icon: "info",
+      timer:1500
+    });
+  }
 
 }
