@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+#btn-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #E30075;
+}
