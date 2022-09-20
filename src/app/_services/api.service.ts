@@ -4,10 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Dish } from '../dishes/dishes.component';
 
 const BASE = 'https://tch-db.herokuapp.com';
-const headers = {
-  headers: new HttpHeaders(
-    { "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NjI4MzYxNTAsImlzcyI6ImFkbWluIiwic3ViIjoiQWRtaW4xIiwiZXhwIjoxNjYzNzAwMTUwfQ.o6jqDky5fDdWvY63G9H1F5jV99MPSIHNYwFcygvWscxOt6dI7qIvviS8-SmVy4UsUPdfh8GXCxcnJNtJN0XQuQ" })
-};
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,23 +20,29 @@ export class OrdersService {
     this.carrito = new Array<any>()
   }
 
+  resetCarrito() {
+    this.carrito = new Array<any>()
+  }
+
   gerOrders(): Observable<any> {
-    return this.http.get(BASE+"/api/orders", headers);
+    return this.http.get(BASE+"/api/orders");
   }
 
   gerOrdersByUser(user:string): Observable<any> {
-    return this.http.get(BASE+"/api/orders/user/"+user, headers);
+    return this.http.get(BASE+"/api/orders/user/"+user);
   }
 
   deleteOrder(id: any): Observable<any> {
-    return this.http.delete(BASE+"/api/orders/delete/"+id, headers);
+    return this.http.delete(BASE+"/api/orders/delete/"+id);
   }
 
   updateOrder(order: any): Observable<any> {
-    return this.http.put(BASE+"/api/orders/update", order, headers);
+    return this.http.put(BASE+"/api/orders/update", order);
   }
 
-
+  createOrder(order: any): Observable<any> {
+    return this.http.post(BASE+"/api/orders/add", order);
+  }
 
 }
 
@@ -51,19 +54,19 @@ export class OrdersService {
   constructor(private http: HttpClient) { }
 
   getDishes(): Observable<any> {
-    return this.http.get(BASE+"/api/dishes", headers);
+    return this.http.get(BASE+"/api/dishes");
   }
 
   postDish(newDish: any): Observable<any> {
-    return this.http.post(BASE+"/api/dishes/add", newDish, headers);
+    return this.http.post(BASE+"/api/dishes/add", newDish);
   }
 
   putDish(dish: any): Observable<any> {
-    return this.http.put(BASE+"/api/dishes/update", dish, headers);
+    return this.http.put(BASE+"/api/dishes/update", dish);
   }
 
   deleteDish(id: Number): Observable<any> {
-    return this.http.delete(BASE+"/api/dishes/delete/"+id, headers);
+    return this.http.delete(BASE+"/api/dishes/delete/"+id);
   }
 
   /* getCategoriesDish(id: Number): Observable<any>{
@@ -81,7 +84,7 @@ export class CategoriesService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any> {
-    return this.http.get(BASE+"/api/categories", headers);
+    return this.http.get(BASE+"/api/categories");
   }
 
 }

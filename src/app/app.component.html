@@ -69,11 +69,16 @@
                       <h5 class="modal-title" id="carrito"><strong>Tu Carrito</strong></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" *ngIf="carrito.length > 0; else noDishes">
                       <div *ngFor="let dish of carrito">
                         {{dish.name}}
                       </div>
                     </div>
+                    <ng-template #noDishes>
+                      <div class="modal-body">
+                        No hay platos
+                      </div>
+                    </ng-template>
                     <div class="modal-body">
                       <!-- DATA ENTREGA -->
                       <div class="container-dateInput">
@@ -90,7 +95,7 @@
                         </div>
 
                         <div class="wrapper-dateinput hora">
-                          <input class="hores" disabled min="12" max="15" value="12" type="number" ngModel="{{dataEntrega | date:'h'}}" />
+                          <input class="hores w-60" disabled min="12" max="15" value="12" type="text" ngModel="{{dataEntrega | date:'HH'}}" />
                           <div class="plus-minus">
                             <span class="boto" (click)="dateInput('hh','+');">
                               <i class="fa fa-plus"></i>
@@ -101,7 +106,7 @@
                           </div>
                         </div>
                         <div class="wrapper-dateinput minut">
-                          <input class="hores" disabled min="0" max="45" value="00" type="number" ngModel="{{dataEntrega | date:'MM'}}" />
+                          <input class="hores w-60" disabled min="0" max="45" value="00" type="text" ngModel="{{dataEntrega | date:'mm'}}" />
                           <div class="plus-minus">
                             <span class="boto" (click)="dateInput('mm','+');">
                               <i class="fa fa-plus"></i>
@@ -115,7 +120,7 @@
 
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn2">Realizar Orden</button>
+                      <button type="button" class="btn2" (click)="realizarOrden()">Realizar Orden</button>
                     </div>
                   </div>
                 </div>
