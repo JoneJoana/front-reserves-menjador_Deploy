@@ -34,5 +34,9 @@ export class AuthService {
     return this.http.get(AUTH_URL + "api/users/" + username, httpOptions);
   }
 
+  getUsersAll(): Observable<any> {
+    return this.http.get(AUTH_URL + "api/users/", httpOptions);
+  }
+
 
 }
