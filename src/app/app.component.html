@@ -6,7 +6,7 @@
         <div class="container-fluid">
           <a class="navbar-brand" [routerLink]="['home']" routerLinkActive="router-link-active">
             <span>
-              T-Como
+              <img src="/assets/images/t-como.png" style="width: 250px;">
             </span>
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -19,7 +19,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <!-- ESTAS SE VEN A NIVEL PUBLIC -->
               <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/home']" fragment="menu">Menu</a>
+                <a class="nav-link" [routerLink]="['/home']" fragment="menu">MENÚ</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/home']" fragment="nosotros">NOSOTROS</a>
@@ -164,10 +164,10 @@
         <div class="col-md-4 footer-col">
           <div class="footer_detail">
             <a href="" class="footer-logo">
-              T-Como
+              <img src="/assets/images/t-como.png" style="width: 200px;">
             </a>
             <p>
-              T-Systems
+              By T-Systems
             </p>
             <p>
               Como en casa
@@ -213,7 +213,17 @@
           Distributed By TComo
         </p>
       </div>
+
     </div>
+    <button (click)="backToTop()"
+    type="button"
+    id="myBtn" title="Go to top">🡅</button>
+
+
   </footer>
+
   <!-- footer section -->
+
 </div>
+
+
