@@ -5,6 +5,7 @@ import { ROL, ROL_ADMIN, ROL_CLIENT, TOKEN } from './Constants';
 import { Dish } from './dishes/dishes.component';
 import { HomeComponent } from './home/home.component';
 import { OrdersService } from './_services/api.service';
+declare var swal: any;
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit{
     window.sessionStorage.clear()
     this.isLogin = false;
     this.logAdmin = false;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 
   dateInput(tipus:string, accio:string) {
@@ -72,6 +73,15 @@ export class AppComponent implements OnInit{
     }
     this.dataEntrega = d.toISOString()
     console.log(this.dataEntrega)
+  }
+
+  showMessageNotLogin(){
+    swal({
+      text: "Logueate para poder reservar :)",
+      buttons: false,
+      icon: "info",
+      timer:1500
+    });
   }
 
 

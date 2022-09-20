@@ -4,7 +4,7 @@ body {
   /* color: white; */
   background-color: #ffffff;
   overflow-x: hidden;
-  background-image: url("/assets/images/fons.png");
+  /* background-image: url("/assets/images/fons.png"); */
   background-repeat: no-repeat;
   background-size: 100% 600px; /* 100% 600px*/
 }

@@ -9,7 +9,7 @@
       <div class="col-md-6">
         <div class="form_container">
 
-          <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <form (ngSubmit)="f.form.valid && msjEnviado()" #f="ngForm" novalidate>
 
             <input type="text" class="form-control" placeholder="Tu nombre" name="nombre"
                 [(ngModel)]="form.nombre" required #nombre="ngModel"/>
@@ -30,26 +30,11 @@
             </div>
 
             <div class="btn_box">
-              <button type="submit" data-bs-toggle="modal" data-bs-target="#sugEnv">
+              <button type="submit">
                 Enviar
               </button>
-              <!-- Modal -->
-              <div class="modal fade" id="sugEnv" tabindex="-1" aria-labelledby="ModalMensaje"
-                aria-hidden="true" *ngIf="f.form.valid">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="ModalMensaje" style="color: Black;">Mensaje Enviado</h5>
-                      <button (click)="reload(f)" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      Te contestaremos lo antes posible. Gracias por contactarnos :)
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
+
           </form>
 
         </div>

@@ -5,6 +5,7 @@ import { MAIN_CATEGORIES, ROL, ROL_CLIENT } from '../Constants';
 import { Dish } from '../dishes/dishes.component';
 import { ActivatedRoute } from '@angular/router';
 declare var $: any;
+declare var swal:any;
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,14 @@ export class HomeComponent implements OnInit {
     this.ordService.addCarrito.next(d)
     this.carrito.push(d)
     console.log(this.carrito)
+  }
+
+  alert(){
+    swal("Plato añadido a tu carrito!", {
+      icon: "success",
+      buttons: false,
+      timer: 1500,
+    });
   }
 
   constructor(
