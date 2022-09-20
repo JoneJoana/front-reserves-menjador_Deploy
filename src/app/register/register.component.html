@@ -9,7 +9,7 @@
 
     <!-- Login Form -->
     <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <input type="email" id="email" class="fadeIn second" name="email" placeholder="Introduce tu Email" ngModel email="true" required #email="ngModel">
+      <input type="email" id="email" class="fadeIn second" name="email" placeholder="Introduce tu Email" [(ngModel)]="form.email" ngModel email="true" required #email="ngModel">
       <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
         Introduce un email valido
       </div>
@@ -25,11 +25,6 @@
       </div>
 
       <input type="submit" class="fadeIn fourth" value="Sign In">
-      <!-- <div class="form-group">
-        <div class="alert alert-danger" role="alert" *ngIf="f.submitted">
-          Login incorrecto
-        </div>
-      </div> -->
     </form>
 
     <!-- enviar a login -->
