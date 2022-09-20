@@ -30,14 +30,14 @@ export class SugerenciasComponent implements OnInit {
 
   msjEnviado(){
     swal({
-      title: "Here's a title!",
-        text: "Hello world!",
+      title: "Mensaje Enviado",
+        text: "Te contestaremos lo antes posible. Gracias por contactarnos :)",
       buttons: [false, true],
-      timer: 1900
+      timer: 2300
       });
     setTimeout (() => {
       window.location.reload();
-    }, 2000);
+    }, 2500);
   }
 
 }
