@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 //const AUTH_URL='https://tch-db.herokuapp.com/';
 const AUTH_URL = 'http://localhost:8080/';
-
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type':'application/json'})
 };
@@ -40,8 +39,8 @@ export class AuthService {
     return this.http.get(AUTH_URL + "api/users/", httpOptions);
   }
 
-  updateUser(username:string, usuari:any): Observable<any> {
-    return this.http.put(AUTH_URL + "api/users/update/"+username, usuari ,httpOptions);
+  updateUser(username:string,email:any): Observable<any> {
+    return this.http.put(AUTH_URL + "api/users/update/"+username, email, httpOptions);
   }
 
 

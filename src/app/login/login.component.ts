@@ -36,6 +36,9 @@ export class LoginComponent implements OnInit {
           console.log(window.sessionStorage.getItem(TOKEN))
           console.log(window.sessionStorage.getItem(USERNAME))
           this.getRol();
+          setTimeout (() => {
+            window.location.reload();
+          }, 1100);
           swal({
             text: "Login correcto",
             icon: "success",
@@ -58,9 +61,6 @@ export class LoginComponent implements OnInit {
       response => {
         console.log(response.rol.name)
         window.sessionStorage.setItem(ROL, response.rol.name);
-        setTimeout (() => {
-          window.location.reload();
-        }, 1100);
       },
       error => {
         console.log(error.message);

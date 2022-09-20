@@ -31,7 +31,8 @@ export class SugerenciasComponent implements OnInit {
   msjEnviado(){
     swal({
       title: "Mensaje Enviado",
-        text: "Te contestaremos lo antes posible. Gracias por contactarnos :)",
+      text: "Te contestaremos lo antes posible. Gracias por contactarnos :)",
+      icon: "success",
       buttons: [false, true],
       timer: 2300
       });
