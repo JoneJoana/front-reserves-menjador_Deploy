@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
           swal({
             text: "Login correcto",
             icon: "success",
+            button: false,
             timer: 1000
           });
         },
