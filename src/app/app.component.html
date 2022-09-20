@@ -39,7 +39,8 @@
               </li>
               <!-- ESTA SE VEN A NIVEL ADMIN -->
               <li class="nav-item" *ngIf="logAdmin">
-                <a class="nav-link">USUARIOS</a>
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['/users']">USUARIOS</a>
               </li>
             </ul>
             <div class="user_option">
