@@ -6,6 +6,10 @@ import { Dish } from '../dishes/dishes.component';
 //const BASE = 'https://tch-db.herokuapp.com';
 const BASE = 'http://localhost:8080';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' })
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -62,7 +66,7 @@ export class OrdersService {
   }
 
   putDish(dish: any, uploadImageData:any): Observable<any> {
-    return this.http.put(BASE+"/api/dishes/update"+uploadImageData, dish);
+    return this.http.put(BASE+"/api/dishes/update/"+uploadImageData, dish);
   }
 
   deleteDish(id: Number): Observable<any> {

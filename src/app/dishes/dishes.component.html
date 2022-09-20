@@ -79,7 +79,7 @@
               </td>
               <td>
                 <div class="mb-3">
-                  <img src="data:image/jpeg;base64,{{dish.image}}" width="150px" height="130px"
+                  <img id="preview" src="data:image/jpeg;base64,{{dish.image}}" width="150px" height="130px"
                     (click)="changeVisibility(i)" />
                   <!-- quito la visibilidad de img, asi siempre la ves, al cargar imagen se recarga img -->
                   <input (change)="onFileChanged($event)" class="form-control" type="file" style="width: 90%" *ngIf="visibilityFormFile[i]">

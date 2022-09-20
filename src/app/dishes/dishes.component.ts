@@ -1,3 +1,4 @@
+import { useAnimation } from '@angular/animations';
 import { NgForOf } from '@angular/common';
 import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
@@ -17,7 +18,7 @@ export class DishesComponent implements OnInit {
   admin: boolean = true;
   dishes: Dish[] = [];
   categories: Category[] = [];
-  selectedFile: any;
+  selectedFile: File | null = null;
   addDish = false;
   imgURL: any;
 
@@ -153,7 +154,17 @@ export class DishesComponent implements OnInit {
 
   onFileChanged(event:any) {
     console.log("onFileChanged")
-    this.selectedFile = event.target.files[0];
+    this.selectedFile = <File>event.target.files[0];
+
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e : any) {
+          $('#preview').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(event.target.files[0]);
+  }
   }
 
   update(id: number) {
@@ -170,8 +181,8 @@ export class DishesComponent implements OnInit {
     }
 
     // Pujar imatge plat
-    const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    const uploadImageData:FormData = new FormData();
+    uploadImageData.append('imageFile', this.selectedFile!, this.selectedFile!.name);
 
     if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
       this.dishes[id].categories = llistaCat
