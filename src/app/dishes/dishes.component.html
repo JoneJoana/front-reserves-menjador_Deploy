@@ -6,27 +6,27 @@
       <div class="form_container">
         <div *ngIf="addDish">
           <button (click)="save()">
-            Save New Dish
+            Guardar Nuevo Plato
           </button>
           <br>
           <button (click)="cancel()">
-            Cancel
+            Cancelar
           </button>
         </div>
         <button (click)="add()" *ngIf="!addDish">
-          New Dish
+          Nuevo Plato
         </button>
       </div>
       <div class="table-responsive" *ngIf="dishes.length != 0;else loading">
         <table class="table table-borderless text-white mb-0" *ngIf="admin">
           <thead>
             <tr id="cabecera">
-              <th scope="col">Dish</th>
-              <th scope="col">Image</th>
-              <th scope="col">Popularity</th>
-              <th scope="col">Active</th>
-              <th scope="col">Categories</th>
-              <th scope="col">Actions</th>
+              <th scope="col">Plato | Descripción</th>
+              <th scope="col">Imágen</th>
+              <th scope="col">Popularidad</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Categorías</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -37,7 +37,7 @@
               </td>
               <td>
                 <div class="mb-3">
-                  <img src="data:image/jpeg;base64,{{dish.image}}" width="80px" height="80px"
+                  <img src="data:image/jpeg;base64,{{dish.image}}" width="150px" height="130px"
                     (click)="changeVisibility(i)" /> <!-- quito la visibilidad de img, asi siempre la ves, al cargar imagen se recarga img -->
                   <input class="form-control" type="file" style="width: 90%" *ngIf="visibilityFormFile[i]">
                   <!-- {{dish.image}} a src;

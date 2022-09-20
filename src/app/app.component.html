@@ -30,16 +30,16 @@
               <!-- ESTA SE VE A NIVEL ADMIN -->
               <li class="nav-item" *ngIf="logAdmin">
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/dishes']">Dishes</a>
+                  [routerLink]="['/dishes']">PLATOS</a>
               </li>
               <!-- ESTA SE VE A NIVEL PUBLIC USER I ADMIN (HAY 2 VISTAS))-->
               <li class="nav-item" *ngIf="isLogin">
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/orders']">Orders</a>
+                  [routerLink]="['/orders']">ORDENES</a>
               </li>
               <!-- ESTA SE VEN A NIVEL ADMIN -->
               <li class="nav-item" *ngIf="logAdmin">
-                <a class="nav-link">Users</a>
+                <a class="nav-link">USUARIOS</a>
               </li>
             </ul>
             <div class="user_option">
