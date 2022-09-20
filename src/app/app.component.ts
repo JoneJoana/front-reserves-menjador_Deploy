@@ -168,13 +168,19 @@ export class AppComponent implements OnInit{
     // Fer post amb data i plats + usuari
     this.ordService.createOrder(ordre).subscribe(
       response => {
-        // ordre creada animacio sweet alert
-        alert("Ordre creada!")
+        swal({
+          text: "Orden creada! :)",
+          icon: "success",
+          timer: 1000
+        });
         window.location.reload()
       },
       error => {
-        // ERROR animacio sweet alert
-        alert("ERROR!")
+        swal({
+          text: "Fallo al realizar la orden. Lo sentimos, intentalo de nuevo",
+          icon: "error",
+          timer: 1000
+        });
       }
     )
   }
