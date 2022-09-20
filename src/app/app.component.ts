@@ -118,6 +118,12 @@ export class AppComponent implements OnInit{
     });
   }
 
+  eliminarPlat(dishID: number) {
+    this.carrito.forEach((element,index)=>{
+      if(element.id==dishID) this.carrito.splice(index,1);
+    });
+  }
+
 
   // When the user scrolls down 20px from the top of the document, show the button
   scrollFunction() {
