@@ -97,16 +97,16 @@ export class OrdersComponent implements OnInit {
   update(i: number, id: any) {
     console.log(this.orders[i]);
     swal({
-      text: 'Estás seguro de querer actualizar esta orden?',
+      text: '¿Estás seguro de querer actualizar esta orden?',
       icon: 'warning',
-      buttons: true,
+      buttons: [true, "Si"]
     }).then((okay: boolean) => {
       if (okay) {
         // fer update
         this.api.updateOrder(this.orders[i]).subscribe(
           (response) => {
             swal({
-              text: 'Orden actualizada! :)',
+              text: '¡Orden actualizada! :)',
               icon: 'success',
               button: false,
               timer: 1400,
@@ -149,16 +149,16 @@ export class OrdersComponent implements OnInit {
 
   eliminar(id: any) {
     swal({
-      text: 'Estás seguro de querer eliminar esta orden?',
+      text: '¿Estás seguro de querer eliminar esta orden?',
       icon: 'warning',
       dangerMode: true,
-      buttons: true,
+      buttons: [true, "Si"]
     }).then((okay: boolean) => {
       if (okay) {
         this.api.deleteOrder(id).subscribe(
           (response) => {
             swal({
-              text: 'Orden eliminada correctamente! :)',
+              text: '¡Orden eliminada correctamente! :)',
               icon: 'success',
               button: false,
               timer: 1500,
