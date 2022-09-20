@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Dish } from '../dishes/dishes.component';
 
-//const BASE = 'https://tch-db.herokuapp.com';
-const BASE = 'http://localhost:8080';
+const BASE = 'https://tch-db.herokuapp.com';
+//const BASE = 'http://localhost:8080';
 
 @Injectable({
   providedIn: 'root'
