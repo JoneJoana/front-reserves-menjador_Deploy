@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   constructor(private router: Router, private ordService: OrdersService,) {}
 
   carrito: Dish[] = [];
-  title = 'frontend-tComo';
+  dataEntrega: string = new Date().toISOString();
 
   isLogin = false;
   logAdmin = false;
@@ -40,7 +40,6 @@ export class AppComponent implements OnInit{
         this.ordService.carrito.push(dish);
         this.carrito = this.ordService.carrito;
     })
-
   }
 
   logout(): void{
@@ -48,6 +47,31 @@ export class AppComponent implements OnInit{
     this.isLogin = false;
     this.logAdmin = false;
     this.router.navigate(['/login']);
+  }
+
+  dateInput(tipus:string, accio:string) {
+    var d = new Date(this.dataEntrega)
+    if(tipus == "dd"){
+      if(accio == "+"){
+       d.setDate(d.getDate()+1)
+      } else {
+        d.setDate(d.getDate()-1)
+      }
+    } else if(tipus == "hh"){
+      if(accio == "+"){
+        //this.dataEntrega.setHours(this.dataEntrega.getHours()+1)
+      } else {
+        //this.dataEntrega.setHours(this.dataEntrega.getHours()+1)
+      }
+    } if(tipus == "mm"){
+      if(accio == "+"){
+        //this.dataEntrega.setHours(this.dataEntrega.getHours()+1)
+      } else {
+        //this.dataEntrega.setHours(this.dataEntrega.getHours()+1)
+      }
+    }
+    this.dataEntrega = d.toISOString()
+    console.log(this.dataEntrega)
   }
 
 

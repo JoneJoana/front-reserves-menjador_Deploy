@@ -80,34 +80,35 @@
                       <!-- DATA ENTREGA -->
                       <div class="container-dateInput">
                         <div class="wrapper-dateinput dia">
-                          <input class="hores w-70" disabled type="text" value="Lun."  />
+                          <input class="hores w-70" disabled type="text" value="{{dataEntrega | date:'E'}}" />
                           <div class="plus-minus">
-                            <span class="boto" >
+                            <span class="boto" (click)="dateInput('dd','+');">
                               <i class="fa fa-plus"></i>
                             </span>
-                            <span class="boto" >
+                            <span class="boto" (click)="dateInput('dd','-');">
                               <i class="fa fa-minus"></i>
                             </span>
                           </div>
                         </div>
+
                         <div class="wrapper-dateinput hora">
-                          <input class="hores" disabled min="12" max="15" value="12" type="number"  />
+                          <input class="hores" disabled min="12" max="15" value="12" type="number" ngModel="{{dataEntrega | date:'h'}}" />
                           <div class="plus-minus">
-                            <span class="boto" >
+                            <span class="boto" (click)="dateInput('hh','+');">
                               <i class="fa fa-plus"></i>
                             </span>
-                            <span class="boto" >
+                            <span class="boto" (click)="dateInput('hh','-');">
                               <i class="fa fa-minus"></i>
                             </span>
                           </div>
                         </div>
                         <div class="wrapper-dateinput minut">
-                          <input class="hores" disabled min="0" max="45" value="00" type="number"  />
+                          <input class="hores" disabled min="0" max="45" value="00" type="number" ngModel="{{dataEntrega | date:'MM'}}" />
                           <div class="plus-minus">
-                            <span class="boto" >
+                            <span class="boto" (click)="dateInput('mm','+');">
                               <i class="fa fa-plus"></i>
                             </span>
-                            <span class="boto" >
+                            <span class="boto" (click)="dateInput('mm','-');">
                               <i class="fa fa-minus"></i>
                             </span>
                           </div>
