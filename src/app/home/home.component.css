@@ -27,7 +27,7 @@
 
 section.food_section {
 /*   background-image: url(src\assets\images\fons.png);*/
-background: linear-gradient(220.55deg, #FFF6EB 0%, #DFD1C5 100%);}
+background: linear-gradient(220.55deg, #fde7f8dd 0%, #d6abcc6c 100%);}
 section.food_section *{
   color: white;
 }
@@ -41,7 +41,7 @@ section.about_section {
 }
 .alertaLogin {
   text-align: center;
-  color: pink;
+  color: rgb(159, 37, 88);
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
 }
