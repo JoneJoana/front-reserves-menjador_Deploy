@@ -18,7 +18,7 @@ table th {
   border: 2px solid #E30075;
   background-clip: padding-box;
   box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.493);
-  padding: 20px;
+  width: 100%;
 }
 
 select,input,button,textarea{
