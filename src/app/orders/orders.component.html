@@ -3,47 +3,45 @@
 
         <!-- VISTA ADMIN -->
         <div *ngIf="admin" class="card mask-custom">
-          <table class="table table-borderless text-white mb-0">
+          <table *ngIf="orders != null;else loading" class="table table-borderless text-white mb-0">
                 <thead>
                     <tr id="cabecera">
                         <th scope="col">#</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Creado</th>
                         <th scope="col">Modificado</th>
-                        <th scope="col">Entregado</th>
+                        <th scope="col">Entrega</th>
                         <th scope="col">Usuario</th>
-
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            <input type="text" id="status" disabled="disabled" size="10px"/>
+                    <tr *ngFor="let o of orders; let iOrd = index">
+                        <th scope="row">{{o.id}}</th>
+                        <td [ngStyle]="{color: o.delivered | others:'color'}">
+                          {{o.delivered | others:"statusOrder"}}
                         </td>
                         <td>
-                            <input
-                                type="datetime-local"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
-                                id="createdOn"
-                                disabled="disabled"/>
+                          {{o.createdOn | date:"dd MMM yyyy hh:mm"}}
                         </td>
                         <td>
-                            <input
-                                type="datetime-local"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-gray rounded-md"
-                                id="modifiedOn"
-                                disabled="disabled"/>
+                          {{o.modifiedOn | date:"dd MMM yyyy hh:mm"}}
                         </td>
                         <td>
-                            <input type="datetime-local" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md" id="deliveryOn"/>
+                          {{o.deliveryOn | date:"dd MMM yyyy hh:mm"}}
                         </td>
                         <td>
-                            <input type="text" id="user" disabled="disabled"  size="15px"/>
+                            {{o.user.username}}
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <ng-template #loading>
+              <div class="text-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Cargando...</span>
+                </div>
+              </div>
+            </ng-template>
         </div>
 
         <!-- VISTA CLIENT -->
