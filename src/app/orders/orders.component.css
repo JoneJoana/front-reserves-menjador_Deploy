@@ -102,8 +102,8 @@ body {
 }
 /* CSS INPUT DATA PERSONALITZAT */
 .inline-group {
-  max-width: 9rem;
-  padding: .5rem;
+  /* max-width: 9rem;
+  padding: .5rem; */
 }
 .inline-group .form-control {
   text-align: center;
@@ -127,7 +127,6 @@ div .boto:active {
 }
 .wrapper-dateinput{
   display:flex;
-
 }
 .plus-minus {
   display:flex;
@@ -185,3 +184,5 @@ div.container {
 .ordre-bottom img {
   border-radius: 10px 10px 0px 45px;
 }
+
+

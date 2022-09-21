@@ -15,7 +15,7 @@ table th {
   color:black;
   border-radius: 2em;
   backdrop-filter: blur(25px);
-  border: 2px solid rgb(219, 60, 142);
+  border: 2px solid #E30075;
   background-clip: padding-box;
   box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.493);
   padding: 20px;
