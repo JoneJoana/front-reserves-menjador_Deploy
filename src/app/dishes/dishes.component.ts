@@ -1,12 +1,10 @@
-import { useAnimation } from '@angular/animations';
-import { NgForOf } from '@angular/common';
-import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CategoriesService,
   DishesService,
-  OrdersService,
 } from '../_services/api.service';
+declare var swal:any;
 
 @Component({
   selector: 'app-dishes',
@@ -15,7 +13,6 @@ import {
 })
 export class DishesComponent implements OnInit {
 
-  admin: boolean = true;
   dishes: Dish[] = [];
   categories: Category[] = [];
   selectedFile: File | null = null;
@@ -105,24 +102,43 @@ export class DishesComponent implements OnInit {
       }
     }
 
-    if (this.newDish.name != '') {
+    if (this.newDish.name != '' && this.selectedFile != null) {
       this.newDish.categories = llistaCat;
 
       this.api.postDish(this.newDish).subscribe(
         (response) => {
+          /////
           this.updateDishImage(response.id,this.selectedFile)
           this.clearNewDish();
           this.addDish = false;
+          swal("Plato creado!", {
+            icon: "success",
+            buttons: false,
+            timer: 1300,
+          });
           if (response == null) {
-            alert('No sha guardat el plat. Nom repetit');
+            swal("No se ha guardado el plato. Nombre repetido", {
+              icon: "error",
+              buttons: false,
+              timer: 1300,
+            });
           }
         },
         (error) => {
+          swal("Error. Intentalo de nuevo", {
+            icon: "error",
+            buttons: false,
+            timer: 1200,
+          });
           console.log('ERROR REQUEST' + error.message);
         }
       );
     } else {
-      console.log('El nom esta buit. No sha guardat.');
+      swal("El plato no tiene imagen!", {
+        icon: "error",
+        buttons: false,
+        timer: 1200,
+      });
     }
   }
 
@@ -143,17 +159,24 @@ export class DishesComponent implements OnInit {
   }
 
   delete(id: number) {
-    if(confirm('¿Seguro que quieres cambiar el estado a Inactivo?')){
-      this.api.deleteDish(id).subscribe(
-        (response) => {
-          this.loadDishes();
-        },
-        (error) => {
-          console.log('ERROR REQUEST' + error.message);
-        }
-      );
-    }
-
+    swal({
+      text: '¿Seguro que quieres cambiar el estado a Inactivo?',
+      icon: 'warning',
+      buttons: [true, "Si"],
+    }).then((okay: boolean) => {
+      if (okay) {
+        this.api.deleteDish(id).subscribe(
+          (response) => {
+            this.loadDishes();
+          },
+          (error) => {
+            console.log('ERROR REQUEST' + error.message);
+          }
+        );
+      } else {
+        return;
+      }
+    });
   }
 
   onFileChanged(event:any,dishId:any) {
@@ -185,15 +208,26 @@ export class DishesComponent implements OnInit {
       }
     }
 
-    if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
-      this.dishes[index].categories = llistaCat
+    swal({
+      text: '¿Seguro que quieres modificar los datos de este plato?',
+      icon: 'warning',
+      buttons: [true, "Si"],
+    }).then((okay: boolean) => {
+      if (okay) {
+        this.dishes[index].categories = llistaCat
       // Es guarda un copia del dish que es vol actualitzar per poder netejar la llista i carregar spinner
       var dish = this.dishes[index]
       this.dishes = []
       this.api.putDish(dish).subscribe(
         (response) => {
+          swal({
+            text: "¡Plato actualizado! :)",
+            icon: "success",
+            button: false,
+            timer: 1700
+          });
           // No cal actualitzar la imatge (+temps de carrega) si no s'ha modificat
-          if(this.hasBeenModified[index]) {
+          if(this.hasBeenModified[index] && this.selectedFile != null) {
             this.updateDishImage(dish.id,this.selectedFile!)
           } else {
             this.dishes = [];
@@ -201,26 +235,36 @@ export class DishesComponent implements OnInit {
           }
         },
         (error) => {
+          swal({
+            text: "Fallo al modificar los datos. Lo sentimos, intentalo de nuevo",
+            icon: "error",
+            timer: 1000
+          });
           console.log('ERROR REQUEST' + error.message);
         }
       );
-    }
+      } else {
+        return;
+      }
+    });
+
   }
 
   updateDishImage(dishID:number,f:any) {
-    // Netejem ja l'array de dishes per que surti l'spinner
-    this.dishes = [];
-    this.api.updateDishImage(dishID,f).subscribe(
-      (response) => {
-        this.loadDishes();
-      },
-      (error) => {
-        // Es posa a l'error per si s'ha cridat updateDishImatge() o save()
-        this.dishes = [];
-        this.loadDishes();
-        console.log('ERROR REQUEST' + error.message);
-      }
-    );
+      // Netejem ja l'array de dishes per que surti l'spinner
+      this.dishes = [];
+      this.api.updateDishImage(dishID,f).subscribe(
+        (response) => {
+          this.loadDishes();
+        },
+        (error) => {
+          // Es posa a l'error per si s'ha cridat updateDishImatge() o save()
+          this.dishes = [];
+          this.loadDishes();
+          console.log('ERROR REQUEST' + error.message);
+        }
+      );
+      this.selectedFile = null;
   }
 }
 
