@@ -100,6 +100,11 @@ body {
     display: none;
   }
 }
+@media screen and (max-width: 825px) {
+  .card {
+    overflow: scroll;
+  }
+}
 /* CSS INPUT DATA PERSONALITZAT */
 .inline-group {
   max-width: 9rem;

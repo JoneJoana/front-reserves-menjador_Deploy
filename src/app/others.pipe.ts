@@ -10,7 +10,7 @@ export class OthersPipe implements PipeTransform {
 
       switch(args){
         case "color": {
-          if(value == 'P') return "yellow"
+          if(value == 'P') return "orange"
           if(value == 'C') return "red"
           if(value == 'D') return "green"
           break;

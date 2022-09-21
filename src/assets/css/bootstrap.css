@@ -4567,7 +4567,6 @@ input[type="button"].btn-block {
   border: 2px solid var(--pink);
   border-radius: 2rem;
   box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.493);
-  overflow: scroll
 }
 
 .card > hr {

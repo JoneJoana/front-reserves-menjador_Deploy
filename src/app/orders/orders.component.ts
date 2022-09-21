@@ -88,13 +88,19 @@ export class OrdersComponent implements OnInit {
         this.orders = response;
 
         // Ordenar llista per data d'entrega
-        this.orders.sort((a: { deliveryOn: any }, b: { deliveryOn: any }) => {
-          if (a.deliveryOn > b.deliveryOn) {
+        this.orders.sort((a: { delivered: string; }, b: { delivered: string; }) => {
+          if (b.delivered == "P" && a.delivered != "P") {
             return 1;
-          } else if (a.deliveryOn < b.deliveryOn) {
+          } else if (a.delivered == "P" && b.delivered != "P") {
             return -1;
           } else {
-            return 0;
+            if (b.delivered == "C" && a.delivered != "C") {
+              return 1;
+            } else if (a.delivered == "C" && b.delivered != "C") {
+              return -1;
+            } else {
+              return 0
+            }
           }
         });
         console.log('Llista ordenada:\n');
