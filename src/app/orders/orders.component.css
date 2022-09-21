@@ -183,7 +183,9 @@ div.container {
 }
 .w-70{width: 70px;}
 
-
+.mask-custom{
+  width: 100%;
+}
 
 
 .ordre-bottom img {
