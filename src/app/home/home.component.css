@@ -26,8 +26,8 @@
 }
 
 section.food_section {
-  background-image: url(src\assets\images\fons.png);
-}
+/*   background-image: url(src\assets\images\fons.png);*/
+background: linear-gradient(220.55deg, #FFF6EB 0%, #DFD1C5 100%);}
 section.food_section *{
   color: white;
 }

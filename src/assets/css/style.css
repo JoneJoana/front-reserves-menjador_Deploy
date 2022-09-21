@@ -500,17 +500,24 @@ a:focus {
   margin: 30px auto;
   width: 70%;
 
+
 }
 
 .food_section .filters_menu li {
   padding: 7px 25px;
   cursor: pointer;
   border-radius: 25px;
+  text-transform: capitalize;
+
 }
 
 .food_section .filters_menu li.active {
-  background-color: #222831;
-  color: #97004E;
+ /*  background-color: #222831;
+  color: #97004E; */
+  border-style: solid;
+border-color: #e30075;
+text-shadow: black;
+box-shadow: 3px 3px darkgray;
 }
 
 .food_section .box {
