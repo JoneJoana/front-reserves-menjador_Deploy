@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { data } from 'jquery';
 import { DishesService, OrdersService } from '../_services/api.service';
-import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, USER } from '../Constants';
+import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, USER, USERNAME } from '../Constants';
 declare var swal: any;
 
 @Component({
@@ -24,6 +24,7 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     if (window.sessionStorage.getItem(ROL) == ROL_ADMIN) this.admin = true;
+
     this.loadOrders();
     this.getDishes();
   }
@@ -48,15 +49,44 @@ export class OrdersComponent implements OnInit {
     return diff < MARGIN;
   }
 
-  loadOrders() {
-    this.api.gerOrdersByUser(USER).subscribe(
+  loadOrders(){
+    if(this.admin)
+      this.loadOrdersAdmin();
+    else
+      this.loadOrdersUser(window.sessionStorage.getItem(USERNAME));
+  }
+
+  loadOrdersUser(user:any) {
+    this.api.gerOrdersByUser(user).subscribe(
       (response) => {
         this.orders = response;
 
-        console.log('Llista:\n');
+        // Ordenar llista per data d'entrega
+        this.orders.sort((a: { deliveryOn: any }, b: { deliveryOn: any }) => {
+          if (a.deliveryOn > b.deliveryOn) {
+            return 1;
+          } else if (a.deliveryOn < b.deliveryOn) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        console.log('Llista ordenada:\n');
         this.orders.forEach((element: { deliveryOn: any }) => {
           console.log(element.deliveryOn);
         });
+      },
+      (error) => {
+        console.log('[ERROR] loadOrders()\n ' + error.message);
+      }
+    );
+  }
+
+  loadOrdersAdmin() {
+    this.api.gerOrders().subscribe(
+      (response) => {
+        this.orders = response;
+
         // Ordenar llista per data d'entrega
         this.orders.sort((a: { deliveryOn: any }, b: { deliveryOn: any }) => {
           if (a.deliveryOn > b.deliveryOn) {
