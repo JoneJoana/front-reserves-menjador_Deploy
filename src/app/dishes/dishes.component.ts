@@ -17,7 +17,6 @@ export class DishesComponent implements OnInit {
   categories: Category[] = [];
   selectedFile: File | null = null;
   addDish = false;
-  imgURL: any;
 
   newDishCategories: Category[] = [];
 
