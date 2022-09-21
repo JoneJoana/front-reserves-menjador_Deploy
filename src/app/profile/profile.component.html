@@ -1,12 +1,17 @@
 <div id="content">
-  <div class="div-img">
-    <img src="assets/images/cliente.jpg" class="img-radius" alt="User-Profile-Image">
-  </div>
   <!-- div imagen -->
+  <div class="div-img">
+    <img *ngIf="user.image != null" class="preview img-radius" src="data:image/jpeg;base64,{{user.image}}"
+      (click)="changeImage()"/><!-- width="150px" height="130px -->
+    <img *ngIf="user.image == null" class="preview img-radius" src="https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png"
+      width="150px" height="130px" (click)="changeImage()" />
+    <!-- al cargar imagen se recarga img -->
+    <input hidden (change)="onFileChanged($event)" class="form-control uploadFile" type="file" style="width: 90%">
+  </div>
+
 
   <div class="card-block">
     <!-- <h1 class="m-b-20 p-b-5 b-b-default f-w-600" style="color: black;">Datos de Usuario</h1> -->
-
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Username:</label>
       <input class="form-control" id="disabledInput" type="text" [(ngModel)]="user.username" disabled>

@@ -14,8 +14,12 @@ export class ProfileComponent implements OnInit {
   user={
     username: '',
     email: '',
-    password: ''
+    password: '',
+    image: null
   }
+
+  selectedFile: File | null = null;
+
 
   constructor(private api: AuthService) { }
 
@@ -35,7 +39,6 @@ export class ProfileComponent implements OnInit {
   }
 
   updateInfo(){
-
     this.api.updateUser(window.sessionStorage.getItem(USERNAME)!, {email: this.user.email}).subscribe(
       response => {
         swal({
@@ -54,8 +57,28 @@ export class ProfileComponent implements OnInit {
         });
       }
     )
+  }
+
+  changeImage() {
+   /*  $("#user"+).find(".uploadFile").trigger("click")
+    this.hasBeenModified[indexDish] = true; */
+  }
 
 
+  onFileChanged(event:any) {
+    /* console.log("onFileChanged")
+    this.selectedFile = <File>event.target.files[0];
+
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e : any) {
+        console.log($("#dish"+dishId).find(".preview").attr("src"))
+          $("#dish"+dishId).find(".preview").attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(event.target.files[0]);
+    } */
   }
 
 }
