@@ -87,7 +87,7 @@ export class OrdersComponent implements OnInit {
       (response) => {
         this.orders = response;
 
-        // Ordenar llista per data d'entrega
+        // Ordenar llista per estat ordre -> Pending > Canceled > Delivered
         this.orders.sort((a: { delivered: string; }, b: { delivered: string; }) => {
           if (b.delivered == "P" && a.delivered != "P") {
             return 1;
