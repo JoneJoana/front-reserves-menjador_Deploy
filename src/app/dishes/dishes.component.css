@@ -64,3 +64,7 @@ img{
   font-weight: bold;
   text-transform: capitalize;
 }
+
+img.preview {
+  cursor: pointer;
+}

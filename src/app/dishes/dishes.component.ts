@@ -33,8 +33,7 @@ export class DishesComponent implements OnInit {
     categories: {}
   };
 
-  visibilityImg: boolean[] = [];
-  visibilityFormFile: boolean[] = [];
+  hasBeenModified: boolean[] = [];
 
   constructor(
     private api: DishesService,
@@ -52,14 +51,20 @@ export class DishesComponent implements OnInit {
     return dish.categories.find((categoryDish: Category) => categoryDish.id === category.id)
   }
 
-  changeVisibility(indexDish: number) {
-    this.visibilityFormFile[indexDish] = true;
-    this.visibilityImg[indexDish] = false;
+  changeImage(indexDish: any) {
+    $("#dish"+indexDish).find(".uploadFile").trigger("click")
+
+    // En cas que sigui el new Dish, no cal modificar estat array
+    if(indexDish == "New") return
+
+    this.hasBeenModified[indexDish] = true;
   }
 
   loadDishes() {
+    console.log("laoding dishes")
     this.api.getDishes().subscribe(
       (response) => {
+        console.log("loaded dishes")
         this.dishes = response;
       },
       (error) => {
@@ -105,8 +110,7 @@ export class DishesComponent implements OnInit {
 
       this.api.postDish(this.newDish).subscribe(
         (response) => {
-          this.dishes = response;
-          this.loadDishes();
+          this.updateDishImage(response.id,this.selectedFile)
           this.clearNewDish();
           this.addDish = false;
           if (response == null) {
@@ -152,7 +156,7 @@ export class DishesComponent implements OnInit {
 
   }
 
-  onFileChanged(event:any) {
+  onFileChanged(event:any,dishId:any) {
     console.log("onFileChanged")
     this.selectedFile = <File>event.target.files[0];
 
@@ -160,17 +164,18 @@ export class DishesComponent implements OnInit {
       var reader = new FileReader();
 
       reader.onload = function (e : any) {
-          $('#preview').attr('src', e.target.result);
+        console.log($("#dish"+dishId).find(".preview").attr("src"))
+          $("#dish"+dishId).find(".preview").attr('src', e.target.result);
       }
 
       reader.readAsDataURL(event.target.files[0]);
-  }
+    }
   }
 
-  update(id: number) {
+  update(index: number) {
     var llistaCat: any[] = []
     // Obtenim categories del dish
-    var categories:any = $("#dish"+id).find(".categories").find("div")
+    var categories:any = $("#dish"+index).find(".categories").find("div")
     // Iterem sobre cada categoria per comprovar si esta seleccionada
     for (const c of categories) {
       var isChecked = $(c).find("input")[0].checked
@@ -180,24 +185,42 @@ export class DishesComponent implements OnInit {
       }
     }
 
-    // Pujar imatge plat
-    const uploadImageData:FormData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile!, this.selectedFile!.name);
-
     if(confirm('¿Seguro que quieres modificar los datos de este plato?')){
-      this.dishes[id].categories = llistaCat
-
-      this.api.putDish(this.dishes[id],uploadImageData).subscribe(
+      this.dishes[index].categories = llistaCat
+      // Es guarda un copia del dish que es vol actualitzar per poder netejar la llista i carregar spinner
+      var dish = this.dishes[index]
+      this.dishes = []
+      this.api.putDish(dish).subscribe(
         (response) => {
-          this.dishes = [];
-          if(this.dishes.length == 0)
-          this.loadDishes();
+          // No cal actualitzar la imatge (+temps de carrega) si no s'ha modificat
+          if(this.hasBeenModified[index]) {
+            this.updateDishImage(dish.id,this.selectedFile!)
+          } else {
+            this.dishes = [];
+            this.loadDishes();
+          }
         },
         (error) => {
           console.log('ERROR REQUEST' + error.message);
         }
       );
     }
+  }
+
+  updateDishImage(dishID:number,f:any) {
+    // Netejem ja l'array de dishes per que surti l'spinner
+    this.dishes = [];
+    this.api.updateDishImage(dishID,f).subscribe(
+      (response) => {
+        this.loadDishes();
+      },
+      (error) => {
+        // Es posa a l'error per si s'ha cridat updateDishImatge() o save()
+        this.dishes = [];
+        this.loadDishes();
+        console.log('ERROR REQUEST' + error.message);
+      }
+    );
   }
 }
 

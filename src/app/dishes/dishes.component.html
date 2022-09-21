@@ -33,15 +33,16 @@
           <tbody>
 
             <!-- nuevo plato -->
-            <tr *ngIf="addDish">
+            <tr *ngIf="addDish" id="dishNew">
               <td>
                 <input class="form-input" type="text" id="nombrePlato" [(ngModel)]="newDish.name">
                 <textarea class="form-input" [(ngModel)]="newDish.descripcion" rows="3"></textarea>
               </td>
               <td>
                 <div class="mb-3">
-                  <input (change)="onFileChanged($event)" class="form-control" type="file" style="width: 90%">
-                  <!-- ngmodel per que agafi la imatge pujada i el foti al plat -->
+                  <img src="https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png"
+                  class="preview" width="150px" height="130px" (click)="changeImage('New')" />
+                  <input hidden (change)="onFileChanged($event,'New')" class="form-control uploadFile" type="file" style="width: 90%" />
                 </div>
               </td>
               <td>
@@ -79,10 +80,12 @@
               </td>
               <td>
                 <div class="mb-3">
-                  <img id="preview" src="data:image/jpeg;base64,{{dish.image}}" width="150px" height="130px"
-                    (click)="changeVisibility(i)" />
+                  <img *ngIf="dish.image != null" class="preview" src="data:image/jpeg;base64,{{dish.image}}" width="150px" height="130px"
+                    (click)="changeImage(i)" />
+                  <img *ngIf="dish.image == null" class="preview" src="https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png"
+                   width="150px" height="130px" (click)="changeImage(i)" />
                   <!-- quito la visibilidad de img, asi siempre la ves, al cargar imagen se recarga img -->
-                  <input (change)="onFileChanged($event)" class="form-control" type="file" style="width: 90%" *ngIf="visibilityFormFile[i]">
+                  <input hidden (change)="onFileChanged($event,i)" class="form-control uploadFile" type="file" style="width: 90%">
                   <!-- input formFile amagat i al clicar imatge apareix -->
                 </div>
               </td>

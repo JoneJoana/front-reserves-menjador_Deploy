@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Dish } from '../dishes/dishes.component';
 
-//const BASE = 'https://tch-db.herokuapp.com';
-const BASE = 'http://localhost:8080';
+const BASE = 'https://tch-db.herokuapp.com';
+//const BASE = 'http://localhost:8080';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' })
@@ -65,8 +65,14 @@ export class OrdersService {
     return this.http.post(BASE+"/api/dishes/add", newDish);
   }
 
-  putDish(dish: any, uploadImageData:any): Observable<any> {
-    return this.http.put(BASE+"/api/dishes/update/"+uploadImageData, dish);
+  putDish(dish: any): Observable<any> {
+    return this.http.put(BASE+"/api/dishes/update", dish);
+  }
+
+  updateDishImage(dishID:number,file:File): Observable<any> {
+    const form = new FormData
+    form.append('file', file, file.name)
+    return this.http.post(BASE+"/api/dishes/update/"+dishID, form);
   }
 
   deleteDish(id: Number): Observable<any> {
