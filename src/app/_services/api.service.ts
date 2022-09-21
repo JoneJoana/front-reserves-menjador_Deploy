@@ -76,9 +76,9 @@ export class OrdersService {
     return this.http.delete(BASE+"/api/dishes/delete/"+id);
   }
 
-  /* getCategoriesDish(id: Number): Observable<any>{
-    return this.http.get(BASE+"/api/dishes/"+id+"/categories", headers);
-  } */
+  getDishesByStatus(status: boolean): Observable<any>{
+    return this.http.get(BASE+"/api/dishes/status/"+status);
+  }
 
 }
 

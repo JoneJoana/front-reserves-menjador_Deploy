@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   }
 
   getDishes() {
-    this.dishService.getDishes().subscribe(
+    this.dishService.getDishesByStatus(true).subscribe(
       (response) => {
         this.dishes = response;
       },
