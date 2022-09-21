@@ -111,7 +111,7 @@
 <section class="food_section layout_padding-bottom">
   <div class="container">
     <div class="heading_container heading_center"  >
-      <h2 style="padding-bottom: 30px;" id="menu">Menu</h2>
+      <h2 style="padding-bottom: 30px; color: black;" id="menu">Menú</h2>
       <div class="input-group-sm" class="col-auto">
         <input type="text" class="form-control quicksearch" (keyup)="onSearchKeyUp($event)"
         placeholder="Filtrar por nombre" [(ngModel)]="buscar" id="buscador" style="color: black;"/>
@@ -119,8 +119,8 @@
     </div>
 
   <ul class="filters_menu" >
-    <li id="*" class="active" (click)="doIsotopeMagic($event)">Todo</li>
-    <li *ngFor="let c of categories" id=".{{c.name}}" [attr.id-cat]="c.id" (click)="doIsotopeMagic($event)">
+    <li id="*" class="active" (click)="doIsotopeMagic($event)" style="color:black;">Todo</li>
+    <li *ngFor="let c of categories" id=".{{c.name}}" [attr.id-cat]="c.id" (click)="doIsotopeMagic($event)" style="color:black;">
       {{c.name}}
     </li>
   </ul>
