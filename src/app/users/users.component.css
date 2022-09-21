@@ -19,21 +19,8 @@ table th {
   background-clip: padding-box;
   box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.493);
   padding: 20px;
-  margin: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 600px;
 }
 
-select,input,button,textarea{
-  background-color: rgba(255, 215, 252, 0.811);
-}
-
-.form-input{
-  border-radius: 0.375rem;
-  padding: .375rem 2.25rem .375rem .75rem;
-  margin: 2px;
-  width: 280px;
-}
-
-textarea.form-input  {
-  width: 280px;
-  margin-left: 1px;
-}
