@@ -48,7 +48,8 @@ export class AppComponent implements OnInit{
     window.sessionStorage.clear()
     this.isLogin = false;
     this.logAdmin = false;
-    this.router.navigate(['/home']);
+    // Quan fas logout, vols tornar-te a connectar amb un altre usuari
+    this.router.navigate(['/login']);
   }
 
   dateInput(tipus:string, accio:string) {
