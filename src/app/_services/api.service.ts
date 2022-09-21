@@ -6,9 +6,6 @@ import { Dish } from '../dishes/dishes.component';
 const BASE = 'https://tch-db.herokuapp.com';
 //const BASE = 'http://localhost:8080';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' })
-};
 
 @Injectable({
   providedIn: 'root'

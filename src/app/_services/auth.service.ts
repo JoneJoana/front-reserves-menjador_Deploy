@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 const AUTH_URL='https://tch-db.herokuapp.com/';
 //const AUTH_URL = 'http://localhost:8080/';
+
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type':'application/json'})
 };

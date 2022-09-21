@@ -119,8 +119,18 @@ export class AppComponent implements OnInit{
   }
 
   eliminarPlat(dishID: number) {
-    this.carrito.forEach((element,index)=>{
-      if(element.id==dishID) this.carrito.splice(index,1);
+    swal({
+      text: '¿Estás seguro de querer eliminar este plato?',
+      icon: 'warning',
+      buttons: [true, "Si"],
+    }).then((okay: boolean) => {
+      if (okay) {
+        this.carrito.forEach((element,index)=>{
+          if(element.id==dishID) this.carrito.splice(index,1);
+        });
+      }else {
+        return;
+      }
     });
   }
 
@@ -163,26 +173,37 @@ export class AppComponent implements OnInit{
       dishes: llistaDishes
     }
 
-    //TODO: Abans de crear la ordre, popup confirmació
-
-    // Fer post amb data i plats + usuari
-    this.ordService.createOrder(ordre).subscribe(
-      response => {
-        swal({
-          text: "Orden creada! :)",
-          icon: "success",
-          timer: 1000
-        });
-        window.location.reload()
-      },
-      error => {
-        swal({
-          text: "Fallo al realizar la orden. Lo sentimos, intentalo de nuevo",
-          icon: "error",
-          timer: 1000
-        });
+    swal({
+      text: '¿Quieres realizar ya tu orden?',
+      icon: 'info',
+      buttons: [true, "Si"],
+    }).then((okay: boolean) => {
+      if (okay) {
+        // Fer post amb data i plats + usuari
+        this.ordService.createOrder(ordre).subscribe(
+          response => {
+            swal({
+              text: "¡Orden creada! :)",
+              icon: "success",
+              button: false,
+              timer: 1700
+            });
+            setTimeout (() => {
+              window.location.reload();
+            }, 1800);
+          },
+          error => {
+            swal({
+              text: "Fallo al realizar la orden. Lo sentimos, intentalo de nuevo",
+              icon: "error",
+              timer: 1000
+            });
+          }
+        )
+      } else {
+        return;
       }
-    )
+    });
   }
 
   setDefaultDeliveryDate() {
