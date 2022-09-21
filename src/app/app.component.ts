@@ -4,6 +4,7 @@ import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, TOKEN, USERNAME } from './C
 import { Dish } from './dishes/dishes.component';
 import { OrdersService } from './_services/api.service';
 declare var swal: any;
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -57,7 +58,6 @@ export class AppComponent implements OnInit{
   dateInput(tipus:string, accio:string) {
     var d:Date = new Date(this.dataEntrega)
     if (tipus == "hh") {
-      // Compensar offset per fer els calculs
       var hh = d.getHours()
 
     	if(accio == "-") {
@@ -159,6 +159,15 @@ export class AppComponent implements OnInit{
   }
 
   realizarOrden() {
+    // Comprovar que hi hagi plats
+    if(this.carrito.length == 0) {
+      swal({
+        text: 'Necesitas seleccionar platos',
+        icon: 'warning'
+      })
+      return
+    }
+
     // Sumar dues hores per compensar l'offset horari quan passem a ISOString
     var d = new Date(this.dataEntrega)
     d.setHours(d.getHours()+2)
@@ -191,8 +200,10 @@ export class AppComponent implements OnInit{
               button: false,
               timer: 1700
             });
+            console.log("Nova Ordre:\n"+response.createdOn+"\n"+response.deliveryOn)
             setTimeout (() => {
-              window.location.reload();
+              this.router.navigate(['/orders']);
+              $('#tu-carrito').modal('hide');
             }, 1800);
           },
           error => {
@@ -210,10 +221,11 @@ export class AppComponent implements OnInit{
   }
 
   setDefaultDeliveryDate() {
-    // Default date
     if(this.dataEntrega == "") {
+      // Data i hora actuals
       var defaultDate = new Date()
-      // Arrodonir hora actual a minuts en quart (00,15,30 o 45) cap amunt
+
+      // Arrodonir minuts actuals en quarts cap amunt (00,15,30 o 45)
       var minuts = defaultDate.getMinutes()
       if(minuts < 15) minuts = 15
       else if(minuts < 30) minuts = 30
@@ -222,12 +234,22 @@ export class AppComponent implements OnInit{
       defaultDate.setMinutes(minuts)
 
       // Si avui ja hem passat de les 14:40, no es pot fer una ordre per avui, perque hi ha un marge de
-      // 20 min, no es pot posar data d'entrega passat les 15:00, per tant, es posa la data a demà a les 12:00
+      // 20 min, no es pot posar data d'entrega passades les 15:00, per tant, es posa la data a demà a les 12:00
       if(defaultDate.getHours() > 14 || (defaultDate.getHours()==14 && defaultDate.getMinutes() > 40)) {
         defaultDate.setDate(defaultDate.getDate()+1)
         defaultDate.setHours(12)
         defaultDate.setMinutes(0)
       }
+      // Si som abans de les 12
+      if(defaultDate.getHours() < 12) {
+        defaultDate.setHours(12)
+        defaultDate.setMinutes(0)
+      }
+      // Si estem a dissabte o diumenge, passar dies fins arribar a dilluns
+      while(defaultDate.getDay() == 6 || defaultDate.getDay() == 0)
+        defaultDate.setDate(defaultDate.getDate()+1)
+
+      // Aquesta data se li mostraria a l'usuari com la següent disponible tenint en compte els límits
       this.dataEntrega = defaultDate.toISOString()
     }
   }

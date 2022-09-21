@@ -60,7 +60,7 @@ export class OrdersComponent implements OnInit {
     this.api.gerOrdersByUser(user).subscribe(
       (response) => {
         this.orders = response;
-
+        console.log(this.orders.length)
         // Ordenar llista per data d'entrega
         this.orders.sort((a: { deliveryOn: any }, b: { deliveryOn: any }) => {
           if (a.deliveryOn > b.deliveryOn) {
@@ -70,10 +70,6 @@ export class OrdersComponent implements OnInit {
           } else {
             return 0;
           }
-        });
-        console.log('Llista ordenada:\n');
-        this.orders.forEach((element: { deliveryOn: any }) => {
-          console.log(element.deliveryOn);
         });
       },
       (error) => {
@@ -102,10 +98,6 @@ export class OrdersComponent implements OnInit {
               return 0
             }
           }
-        });
-        console.log('Llista ordenada:\n');
-        this.orders.forEach((element: { deliveryOn: any }) => {
-          console.log(element.deliveryOn);
         });
       },
       (error) => {

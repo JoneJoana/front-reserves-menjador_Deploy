@@ -14,7 +14,7 @@
                         <th scope="col">Usuario</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="orders.length > 0;else noOrders">
                     <tr *ngFor="let o of orders; let iOrd = index">
                         <th scope="row">{{o.id}}</th>
                         <td [ngStyle]="{color: o.delivered | others:'color'}">
@@ -34,6 +34,11 @@
                         </td>
                     </tr>
                 </tbody>
+                <ng-template #noOrders>
+                  <div class="text-center">
+                      No hay ordenes
+                  </div>
+                </ng-template>
             </table>
             <ng-template #loading>
               <div class="text-center">
@@ -52,7 +57,7 @@
                     <div class="ordre-top">
                         <div class="ordre-top-top">
                             <div class="ordre-top-createdOn">
-                                Creada {{o.createdOn | dates:"createdOn"}}
+                                <i>Creada {{o.createdOn | dates:"createdOn"}}</i>
                             </div>
                             <div class="ordre-top-orderId s-14">
                                 ORDER N.º 00{{o.id}}
@@ -63,8 +68,8 @@
                         </div>
                         <!-- MODIFICAR DATA ENTREGA -->
                         <div *ngIf="modifying.has(o.id)">
+                          Fecha entrega:
                           <div class="container-dateInput">
-                            <p>Entrega el</p>
                             <div class="wrapper-dateinput dia">
                               <input class="hores w-70" value="{{orders[iOrd].deliveryOn | dates:'dd'}}" disabled type="text"  />
                               <div class="plus-minus">
@@ -76,7 +81,6 @@
                                 </span>
                               </div>
                             </div>
-                            <p>a las</p>
                             <div class="wrapper-dateinput hora">
                               <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}"
                               (ngModelChange)="onModelChange($event, orders[iOrd])" disabled min="12" max="15" type="number"  />
@@ -134,8 +138,10 @@
                           </div>
 
                             <div>
-                              <span class="s-14">Modificable hasta </span>
-                              <span id="modifyDate{{o.id}}" class="s-14">{{o.deliveryOn | dates:"modifiableTill"}}</span>
+                              <i>
+                                <span class="s-14">Modificable hasta </span>
+                                <span id="modifyDate{{o.id}}" class="s-14">{{o.deliveryOn | dates:"modifiableTill"}}</span>
+                              </i>
                             </div>
 
                             <span *ngIf="!modifying.has(o.id)">
@@ -178,6 +184,9 @@
                             </span>
                         </div>
                     </div>
+                </div>
+                <div *ngIf="orders.length == 0" class="text-center">
+                      No hay ordenes
                 </div>
             </div>
             <ng-template #loading>
