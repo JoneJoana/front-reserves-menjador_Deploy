@@ -1,6 +1,6 @@
 <div id="content">
   <!-- div imagen -->
-  <div class="div-img">
+  <div class="div-img" id="user">
     <img *ngIf="user.image != null" class="preview img-radius" src="data:image/jpeg;base64,{{user.image}}"
       (click)="changeImage()"/><!-- width="150px" height="130px -->
     <img *ngIf="user.image == null" class="preview img-radius" src="https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png"
