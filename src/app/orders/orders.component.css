@@ -182,6 +182,9 @@ div.container {
   margin-right: 10px;
 }
 .w-70{width: 70px;}
+.mask-custom{
+  width: 100%;
+}
 .ordre-bottom img {
   border-radius: 10px 10px 0px 45px;
   border: 1px solid #e30075;
