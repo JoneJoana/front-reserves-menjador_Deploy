@@ -17,8 +17,8 @@ body {
 .ordre {
   display: flex;
   flex-direction: column;
-  color: white;
-  border-top: 1px solid white;
+  color: black;
+  border-top: 3px solid #e30075;
 }
 .ordre div {
   padding: 5px 0px;
@@ -182,14 +182,12 @@ div.container {
   margin-right: 10px;
 }
 .w-70{width: 70px;}
-
 .mask-custom{
   width: 100%;
 }
-
-
 .ordre-bottom img {
   border-radius: 10px 10px 0px 45px;
+  border: 1px solid #e30075;
 }
 
 
