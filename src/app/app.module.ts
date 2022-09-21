@@ -19,6 +19,7 @@ import { SugerenciasComponent } from './sugerencias/sugerencias.component';
 
 import { AuthInterceptor, authInterceptorProviders } from './_helpers/authinterceptor';
 import { UsersComponent } from './users/users.component';
+import { OthersPipe } from './others.pipe';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { UsersComponent } from './users/users.component';
     LoginComponent,
     DatesPipe,
     DishPipe,
+    OthersPipe,
     SugerenciasComponent,
     UsersComponent,
   ],
