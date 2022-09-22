@@ -45,6 +45,10 @@ export class OrdersService {
     return this.http.post(BASE+"/api/orders/add", order);
   }
 
+  changeStatus(order: any): Observable<any> {
+    return this.http.put(BASE+"/api/orders/update/status", order);
+  }
+
 }
 
 @Injectable({

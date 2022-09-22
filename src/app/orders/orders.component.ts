@@ -19,6 +19,7 @@ export class OrdersComponent implements OnInit {
   constructor(
     private api: OrdersService,
     private dishes: DishesService,
+    private ordersService: OrdersService,
     private router: Router
   ) {}
 
@@ -314,7 +315,37 @@ export class OrdersComponent implements OnInit {
     this.orders[iOrd].deliveryOn = d.toISOString();
   }
 
+  cancelarOrdre(id:number) {
+    const data = {
+      id: id,
+      delivered: "C"
+    }
+    // TODO: Posar alerta segur que vols canviar estat a Cancelat
+    this.ordersService.changeStatus(data).subscribe(
+      (response) => {
+        this.loadOrders()
+      },
+      (error) => {
+        // TODO: Missatge error No s'ha pogut fer el canvi d'estat per algun motiu desconegut
+        console.log('ERROR REQUEST:\n ' + error.message);
+      }
+    );
+  }
 
-
-  onModelChange(e: any, o: any) {}
+  entregarOrdre(id:number) {
+    const data = {
+      id: id,
+      delivered: "D"
+    }
+    // TODO: Posar alerta segur que vols canviar estat a Entregat
+    this.ordersService.changeStatus(data).subscribe(
+      (response) => {
+        this.loadOrders()
+      },
+      (error) => {
+        // TODO: Missatge error No s'ha pogut fer el canvi d'estat per algun motiu desconegut
+        console.log('ERROR REQUEST:\n ' + error.message);
+      }
+    );
+  }
 }

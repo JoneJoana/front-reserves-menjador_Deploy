@@ -19,6 +19,12 @@
                         <th scope="row">{{o.id}}</th>
                         <td [ngStyle]="{color: o.delivered | others:'color'}">
                           {{o.delivered | others:"statusOrder"}}
+                          <div *ngIf="o.delivered == 'P'">
+                            <!-- "C" de Cancel -->
+                            <button (click)="cancelarOrdre(o.id)">C</button>
+                            <!-- "D" de Deliver -->
+                            <button (click)="entregarOrdre(o.id)">D</button>
+                          </div>
                         </td>
                         <td style="color:#a7a7a7">
                           {{o.createdOn | date:"dd MMM yyyy HH:mm"}}
@@ -83,7 +89,7 @@
                             </div>
                             <div class="wrapper-dateinput hora">
                               <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}"
-                              (ngModelChange)="onModelChange($event, orders[iOrd])" disabled min="12" max="15" type="number"  />
+                              disabled min="12" max="15" type="number"  />
                               <div class="plus-minus">
                                 <span class="boto" (click)="dateInput('hh','+',iOrd)">
                                   <i class="fa fa-plus"></i>
