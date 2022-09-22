@@ -5,6 +5,10 @@
     <div class="card mask-custom">
       <div class="form_container">
 
+        <div class="input-group mb-3">
+          <input class="form-control me-2" type="search" placeholder="Busca por Username o Email"
+            aria-label="Search" [(ngModel)]="filterUser" name="filterUser">
+        </div>
         <div class="table-responsive" *ngIf="users.length != 0;else loading">
           <table class="table table-borderless text-white mb-0 ">
             <thead>
@@ -14,7 +18,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
+              <tr *ngFor="let user of users | searchUser:filterUser">
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
                 <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">

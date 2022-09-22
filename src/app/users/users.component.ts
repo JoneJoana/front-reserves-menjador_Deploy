@@ -10,6 +10,8 @@ export class UsersComponent implements OnInit {
 
   users: any = [];
 
+  filterUser = '';
+
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
