@@ -266,6 +266,25 @@ export class DishesComponent implements OnInit {
       );
       this.selectedFile = null;
   }
+/*
+  orderBy(camp:string) {
+    if(camp == "popularidad") {
+      console.log("coorecte")
+      var d = this.dishes
+      this.dishes = []
+      d.sort((a, b) => {
+        if (a.popularity > b.popularity) {
+          return 1;
+        } else if (a.popularity < b.popularity) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      this.dishes = d
+    }
+  }
+  */
 
 }
 
