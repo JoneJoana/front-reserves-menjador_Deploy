@@ -4,7 +4,7 @@
         <!-- VISTA ADMIN -->
         <div *ngIf="admin" class="card mask-custom">
           <div class="input-group mb-3">
-            <input class="form-control me-2" type="search" placeholder="Busca por Usuario o Estado"
+            <input class="form-control me-2" type="search" placeholder="Busca por Usuario o Estado (p,c o d)"
               aria-label="Search" [(ngModel)]="filterOrder" name="filterOrder">
           </div>
           <table *ngIf="orders != null;else loading" class="table table-borderless text-white mb-0" id="taulaAdmin">
@@ -57,7 +57,7 @@
         <div *ngIf="!admin">
             <!-- Implementar vista client -->
             <div class="input-group mb-3">
-
+              <!-- datepicker -->
             </div>
             <div *ngIf="orders != null;else loading" class="ordres">
                 <div *ngFor="let o of orders; let iOrd = index" class="ordre">
