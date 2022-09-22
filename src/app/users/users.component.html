@@ -15,12 +15,14 @@
               <tr id="encabezado">
                 <th>Username</th>
                 <th>Email</th>
+                <th>Rol</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let user of users | searchUser:filterUser">
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
+                <td>{{user.rol == null ? "cliente" : user.rol.name}}</td>
                 <td>
                   <!-- icono te envie a perfil del user en cuestion, con todos los inputs habilitados
                     pasar username por el router -->
