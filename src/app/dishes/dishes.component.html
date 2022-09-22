@@ -1,7 +1,11 @@
 <!-- dish section -->
 <section class="book_section layout_padding">
   <div class="container">
-
+    <div class="input-group mb-3">
+      <input class="form-control me-2" type="search" placeholder="Search by name"
+        aria-label="Search" [(ngModel)]="name">
+      <button class="btn btn-outline" type="submit" (click)="searchName()">Search</button>
+    </div>
     <div class="card mask-custom">
       <div class="form_container">
         <div *ngIf="addDish">
