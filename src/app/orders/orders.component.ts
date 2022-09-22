@@ -4,8 +4,6 @@ import { data } from 'jquery';
 import { DishesService, OrdersService } from '../_services/api.service';
 import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, USER, USERNAME } from '../Constants';
 declare var swal: any;
-declare var $: any;
-declare var dt: any
 
 @Component({
   selector: 'app-orders',
@@ -17,12 +15,14 @@ export class OrdersComponent implements OnInit {
   orders: any = null;
   modifying: any = new Map<number, boolean>();
   plats: any;
+  queryOrdenar:string = ""
 
   filterOrder = '';
 
   constructor(
     private api: OrdersService,
     private dishes: DishesService,
+    private ordersService: OrdersService,
     private router: Router
   ) {}
 
@@ -103,9 +103,6 @@ export class OrdersComponent implements OnInit {
             }
           }
         });
-
-        // Inicialitzar datatable
-        $('#taulaAdmin').DataTable();
 
       },
       (error) => {
@@ -321,5 +318,53 @@ export class OrdersComponent implements OnInit {
     this.orders[iOrd].deliveryOn = d.toISOString();
   }
 
-  onModelChange(e: any, o: any) {}
+  cancelarOrdre(id:number) {
+    const data = {
+      id: id,
+      delivered: "C"
+    }
+    // TODO: Posar alerta segur que vols canviar estat a Cancelat
+    this.ordersService.changeStatus(data).subscribe(
+      (response) => {
+        this.loadOrders()
+      },
+      (error) => {
+        // TODO: Missatge error No s'ha pogut fer el canvi d'estat per algun motiu desconegut
+        console.log('ERROR REQUEST:\n ' + error.message);
+      }
+    );
+  }
+
+  entregarOrdre(id:number) {
+    const data = {
+      id: id,
+      delivered: "D"
+    }
+    // TODO: Posar alerta segur que vols canviar estat a Entregat
+    this.ordersService.changeStatus(data).subscribe(
+      (response) => {
+        this.loadOrders()
+      },
+      (error) => {
+        // TODO: Missatge error No s'ha pogut fer el canvi d'estat per algun motiu desconegut
+        console.log('ERROR REQUEST:\n ' + error.message);
+      }
+    );
+  }
+
+  ordenar() {
+    var query:string = this.queryOrdenar
+    // Si hem tret els filtres, que carregui normal
+    if(query == "") { this.loadOrders(); return }
+    // Aquí s'hauria de construir la query amb uns checkboxes o algo aixi que digui els camps per ordenar
+    this.ordersService.ordenar(query).subscribe(
+      (response) => {
+        this.orders = response
+      },
+      (error) => {
+        console.log('ERROR REQUEST:\n ' + error.message);
+      }
+    );
+  }
+
 }
