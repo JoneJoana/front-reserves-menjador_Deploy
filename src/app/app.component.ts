@@ -53,6 +53,7 @@ export class AppComponent implements OnInit{
     this.logAdmin = false;
     // Quan fas logout, vols tornar-te a connectar amb un altre usuari
     this.router.navigate(['/login']);
+    //al clicar logout, se recarga y tenvia a home creo que es por tener en index <base href='/'>
   }
 
   dateInput(tipus:string, accio:string) {
@@ -274,6 +275,17 @@ export class AppComponent implements OnInit{
       window.scrollTo(0,donde);
     }, 400);
   }
+
+
+  reload(){
+    this.router.navigate(['/profile',this.usuari]);
+    setTimeout (() => {
+      window.location.reload();
+    }, 50);
+  }
+
+
+  //en html [routerLink]="['/profile',usuari]"
 
 }
 

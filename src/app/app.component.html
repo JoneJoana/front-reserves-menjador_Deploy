@@ -50,9 +50,8 @@
               [routerLink]="['/login']">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
-              <!-- si esta logueado reenvia a profile // mirar manera mejor de hacer el if -->
-              <a *ngIf="isLogin" href="" class="user_link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-              [routerLink]="['/profile']">
+              <!-- si esta logueado reenvia a profile -->
+              <a *ngIf="isLogin" class="user_link" (click)="reload()">
                 <i class="fa fa-user" aria-hidden="true"><span style="font-family: Open Sans;">&nbsp;{{usuari}}</span></i>
               </a>
 

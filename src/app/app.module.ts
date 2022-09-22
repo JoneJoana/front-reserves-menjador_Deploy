@@ -21,6 +21,8 @@ import { AuthInterceptor, authInterceptorProviders } from './_helpers/authinterc
 import { UsersComponent } from './users/users.component';
 import { OthersPipe } from './others.pipe';
 import { SearchDishPipe } from './search-dish.pipe';
+import { SearchUserPipe } from './search-user.pipe';
+import { SearchOrdersPipe } from './search-orders.pipe';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { SearchDishPipe } from './search-dish.pipe';
     SugerenciasComponent,
     UsersComponent,
     SearchDishPipe,
+    SearchUserPipe,
+    SearchOrdersPipe,
   ],
   imports: [
     BrowserModule,

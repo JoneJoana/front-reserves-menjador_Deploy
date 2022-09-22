@@ -17,6 +17,8 @@ export class OrdersComponent implements OnInit {
   plats: any;
   queryOrdenar:string = ""
 
+  filterOrder = '';
+
   constructor(
     private api: OrdersService,
     private dishes: DishesService,

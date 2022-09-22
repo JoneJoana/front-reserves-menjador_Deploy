@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'sugerencias', component: SugerenciasComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'profile/:username', component: ProfileComponent }
 ];
 
 const routerOptions: ExtraOptions = {

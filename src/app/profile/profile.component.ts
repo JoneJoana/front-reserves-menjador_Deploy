@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { USERNAME } from '../Constants';
 import { AuthService } from '../_services/auth.service';
 declare var swal: any;
@@ -10,9 +11,8 @@ declare var swal: any;
 })
 export class ProfileComponent implements OnInit {
 
-  users: any;
   user={
-    username: '',
+    username: this._route.snapshot.paramMap.get('username')!,
     email: '',
     password: '',
     image: null
@@ -22,10 +22,11 @@ export class ProfileComponent implements OnInit {
   hasBeenModified = false;
 
 
-  constructor(private api: AuthService) { }
+  constructor(private api: AuthService,private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.loadUser(window.sessionStorage.getItem(USERNAME));
+    //this.loadUser(window.sessionStorage.getItem(USERNAME));
+    this.loadUser(this.user.username);
   }
 
   loadUser(username: any) {
@@ -45,7 +46,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateInfo(){
-    this.api.updateUser(window.sessionStorage.getItem(USERNAME)!, {email: this.user.email}).subscribe(
+    this.api.updateUser(this.user.username, {email: this.user.email}).subscribe(
       response => {
         swal({
           text: "Datos actualizados! :)",
