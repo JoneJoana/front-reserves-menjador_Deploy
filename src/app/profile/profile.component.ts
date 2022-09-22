@@ -11,9 +11,8 @@ declare var swal: any;
 })
 export class ProfileComponent implements OnInit {
 
-  users: any;
   user={
-    username: '',
+    username: this._route.snapshot.paramMap.get('username')!,
     email: '',
     password: '',
     image: null
@@ -27,7 +26,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     //this.loadUser(window.sessionStorage.getItem(USERNAME));
-    this.user.username = this._route.snapshot.paramMap.get('username')!;
     this.loadUser(this.user.username);
   }
 
@@ -48,7 +46,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateInfo(){
-    this.api.updateUser(window.sessionStorage.getItem(USERNAME)!, {email: this.user.email}).subscribe(
+    this.api.updateUser(this.user.username, {email: this.user.email}).subscribe(
       response => {
         swal({
           text: "Datos actualizados! :)",
