@@ -25,18 +25,27 @@
   cursor: pointer;
 }
 
-#menu {
-  background-image: url(src\assets\images\fons.png);
-}
-#menu *{
+section.food_section {
+/*   background-image: url(src\assets\images\fons.png);*/
+background: linear-gradient(220.55deg, #fde7f8dd 0%, #d6abcc6c 100%);}
+section.food_section *{
   color: white;
 }
 
-#menu .container{
-  padding: 0px 10px;
+section.food_section .container{
+  padding: 30px 0px;
 }
 
-#nosotros {
+section.about_section {
   background-color: white;
 }
+.alertaLogin {
+  text-align: center;
+  color: rgb(159, 37, 88);
+  font-weight: bold;
+  font-size: 20px;
+}
 
+.nomPlat{
+  text-transform: capitalize;
+}

@@ -24,7 +24,7 @@ export class DatesPipe implements PipeTransform {
           if(this.isToday(d[2], d[1], d[0]))
             return ' hoy a las '+dd
           else if(this.isYesterday(d[2], d[1], d[0]))
-            return ' ayer a las at '+dd
+            return ' ayer a las '+dd
           else if(this.isTomorrow(d[2], d[1], d[0]))
             return ' mañana a las '+dd
           else

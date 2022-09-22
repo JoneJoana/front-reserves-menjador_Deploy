@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SugerenciasComponent } from './sugerencias/sugerencias.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'sugerencias', component: SugerenciasComponent },
+  { path: 'users', component: UsersComponent },
 ];
 
 const routerOptions: ExtraOptions = {

@@ -1,10 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Isotope from 'isotope-layout';
-import { CategoriesService, DishesService } from '../_services/api.service';
-import { MAIN_CATEGORIES, ROL, ROL_CLIENT } from '../Constants';
+import { CategoriesService, DishesService, OrdersService } from '../_services/api.service';
+import { MAIN_CATEGORIES, ROL, ROL_ADMIN, ROL_CLIENT, TOKEN } from '../Constants';
 import { Dish } from '../dishes/dishes.component';
-import { ActivatedRoute } from '@angular/router';
 declare var $: any;
+declare var swal:any;
 
 @Component({
   selector: 'app-home',
@@ -18,24 +18,34 @@ export class HomeComponent implements OnInit {
   buscar: string = '';
   // quick search regex
   qsRegex: any = undefined;
-  carrito: Dish[] = []
+  carrito: any[] = []
 
-  afegirCarrito(d:Dish) {
-    this.carrito.push(d)
-    console.log(this.carrito)
-  }
+  isLogged = false
+  isAdmin = false
 
-  constructor(private api: DishesService, private api2: CategoriesService,private _route: ActivatedRoute) {}
+  constructor(
+    private dishService: DishesService,
+    private catService: CategoriesService,
+    private ordService: OrdersService
+  ) {}
 
   ngOnInit(): void {
+    this.isLogged = window.sessionStorage.getItem(TOKEN) != null ? true : false
+    this.isAdmin = window.sessionStorage.getItem(ROL) == ROL_ADMIN ? true : false
     this.getDishes();
     this.loadCategories();
+  }
 
-
+  alert(){
+    swal("Plato añadido a tu carrito!", {
+      icon: "success",
+      buttons: false,
+      timer: 1500,
+    });
   }
 
   getDishes() {
-    this.api.getDishes().subscribe(
+    this.dishService.getDishesByStatus(true).subscribe(
       (response) => {
         this.dishes = response;
       },
@@ -45,8 +55,21 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  afegirCarrito(d:Dish) {
+    // Notifiquem un plat nou al Subject
+    this.ordService.addCarrito.next(d)
+    this.carrito.push(d)
+    console.log(this.carrito)
+
+    var carritoFlotant = document.getElementById('carritoFlotant')
+    if(carritoFlotant != null){
+      carritoFlotant.style.display = "block";
+    }
+
+  }
+
   loadCategories() {
-    this.api2.getCategories().subscribe(
+    this.catService.getCategories().subscribe(
       (response) => {
         this.categories = response;
 
@@ -66,17 +89,22 @@ export class HomeComponent implements OnInit {
   }
 
   doIsotopeMagic(e: any) {
+    // Actualitzar estil boto actiu
+    $('.filters_menu li').removeClass('active');
+    $(e.target).addClass('active');
+
+    var iso = new Isotope('.grid', {
+      itemSelector: '.all',
+      percentPosition: false,
+      masonry: {
+        columnWidth: '.all',
+      },
+    });
+
     // Inicialitzar isotope (nomes es fa un cop)
     if (!this.isotope) {
       this.isotope = true;
       // Inicialitzar
-      var iso = new Isotope('.grid', {
-        itemSelector: '.all',
-        percentPosition: false,
-        masonry: {
-          columnWidth: '.all',
-        },
-      });
 
       // Carregar listeners botons
       var filtersElem = document.querySelector('.filters_menu')!;
@@ -86,16 +114,12 @@ export class HomeComponent implements OnInit {
         iso.arrange({ filter: filterValue });
       });
     }
-
-    // Actualitzar estil boto actiu
-    $('.filters_menu li').removeClass('active');
-    $(e.target).addClass('active');
-
     //neteja camp busqueda al clicar una categoria
     this.buscar = '';
   }
 
   onSearchKeyUp(e: any) {
+
     var iso = new Isotope('.grid', {
       itemSelector: '.all',
       layoutMode: 'fitRows',
@@ -107,7 +131,14 @@ export class HomeComponent implements OnInit {
       },
     });
 
-    if (this.buscar == '') iso.destroy();
+    if (this.buscar == '') {
+      iso.destroy();
+      //this.isotope = false;
+    }
+  }
+
+  clearIsoCat() {
+    $('.filters_menu li')[0].click();
   }
 
 }

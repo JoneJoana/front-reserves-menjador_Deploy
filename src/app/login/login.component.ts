@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROL, TOKEN, USER, USERNAME } from '../Constants';
 import { AuthService } from '../_services/auth.service'
+declare var swal: any;
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if(window.sessionStorage.getItem(TOKEN))
       this.router.navigate(['/home']);
-
   }
 
   onSubmit(): void{
@@ -31,16 +31,27 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.username, this.form.password)
       .subscribe(
         response => {
-
           window.sessionStorage.setItem(TOKEN, response.token);
           window.sessionStorage.setItem(USERNAME, this.form.username);
           console.log(window.sessionStorage.getItem(TOKEN))
           console.log(window.sessionStorage.getItem(USERNAME))
           this.getRol();
+          setTimeout (() => {
+            window.location.reload();
+          }, 1100);
+          swal({
+            text: "Login correcto",
+            icon: "success",
+            button: false,
+            timer: 1000
+          });
         },
         error => {
-          // gestionar error
           console.log(error)
+          swal({
+            text: "Login incorrecto",
+            icon: "error"
+          });
         });
   }
 
@@ -50,7 +61,6 @@ export class LoginComponent implements OnInit {
       response => {
         console.log(response.rol.name)
         window.sessionStorage.setItem(ROL, response.rol.name);
-        window.location.reload()
       },
       error => {
         console.log(error.message);

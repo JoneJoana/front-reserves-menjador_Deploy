@@ -4,7 +4,7 @@ body {
   /* color: white; */
   background-color: #ffffff;
   overflow-x: hidden;
-  background-image: url("/assets/images/fons.png");
+  /* background-image: url("/assets/images/fons.png"); */
   background-repeat: no-repeat;
   background-size: 100% 600px; /* 100% 600px*/
 }
@@ -438,7 +438,7 @@ a:focus {
 }
 
 .offer_section .box .img-box img {
-  width: 100%;
+  height: 100%;
   -webkit-transition: all .2s;
   transition: all .2s;
 }
@@ -500,17 +500,24 @@ a:focus {
   margin: 30px auto;
   width: 70%;
 
+
 }
 
 .food_section .filters_menu li {
   padding: 7px 25px;
   cursor: pointer;
   border-radius: 25px;
+  text-transform: capitalize;
+
 }
 
 .food_section .filters_menu li.active {
-  background-color: #222831;
-  color: #97004E;
+ /*  background-color: #222831;
+  color: #97004E; */
+  border-style: solid;
+border-color: #e30075;
+text-shadow: black;
+box-shadow: 3px 3px darkgray;
 }
 
 .food_section .box {
@@ -957,7 +964,7 @@ a:focus {
 }
 
 .footer_section .footer_contact .contact_link_box a:hover {
-  color: #ffffff;
+  color: #000000;
 }
 
 .footer_section .footer-logo {

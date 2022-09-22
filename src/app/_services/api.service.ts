@@ -1,35 +1,48 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Dish } from '../dishes/dishes.component';
 
 const BASE = 'https://tch-db.herokuapp.com';
-const headers = {
-  headers: new HttpHeaders(
-    { "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NjI4MzYxNTAsImlzcyI6ImFkbWluIiwic3ViIjoiQWRtaW4xIiwiZXhwIjoxNjYzNzAwMTUwfQ.o6jqDky5fDdWvY63G9H1F5jV99MPSIHNYwFcygvWscxOt6dI7qIvviS8-SmVy4UsUPdfh8GXCxcnJNtJN0XQuQ" })
-};
+//const BASE = 'http://localhost:8080';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
 
-  constructor(private http: HttpClient) { }
+  // Subject per compartir informacio carrito desde diferents components
+  addCarrito: Subject<any>;
+  carrito: Array<any>;
+
+  constructor(private http: HttpClient) {
+    this.addCarrito = new Subject<any>();
+    this.carrito = new Array<any>()
+  }
+
+  resetCarrito() {
+    this.carrito = new Array<any>()
+  }
 
   gerOrders(): Observable<any> {
-    return this.http.get(BASE+"/api/orders", headers);
+    return this.http.get(BASE+"/api/orders");
   }
 
   gerOrdersByUser(user:string): Observable<any> {
-    return this.http.get(BASE+"/api/orders/user/"+user, headers);
+    return this.http.get(BASE+"/api/orders/user/"+user);
   }
 
   deleteOrder(id: any): Observable<any> {
-    return this.http.delete(BASE+"/api/orders/delete/"+id, headers);
+    return this.http.delete(BASE+"/api/orders/delete/"+id);
   }
 
   updateOrder(order: any): Observable<any> {
-    return this.http.put(BASE+"/api/orders/update", order, headers);
+    return this.http.put(BASE+"/api/orders/update", order);
+  }
+
+  createOrder(order: any): Observable<any> {
+    return this.http.post(BASE+"/api/orders/add", order);
   }
 
 }
@@ -42,24 +55,30 @@ export class OrdersService {
   constructor(private http: HttpClient) { }
 
   getDishes(): Observable<any> {
-    return this.http.get(BASE+"/api/dishes", headers);
+    return this.http.get(BASE+"/api/dishes");
   }
 
   postDish(newDish: any): Observable<any> {
-    return this.http.post(BASE+"/api/dishes/add", newDish, headers);
+    return this.http.post(BASE+"/api/dishes/add", newDish);
   }
 
   putDish(dish: any): Observable<any> {
-    return this.http.put(BASE+"/api/dishes/update", dish, headers);
+    return this.http.put(BASE+"/api/dishes/update", dish);
+  }
+
+  updateDishImage(dishID:number,file:File): Observable<any> {
+    const form = new FormData
+    form.append('file', file, file.name)
+    return this.http.post(BASE+"/api/dishes/update/"+dishID, form);
   }
 
   deleteDish(id: Number): Observable<any> {
-    return this.http.delete(BASE+"/api/dishes/delete/"+id, headers);
+    return this.http.delete(BASE+"/api/dishes/delete/"+id);
   }
 
-  /* getCategoriesDish(id: Number): Observable<any>{
-    return this.http.get(BASE+"/api/dishes/"+id+"/categories", headers);
-  } */
+  getDishesByStatus(status: boolean): Observable<any>{
+    return this.http.get(BASE+"/api/dishes/status/"+status);
+  }
 
 }
 
@@ -72,7 +91,7 @@ export class CategoriesService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any> {
-    return this.http.get(BASE+"/api/categories", headers);
+    return this.http.get(BASE+"/api/categories");
   }
 
 }

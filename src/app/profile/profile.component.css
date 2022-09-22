@@ -2,7 +2,7 @@
 #content {
     width:fit-content;
     display: flex;
-    padding-top: 40px;
+    padding-top: 20px;
  /* background-color: brown; */
  flex-direction: column;
  margin: 0 auto;
@@ -13,7 +13,6 @@
 .img-radius{
   width: 200px;
   height:200px;
-  margin-top: 60px;
   margin-right: 50px;
   border-radius: 50%;
   border: 10px;
@@ -47,7 +46,6 @@ border: 2px;}
 .card-block{
 width: 100%;
 height: auto;
-padding-top: 60px;
 display: flex;
 flex-direction: column;
 }

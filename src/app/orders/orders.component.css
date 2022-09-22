@@ -17,8 +17,8 @@ body {
 .ordre {
   display: flex;
   flex-direction: column;
-  color: white;
-  border-top: 1px solid white;
+  color: black;
+  border-top: 3px solid #e30075;
 }
 .ordre div {
   padding: 5px 0px;
@@ -78,11 +78,11 @@ body {
   border-radius: 20px;
   padding: 10px;
   background-color: inherit;
-  color: white;
+  color: black;
   margin-top: 5px;
 }
 .selectPlats option {
-  background-color: #495057;
+  background-color: #E30075;
 }
 .caixaPlat {
   margin: 10px;
@@ -98,6 +98,11 @@ body {
 @media screen and (max-width: 550px) {
   .ordre-bottom img {
     display: none;
+  }
+}
+@media screen and (max-width: 825px) {
+  .card {
+    overflow: scroll;
   }
 }
 /* CSS INPUT DATA PERSONALITZAT */
@@ -127,7 +132,6 @@ div .boto:active {
 }
 .wrapper-dateinput{
   display:flex;
-
 }
 .plus-minus {
   display:flex;
@@ -178,10 +182,12 @@ div.container {
   margin-right: 10px;
 }
 .w-70{width: 70px;}
-
-
-
-
+.mask-custom{
+  width: 100%;
+}
 .ordre-bottom img {
   border-radius: 10px 10px 0px 45px;
+  border: 1px solid #e30075;
 }
+
+
