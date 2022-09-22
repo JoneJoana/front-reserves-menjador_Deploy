@@ -6,14 +6,12 @@
         <div class="container-fluid">
           <a class="navbar-brand" [routerLink]="['home']" routerLinkActive="router-link-active">
             <span>
-              T-Como
+              <img src="/assets/images/t-como.png" style="width: 250px;">
             </span>
           </a>
-          <!-- FIXME no se contrae -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
             aria-label="Toggle navigation">
-
             <span class="navbar-toggler-icon"></span>
           </button>
 
@@ -21,55 +19,118 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <!-- ESTAS SE VEN A NIVEL PUBLIC -->
               <li class="nav-item">
-                <a class="nav-link" href='/home#menu'>Menu</a>
+                <a class="nav-link" [routerLink]="['/home']"(click)="redireccion(1132.59)">MENÚ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href='/home#nosotros'>NOSOTROS</a>
+                <!-- no es dinamic, tenir en compte plats que apareixen per a on redirecciona -->
+                <a class="nav-link" [routerLink]="['/home']" (click)="redireccion(3110.61)">NOSOTROS</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href='/home#sugerencias'>SUGERENCIAS</a>
+                <a class="nav-link" [routerLink]="['/sugerencias']">SUGERENCIAS</a>
               </li>
               <!-- ESTA SE VE A NIVEL ADMIN -->
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="logAdmin">
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/dishes']">Dishes</a>
+                  [routerLink]="['/dishes']">PLATOS</a>
               </li>
               <!-- ESTA SE VE A NIVEL PUBLIC USER I ADMIN (HAY 2 VISTAS))-->
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="isLogin">
                 <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-                  [routerLink]="['/orders']">Orders</a>
+                  [routerLink]="['/orders']">ORDENES</a>
               </li>
-              <!-- ESTAS SE VEN A NIVEL PUBLIC - REDIRIGEN A LOGIN SINO ESTA LOGUEADO -->
-              <li class="nav-item">
-                <a class="nav-link">Users</a>
+              <!-- ESTA SE VEN A NIVEL ADMIN -->
+              <li class="nav-item" *ngIf="logAdmin">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['/users']">USUARIOS</a>
               </li>
             </ul>
             <div class="user_option">
-              <a href="" class="user_link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-              [routerLink]="['/']">
+              <!-- de public reenvia a login -->
+              <a *ngIf="!isLogin" href="" class="user_link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+              [routerLink]="['/login']">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
-              <a class="cart_link" href="#" data-bs-toggle="modal" data-bs-target="#tu-carrito">
+              <!-- si esta logueado reenvia a profile // mirar manera mejor de hacer el if -->
+              <a *ngIf="isLogin" href="" class="user_link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+              [routerLink]="['/profile']">
+                <i class="fa fa-user" aria-hidden="true"><span style="font-family: Open Sans;">&nbsp;{{usuari}}</span></i>
+              </a>
+
+              <a class="cart_link" href="#" data-bs-toggle="modal" data-bs-target="#tu-carrito"
+                  (click)='!isLogin ? showMessageNotLogin() : true' *ngIf="!logAdmin ">
                 <i class="fa fa-shopping-cart"></i>
               </a>
-              <!-- Modal -->
-              <div class="modal fade" id="tu-carrito" tabindex="-1" aria-labelledby="carrito" aria-hidden="true">
+              <a *ngIf="isLogin" href="#">
+                <i class="fa fa-solid fa-power-off" (click)="logout()"></i>
+              </a>
+              <!-- Modal Carrito si esta login -->
+              <div class="modal fade" *ngIf="isLogin" id="tu-carrito" tabindex="-1" aria-labelledby="carrito" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="carrito"><strong>Tu Carrito</strong></h5>
+                      <h5 class="modal-title"><strong>Tu Carrito</strong></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body" id="carritoContainer" *ngIf="carrito.length > 0; else noDishes">
+                      <div *ngFor="let dish of carrito">
+                        {{dish.name}}
+                        <span (click)="eliminarPlat(dish.id)" class="plat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                        </svg></span>
+                      </div>
+
+                    </div>
+                    <ng-template #noDishes>
+                      <div class="modal-body">
+                        No hay platos
+                      </div>
+                    </ng-template>
                     <div class="modal-body">
-                      carregar plats escollits
+                      <!-- DATA ENTREGA -->
+                      <div class="container-dateInput">
+                        <div class="wrapper-dateinput dia">
+                          <input class="hores w-70" disabled type="text" value="{{dataEntrega | dates:'dd'}}" />
+                          <div class="plus-minus">
+                            <span class="boto" (click)="dateInput('dd','+');">
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" (click)="dateInput('dd','-');">
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="wrapper-dateinput hora">
+                          <input class="hores w-60" disabled min="12" max="15" value="12" type="text" ngModel="{{dataEntrega | date:'HH'}}" />
+                          <div class="plus-minus">
+                            <span class="boto" (click)="dateInput('hh','+');">
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" (click)="dateInput('hh','-');">
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="wrapper-dateinput minut">
+                          <input class="hores w-60" disabled min="0" max="45" value="00" type="text" ngModel="{{dataEntrega | date:'mm'}}" />
+                          <div class="plus-minus">
+                            <span class="boto" (click)="dateInput('mm','+');">
+                              <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="boto" (click)="dateInput('mm','-');">
+                              <i class="fa fa-minus"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn2">Realizar Orden</button>
+                      <button type="button" class="btn2" (click)="realizarOrden()">Realizar Orden</button>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
 
           </div>
@@ -77,6 +138,7 @@
       </nav>
     </div>
   </header>
+
   <router-outlet></router-outlet>
 
   <!-- footer section -->
@@ -113,10 +175,10 @@
         <div class="col-md-4 footer-col">
           <div class="footer_detail">
             <a href="" class="footer-logo">
-              T-Como
+              <img src="/assets/images/t-como.png" style="width: 200px;">
             </a>
             <p>
-              T-Systems
+              By T-Systems
             </p>
             <p>
               Como en casa
@@ -145,10 +207,10 @@
             Nuestros horarios
           </h4>
           <p>
-            Cada dia
+            Lunes - Viernes
           </p>
           <p>
-            10.00 Am - 18.00 Pm
+            12.00 Am - 15.00 Pm
           </p>
         </div>
       </div>
@@ -162,7 +224,19 @@
           Distributed By TComo
         </p>
       </div>
+
     </div>
+    <button (click)="backToTop()"
+    type="button"
+    id="myBtn" title="Go to top">🡅</button>
+
+
+    <i (click)="onCarritoFlotantClick()" class="fa fa-shopping-cart" id="carritoFlotant"> {{carrito.length}}</i>
+
   </footer>
+
   <!-- footer section -->
+
 </div>
+
+

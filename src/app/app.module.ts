@@ -15,6 +15,12 @@ import { LoginComponent } from './login/login.component';
 
 import { DatesPipe } from './dates.pipe';
 import { DishPipe } from './dish.pipe';
+import { SugerenciasComponent } from './sugerencias/sugerencias.component';
+
+import { AuthInterceptor, authInterceptorProviders } from './_helpers/authinterceptor';
+import { UsersComponent } from './users/users.component';
+import { OthersPipe } from './others.pipe';
+import { SearchDishPipe } from './search-dish.pipe';
 
 
 @NgModule({
@@ -28,6 +34,10 @@ import { DishPipe } from './dish.pipe';
     LoginComponent,
     DatesPipe,
     DishPipe,
+    OthersPipe,
+    SugerenciasComponent,
+    UsersComponent,
+    SearchDishPipe,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +45,7 @@ import { DishPipe } from './dish.pipe';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

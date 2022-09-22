@@ -8,15 +8,23 @@
     </div>
 
     <!-- Login Form -->
-    <form>
-      <input type="email" id="email" class="fadeIn second" name="email" placeholder="Introduce tu Email">
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Introduce tu Password">
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <input type="username" id="username" class="fadeIn second" name="username" placeholder="Introduce tu username" [(ngModel)]="form.username" required #username="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="username.errors && f.submitted">
+        Introduce tu username
+      </div>
+
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Introduce tu Password" [(ngModel)]="form.password" required minlength="6" #password="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+        Introduce tu password (mínimo 6 caracteres)
+      </div>
+
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
-    <!-- Remind Passowrd -->
+    <!-- enviar a registro -->
     <div id="formFooter">
-      <!-- <a class="underlineHover" href="#">Forgot Password?</a> -->
+      <a class="underlineHover" [routerLink]="['/registro']">Aun no estás registrado?</a>
     </div>
 
   </div>

@@ -2,3 +2,50 @@
   height: auto;
 }
 
+#imgSlide1{
+  border: 2px solid #E30075;
+  border-radius: 10em;
+  float: right;
+}
+
+#fons-slider{
+  background-color: rgba(250, 235, 215, 0.45);
+  background-image: url(src\assets\images\office-cafeteria-opacitat.jpg);
+  background-size: cover;
+  background-position-y: center;
+  padding: 50px;
+}
+
+.img-box img {
+  border-radius: 10px 10px 0px 45px;
+}
+
+.options a {
+  min-width: 40px;
+  cursor: pointer;
+}
+
+section.food_section {
+/*   background-image: url(src\assets\images\fons.png);*/
+background: linear-gradient(220.55deg, #fde7f8dd 0%, #d6abcc6c 100%);}
+section.food_section *{
+  color: white;
+}
+
+section.food_section .container{
+  padding: 30px 0px;
+}
+
+section.about_section {
+  background-color: white;
+}
+.alertaLogin {
+  text-align: center;
+  color: rgb(159, 37, 88);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.nomPlat{
+  text-transform: capitalize;
+}

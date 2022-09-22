@@ -1,0 +1,44 @@
+<section class="book_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2 style="font-size: 50px;">
+        Déjanos tu comentario
+      </h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form_container">
+
+          <form (ngSubmit)="f.form.valid && msjEnviado()" #f="ngForm" novalidate>
+
+            <input type="text" class="form-control" placeholder="Tu nombre" name="nombre"
+                [(ngModel)]="form.nombre" required #nombre="ngModel"/>
+            <div class="alert alert-danger" role="alert" *ngIf="nombre.errors && f.submitted">
+              Introduce tu nombre
+            </div>
+
+            <input type="email" id="email" class="form-control" placeholder="Tu email" name="email" ngModel email="true" required #email="ngModel"/>
+            <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
+              Introduce un email valido
+            </div>
+
+            <label for="message-text" class="col-form-label">Tu mensaje:</label>
+            <textarea type="text" class="form-control" id="message-text" style="height: 169px;" name="mensaje"
+              [(ngModel)]="form.mensaje" required #mensaje="ngModel"></textarea>
+            <div class="alert alert-danger" role="alert" *ngIf="mensaje.errors && f.submitted">
+              Introduce algun mensaje
+            </div>
+
+            <div class="btn_box">
+              <button type="submit">
+                Enviar
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

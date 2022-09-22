@@ -1757,6 +1757,7 @@ pre code {
 .table-hover .table-active:hover > td,
 .table-hover .table-active:hover > th {
   background-color: rgba(0, 0, 0, 0.075);
+
 }
 
 .table .thead-dark th {
@@ -1794,6 +1795,9 @@ pre code {
   color: #fff;
   background-color: rgba(255, 255, 255, 0.075);
 }
+
+
+
 
 @media (max-width: 575.98px) {
   .table-responsive-sm {
@@ -1866,7 +1870,8 @@ pre code {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  border-radius: 5rem;
+  text-align: center;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -4555,12 +4560,14 @@ input[type="button"].btn-block {
   display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
-  min-width: 0;
+  width: 60vw;
+  padding: 10px;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: rgba(181, 121, 167, 0.148);
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  border: 2px solid var(--pink);
+  border-radius: 2rem;
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.493);
 }
 
 .card > hr {
@@ -9845,7 +9852,7 @@ button.bg-dark:focus {
 }
 
 .text-white {
-  color: #fff !important;
+  color: black !important; /* color letra tabla orders */
 }
 
 .text-primary {
