@@ -3,6 +3,10 @@
 
         <!-- VISTA ADMIN -->
         <div *ngIf="admin" class="card mask-custom">
+          <div class="input-group mb-3">
+            <input class="form-control me-2" type="search" placeholder="Busca por Usuario o Estado"
+              aria-label="Search" [(ngModel)]="filterOrder" name="filterOrder">
+          </div>
           <table *ngIf="orders != null;else loading" class="table table-borderless text-white mb-0" id="taulaAdmin">
                 <thead>
                     <tr id="cabecera">
@@ -15,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody *ngIf="orders.length > 0;else noOrders">
-                    <tr *ngFor="let o of orders; let iOrd = index">
+                    <tr *ngFor="let o of orders | searchOrders:filterOrder; let iOrd = index">
                         <th scope="row">{{o.id}}</th>
                         <td [ngStyle]="{color: o.delivered | others:'color'}">
                           {{o.delivered | others:"statusOrder"}}
@@ -52,6 +56,9 @@
         <!-- VISTA CLIENT -->
         <div *ngIf="!admin">
             <!-- Implementar vista client -->
+            <div class="input-group mb-3">
+
+            </div>
             <div *ngIf="orders != null;else loading" class="ordres">
                 <div *ngFor="let o of orders; let iOrd = index" class="ordre">
                     <div class="ordre-top">

@@ -18,6 +18,8 @@ export class OrdersComponent implements OnInit {
   modifying: any = new Map<number, boolean>();
   plats: any;
 
+  filterOrder = '';
+
   constructor(
     private api: OrdersService,
     private dishes: DishesService,
