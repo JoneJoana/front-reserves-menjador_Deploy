@@ -91,17 +91,22 @@ export class HomeComponent implements OnInit {
   }
 
   doIsotopeMagic(e: any) {
+    // Actualitzar estil boto actiu
+    $('.filters_menu li').removeClass('active');
+    $(e.target).addClass('active');
+
+    var iso = new Isotope('.grid', {
+      itemSelector: '.all',
+      percentPosition: false,
+      masonry: {
+        columnWidth: '.all',
+      },
+    });
+
     // Inicialitzar isotope (nomes es fa un cop)
     if (!this.isotope) {
       this.isotope = true;
       // Inicialitzar
-      var iso = new Isotope('.grid', {
-        itemSelector: '.all',
-        percentPosition: false,
-        masonry: {
-          columnWidth: '.all',
-        },
-      });
 
       // Carregar listeners botons
       var filtersElem = document.querySelector('.filters_menu')!;
@@ -111,16 +116,12 @@ export class HomeComponent implements OnInit {
         iso.arrange({ filter: filterValue });
       });
     }
-
-    // Actualitzar estil boto actiu
-    $('.filters_menu li').removeClass('active');
-    $(e.target).addClass('active');
-
     //neteja camp busqueda al clicar una categoria
     this.buscar = '';
   }
 
   onSearchKeyUp(e: any) {
+
     var iso = new Isotope('.grid', {
       itemSelector: '.all',
       layoutMode: 'fitRows',
@@ -132,7 +133,14 @@ export class HomeComponent implements OnInit {
       },
     });
 
-    if (this.buscar == '') iso.destroy();
+    if (this.buscar == '') {
+      iso.destroy();
+      //this.isotope = false;
+    }
+  }
+
+  clearIsoCat() {
+    $('.filters_menu li')[0].click();
   }
 
 }

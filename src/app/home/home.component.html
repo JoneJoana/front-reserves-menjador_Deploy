@@ -113,7 +113,7 @@
     <div class="heading_container heading_center"  >
       <h2 style="padding-bottom: 30px; color: black;" id="menu">Menú</h2>
       <div class="input-group-sm" class="col-auto">
-        <input type="text" class="form-control quicksearch" (keyup)="onSearchKeyUp($event)"
+        <input (click)="clearIsoCat()" type="text" class="form-control quicksearch" (keyup)="onSearchKeyUp($event)"
         placeholder="Filtrar por nombre" [(ngModel)]="buscar" id="buscador" style="color: black;"/>
       </div>
     </div>
