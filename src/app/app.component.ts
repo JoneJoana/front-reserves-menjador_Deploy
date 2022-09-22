@@ -273,7 +273,7 @@ export class AppComponent implements OnInit{
   redireccion(donde: number){
     setTimeout (() => {
       window.scrollTo(0,donde);
-    }, 300);
+    }, 400);
   }
 
 }
