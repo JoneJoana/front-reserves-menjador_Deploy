@@ -218,8 +218,7 @@ export class AppComponent implements OnInit{
             });
             console.log("Nova Ordre:\n"+response.createdOn+"\n"+response.deliveryOn)
             setTimeout (() => {
-              this.router.navigate(['/orders']);
-              $('#tu-carrito').modal('hide');
+              window.location.reload()
             }, 1800);
           },
           error => {
