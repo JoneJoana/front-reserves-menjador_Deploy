@@ -98,3 +98,25 @@ div .boto:active {
 #myBtn:hover {
   background-color: #9e0353; /* Add a dark-grey background on hover */
 }
+
+
+#carritoFlotant {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  top: 50px; /* Place the button at the bottom of the page */
+  right: 20px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: #E30075; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 30px; /* Rounded corners */
+  font-size: 20px; /* Increase font size */
+  width: 60px;
+}
+
+#carritoFlotant:hover {
+  background-color: #9e0353; /* Add a dark-grey background on hover */
+}

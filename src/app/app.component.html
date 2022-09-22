@@ -67,10 +67,10 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="carrito"><strong>Tu Carrito</strong></h5>
+                      <h5 class="modal-title"><strong>Tu Carrito</strong></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" *ngIf="carrito.length > 0; else noDishes">
+                    <div class="modal-body" id="carritoContainer" *ngIf="carrito.length > 0; else noDishes">
                       <div *ngFor="let dish of carrito">
                         {{dish.name}}
                         <span (click)="eliminarPlat(dish.id)" class="plat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -228,6 +228,8 @@
     <button (click)="backToTop()"
     type="button"
     id="myBtn" title="Go to top">🡅</button>
+
+    <i (click)="onCarritoFlotantClick()" class="fa fa-shopping-cart" id="carritoFlotant"></i>
 
 
   </footer>

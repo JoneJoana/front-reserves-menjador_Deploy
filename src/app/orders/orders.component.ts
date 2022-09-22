@@ -4,6 +4,8 @@ import { data } from 'jquery';
 import { DishesService, OrdersService } from '../_services/api.service';
 import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, USER, USERNAME } from '../Constants';
 declare var swal: any;
+declare var $: any;
+declare var dt: any
 
 @Component({
   selector: 'app-orders',
@@ -99,6 +101,10 @@ export class OrdersComponent implements OnInit {
             }
           }
         });
+
+        // Inicialitzar datatable
+        $('#taulaAdmin').DataTable();
+
       },
       (error) => {
         console.log('[ERROR] loadOrders()\n ' + error.message);

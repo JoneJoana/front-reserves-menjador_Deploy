@@ -140,15 +140,27 @@ export class AppComponent implements OnInit{
 
   // When the user scrolls down 20px from the top of the document, show the button
   scrollFunction() {
+    // Button scroll top
     var mybutton:any=document.getElementById('myBtn')
     if (
-      document.body.scrollTop > 1100 ||
-      document.documentElement.scrollTop > 1100
+      document.body.scrollTop > 500 ||
+      document.documentElement.scrollTop > 500
     ) {
-    mybutton.style.display = "block";
+      mybutton.style.display = "block";
     } else {
       mybutton.style.display = "none";
-      console.log("funciona")
+    }
+
+    // Carrito flotant
+    var btnCarrito:any=document.getElementById('carritoFlotant')
+
+    if (
+      $("#carritoContainer").find("div").length>0
+      && (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100)
+    ) {
+      btnCarrito.style.display = "block";
+    } else {
+      btnCarrito.style.display = "none";
     }
   }
 
@@ -156,6 +168,10 @@ export class AppComponent implements OnInit{
   backToTop() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+  }
+
+  onCarritoFlotantClick(){
+    $('#tu-carrito').modal('show');
   }
 
   realizarOrden() {
