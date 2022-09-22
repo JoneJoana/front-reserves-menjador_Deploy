@@ -62,6 +62,12 @@ export class HomeComponent implements OnInit {
     this.ordService.addCarrito.next(d)
     this.carrito.push(d)
     console.log(this.carrito)
+
+    var carritoFlotant = document.getElementById('carritoFlotant')
+    if(carritoFlotant != null){
+      carritoFlotant.style.display = "block";
+    }
+
   }
 
   loadCategories() {

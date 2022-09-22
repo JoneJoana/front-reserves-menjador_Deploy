@@ -172,6 +172,7 @@ export class OrdersComponent implements OnInit {
   }
 
   eliminarPlat(i: number, idPlat: number) {
+    if(this.orders[i].dishes.length <= 1) return;
     var llista = new Array();
     this.orders[i].dishes.forEach((d: any) => {
       if (d.id != idPlat) {
