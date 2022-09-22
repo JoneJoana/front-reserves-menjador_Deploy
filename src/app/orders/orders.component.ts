@@ -15,6 +15,7 @@ export class OrdersComponent implements OnInit {
   orders: any = null;
   modifying: any = new Map<number, boolean>();
   plats: any;
+  queryOrdenar:string = ""
 
   constructor(
     private api: OrdersService,
@@ -348,4 +349,20 @@ export class OrdersComponent implements OnInit {
       }
     );
   }
+
+  ordenar() {
+    var query:string = this.queryOrdenar
+    // Si hem tret els filtres, que carregui normal
+    if(query == "") { this.loadOrders(); return }
+    // Aquí s'hauria de construir la query amb uns checkboxes o algo aixi que digui els camps per ordenar
+    this.ordersService.ordenar(query).subscribe(
+      (response) => {
+        this.orders = response
+      },
+      (error) => {
+        console.log('ERROR REQUEST:\n ' + error.message);
+      }
+    );
+  }
+
 }
