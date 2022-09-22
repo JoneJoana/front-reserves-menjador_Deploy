@@ -8,7 +8,7 @@ export class SearchDishPipe implements PipeTransform {
   transform(value: any, arg: any): any {
     const resultDish = [];
     for(const dish of value){
-      if(dish.name.indexOf(arg) > -1 || dish.descripcion.indexOf(arg) > -1){
+      if(dish.name.indexOf(arg) > -1 || dish.descripcion.toLowerCase().indexOf(arg.toLowerCase()) > -1){
         resultDish.push(dish);
       }
 
