@@ -1,9 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Isotope from 'isotope-layout';
 import { CategoriesService, DishesService, OrdersService } from '../_services/api.service';
 import { MAIN_CATEGORIES, ROL, ROL_ADMIN, ROL_CLIENT, TOKEN } from '../Constants';
 import { Dish } from '../dishes/dishes.component';
-import { ActivatedRoute } from '@angular/router';
 declare var $: any;
 declare var swal:any;
 
@@ -27,8 +26,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private dishService: DishesService,
     private catService: CategoriesService,
-    private ordService: OrdersService,
-    private _route: ActivatedRoute
+    private ordService: OrdersService
   ) {}
 
   ngOnInit(): void {

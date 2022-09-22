@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'sugerencias', component: SugerenciasComponent },
-  { path: 'users', component: UsersComponent }
+  { path: 'users', component: UsersComponent },
 ];
 
 const routerOptions: ExtraOptions = {
