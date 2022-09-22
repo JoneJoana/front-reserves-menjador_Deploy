@@ -15,24 +15,24 @@ export class RegisterComponent implements OnInit {
     email: null,
     password: null
   }
-  username?: string;
-  email?: any;
-  password?: string;
+
+  usernames: any;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadUsernames();
   }
 
   onSubmit(): void{
     console.log("REGISTER")
-
-    this.authService.register(this.form.username, this.form.password, this.form.email)
+    if(!this.existUsernames()){
+      this.authService.register(this.form.username, this.form.password, this.form.email)
       .subscribe(
         response => {
         console.log(response)
         swal({
-          text: "Login correcto",
+          text: "Registro correcto",
           icon: "success",
           button: false,
           timer: 1000
@@ -42,10 +42,34 @@ export class RegisterComponent implements OnInit {
       error => {
         console.log(error)
         swal({
-          text: "Login incorrecto",
+          text: "Registro incorrecto",
           icon: "error"
         });
       });
+    }
 
+  }
+
+  private existUsernames(): boolean{
+    var trobat = this.usernames.includes(this.form.username);
+    if(trobat){
+      swal({
+        text: "Ya existe ese Username",
+        icon: "error"
+      });
+      return true;
+    }
+    return false;
+  }
+
+  loadUsernames() {
+    this.authService.getUsernames().subscribe(
+      (response) => {
+        this.usernames = response;
+      },
+      (error) => {
+        console.log('ERROR REQUEST register/loadUsernames()');
+      }
+    );
   }
 }

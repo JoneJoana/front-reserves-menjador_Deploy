@@ -40,6 +40,10 @@ export class AuthService {
     return this.http.get(AUTH_URL + "api/users/", httpOptions);
   }
 
+  getUsernames(): Observable<any> {
+    return this.http.get(AUTH_URL + "api/users/usernames", httpOptions);
+  }
+
   updateUser(username:string,email:any): Observable<any> {
     return this.http.put(AUTH_URL + "api/users/update/"+username, email, httpOptions);
   }
