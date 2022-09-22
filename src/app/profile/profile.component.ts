@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { USERNAME } from '../Constants';
 import { AuthService } from '../_services/auth.service';
 declare var swal: any;
@@ -22,10 +23,12 @@ export class ProfileComponent implements OnInit {
   hasBeenModified = false;
 
 
-  constructor(private api: AuthService) { }
+  constructor(private api: AuthService,private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.loadUser(window.sessionStorage.getItem(USERNAME));
+    //this.loadUser(window.sessionStorage.getItem(USERNAME));
+    this.user.username = this._route.snapshot.paramMap.get('username')!;
+    this.loadUser(this.user.username);
   }
 
   loadUser(username: any) {
