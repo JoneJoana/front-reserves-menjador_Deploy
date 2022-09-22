@@ -3,8 +3,7 @@
   <div class="container">
     <div class="input-group mb-3">
       <input class="form-control me-2" type="search" placeholder="Search by name"
-        aria-label="Search" [(ngModel)]="name">
-      <button class="btn btn-outline" type="submit" (click)="searchName()">Search</button>
+        aria-label="Search" [(ngModel)]="filterDish" name="filterDish">
     </div>
     <div class="card mask-custom">
       <div class="form_container">
@@ -77,7 +76,7 @@
             </tr>
 
             <!-- platos existentes -->
-            <tr *ngFor="let dish of dishes; let i = index" id="dish{{i}}">
+            <tr *ngFor="let dish of dishes | searchDish:filterDish; let i = index" id="dish{{i}}">
               <td>
                 <input class="form-input" type="text" id="nombrePlato" [(ngModel)]="dish.name" />
                 <textarea class="form-input" [(ngModel)]="dish.descripcion" rows="3"></textarea>

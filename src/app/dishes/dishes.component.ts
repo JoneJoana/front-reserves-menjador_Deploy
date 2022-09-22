@@ -18,6 +18,7 @@ export class DishesComponent implements OnInit {
   selectedFile: File | null = null;
   addDish = false;
 
+  filterDish = '';
   newDishCategories: Category[] = [];
 
   newDish = {
@@ -265,6 +266,7 @@ export class DishesComponent implements OnInit {
       );
       this.selectedFile = null;
   }
+
 }
 
 export interface Dish {
