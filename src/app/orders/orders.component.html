@@ -48,9 +48,10 @@
                           {{o.delivered | others:"statusOrder"}}
                           <div *ngIf="o.delivered == 'P'">
                             <!-- "C" de Cancel -->
-                            <button (click)="cancelarOrdre(o.id)">C</button>
+                            <button class="btn-admin" (click)="cancelarOrdre(o.id)">Cancelar</button>
+                            <br>
                             <!-- "D" de Deliver -->
-                            <button (click)="entregarOrdre(o.id)">D</button>
+                            <button class="btn-admin" (click)="entregarOrdre(o.id)">Delivered</button>
                           </div>
                         </td>
                         <td style="color:#a7a7a7">
@@ -63,7 +64,7 @@
                           {{o.deliveryOn | dates:"deliveryOn"}}
                         </td>
                         <td>
-                            {{o.user.username}}
+                          {{o.user.username}}
                         </td>
                     </tr>
                 </tbody>
