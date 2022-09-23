@@ -44,9 +44,11 @@ export class SugerenciasComponent implements OnInit {
               text: "Te contestaremos lo antes posible. Gracias por contactarnos :)",
               icon: "success",
               buttons: [false, true],
-              timer: 2300
+              timer: 2000
               });
-
+            setTimeout (() => {
+              window.location.reload();
+            }, 2300);
           }, (error) => {
             swal({
               text: "Fallo al enviar email. Lo sentimos, intentalo de nuevo",
