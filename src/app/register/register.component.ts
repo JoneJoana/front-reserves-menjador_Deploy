@@ -26,7 +26,22 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void{
     console.log("REGISTER")
-    if(!this.existUsernames()){
+    let validPass = false;
+
+    let regexNum = /\d/;
+    let regexSymbol = /[$-/:-?{-~!"^_`\[\]]/;
+
+    if(!regexNum.test(this.form.password) || !regexSymbol.test(this.form.password)){
+      swal({
+        text: 'Contraseña mínimo 6 caracteres (con un numero y un símbolo)',
+        icon: 'error',
+        button: false,
+        timer: 1800,
+      });
+      return;
+    } else validPass = true
+
+    if(!this.existUsernames() && validPass){
       this.authService.register(this.form.username, this.form.password, this.form.email)
       .subscribe(
         response => {
