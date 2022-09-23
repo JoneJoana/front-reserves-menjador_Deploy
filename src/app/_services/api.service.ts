@@ -50,7 +50,7 @@ export class OrdersService {
   }
 
   ordenar(query: any): Observable<any> {
-    return this.http.get(BASE+"/api/orders/sorted"+query);
+    return this.http.get(BASE+"/api/orders/sorted?sort="+query);
   }
 
 }

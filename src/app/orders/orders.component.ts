@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
+import { data, map } from 'jquery';
 import { DishesService, OrdersService } from '../_services/api.service';
 import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, USER, USERNAME } from '../Constants';
 declare var swal: any;
@@ -14,8 +14,8 @@ export class OrdersComponent implements OnInit {
   admin = false;
   orders: any = null;
   modifying: any = new Map<number, boolean>();
+  ordenacio = { camp:'',tipus:''};
   plats: any;
-  queryOrdenar:string = ""
 
   filterOrder = '';
 
@@ -341,8 +341,7 @@ export class OrdersComponent implements OnInit {
     );
   }
 
-  ordenar() {
-    var query:string = this.queryOrdenar
+  ordenar(query:string) {
     // Si hem tret els filtres, que carregui normal
     if(query == "") { this.loadOrders(); return }
     // Aquí s'hauria de construir la query amb uns checkboxes o algo aixi que digui els camps per ordenar
@@ -354,6 +353,22 @@ export class OrdersComponent implements OnInit {
         console.log('ERROR REQUEST:\n ' + error.message);
       }
     );
+  }
+
+  orderBy(camp:string) {
+    // Si hem clicat un camp nou per ordenar
+    if(this.ordenacio.camp != camp) {
+      this.ordenacio.tipus = "asc"
+      this.ordenacio.camp = camp
+    }
+    // Si el camp es el mateix
+    this.ordenar(camp+","+this.ordenacio.tipus)
+    if(this.ordenacio.tipus == "desc") this.ordenacio.tipus = "asc"
+    else this.ordenacio.tipus = "desc"
+    // Actualitzar boto mitjançant la classe de l'icono
+    const llista = document.getElementById(camp+"Btn")!.classList
+    llista.add("bi")
+    llista.add("bi-sort-down-alt")
   }
 
 }

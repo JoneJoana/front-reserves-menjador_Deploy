@@ -195,4 +195,12 @@ tbody tr:hover{
 div.ordres div.ordre:hover{
   background-color: #F7C1DD;
 }
-
+.trData{
+  cursor: pointer;
+}
+.trData:hover{
+  background-color: #F7C1DD;
+}
+.trData:active{
+  background-color: #ff8dc8;
+}
