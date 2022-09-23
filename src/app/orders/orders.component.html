@@ -5,7 +5,7 @@
         <div *ngIf="admin" class="card mask-custom">
 
           <div class="input-group mb-3">
-            <input class="form-control me-2" type="search" placeholder="Busca por Usuario o Estado (p,c o d)"
+            <input class="form-control me-2" type="search" placeholder="Busca por Usuario o Estado (p,c,d)"
               aria-label="Search" [(ngModel)]="filterOrder" name="filterOrder">
           </div>
 
@@ -70,8 +70,12 @@
             <div class="input-group mb-3">
               <!-- datepicker -->
             </div>
+            <div class="input-group mb-3">
+              <input class="form-control me-2" type="search" placeholder="Busca por Estado (p,c,d)"
+                aria-label="Search" [(ngModel)]="filterOrder" name="filterOrder">
+            </div>
             <div *ngIf="orders != null;else loading" class="ordres">
-                <div *ngFor="let o of orders; let iOrd = index" class="ordre">
+                <div *ngFor="let o of orders | searchOrders:filterOrder; let iOrd = index" class="ordre">
                     <div class="ordre-top">
                         <div class="ordre-top-top">
                             <div class="ordre-top-createdOn">

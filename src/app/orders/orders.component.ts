@@ -64,17 +64,6 @@ export class OrdersComponent implements OnInit {
     this.api.gerOrdersByUser(user).subscribe(
       (response) => {
         this.orders = response;
-        console.log(this.orders.length)
-        // Ordenar llista per data d'entrega
-        this.orders.sort((a: { deliveryOn: any }, b: { deliveryOn: any }) => {
-          if (a.deliveryOn > b.deliveryOn) {
-            return 1;
-          } else if (a.deliveryOn < b.deliveryOn) {
-            return -1;
-          } else {
-            return 0;
-          }
-        });
       },
       (error) => {
         console.log('[ERROR] loadOrders()\n ' + error.message);
