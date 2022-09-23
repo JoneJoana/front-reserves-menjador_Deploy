@@ -196,16 +196,16 @@ div.container {
   border: 1px solid #e30075;
 }
 tbody tr:hover{
-  background-color: #F7C1DD;
+  background-color: #f7c1ddbf;
 }
 div.ordres div.ordre:hover{
-  background-color: #F7C1DD;
+  background-color: #f7c1ddbf;
 }
 .trData{
   cursor: pointer;
 }
 .trData:hover{
-  background-color: #F7C1DD;
+  background-color: #f7c1ddbf;
 }
 .trData:active{
   background-color: #ff8dc8;
