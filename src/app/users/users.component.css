@@ -29,4 +29,7 @@ table th {
   background-color: rgba(155, 78, 137, 0);
   border: rgba(155, 78, 137, 0);
 }
+tbody tr:hover{
+  background-color: #F7C1DD;
+}
 

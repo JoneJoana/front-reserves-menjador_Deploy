@@ -189,5 +189,10 @@ div.container {
   border-radius: 10px 10px 0px 45px;
   border: 1px solid #e30075;
 }
-
+tbody tr:hover{
+  background-color: #F7C1DD;
+}
+div.ordres div.ordre:hover{
+  background-color: #F7C1DD;
+}
 

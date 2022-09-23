@@ -68,3 +68,7 @@ img{
 img.preview {
   cursor: pointer;
 }
+
+tbody tr:hover{
+  background-color: #F7C1DD;
+}
