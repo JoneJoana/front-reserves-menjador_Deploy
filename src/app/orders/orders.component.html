@@ -54,13 +54,13 @@
                           </div>
                         </td>
                         <td style="color:#a7a7a7">
-                          {{o.createdOn | date:"dd MMM yyyy HH:mm"}}
+                          {{o.createdOn | dates:"createdOn"}}
                         </td>
                         <td style="color:#a7a7a7">
                           {{o.modifiedOn | date:"dd MMM yyyy HH:mm"}}
                         </td>
                         <td>
-                          {{o.deliveryOn | date:"dd MMM yyyy HH:mm"}}
+                          {{o.deliveryOn | dates:"deliveryOn"}}
                         </td>
                         <td>
                             {{o.user.username}}
