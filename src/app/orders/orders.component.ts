@@ -312,16 +312,34 @@ export class OrdersComponent implements OnInit {
       id: id,
       delivered: "C"
     }
-    // TODO: Posar alerta segur que vols canviar estat a Cancelat
-    this.ordersService.changeStatus(data).subscribe(
-      (response) => {
-        this.loadOrders()
-      },
-      (error) => {
-        // TODO: Missatge error No s'ha pogut fer el canvi d'estat per algun motiu desconegut
-        console.log('ERROR REQUEST:\n ' + error.message);
+    swal({
+      text: '¿Seguro que quieres cancelar esta orden?',
+      icon: 'warning',
+      buttons: [true, "Si"],
+    }).then((okay: boolean) => {
+      if (okay) {
+        this.ordersService.changeStatus(data).subscribe(
+          (response) => {
+            this.loadOrders()
+            swal("Orden cancelada", {
+              icon: "success",
+                 buttons: false,
+                 timer: 1000,
+            });
+          },
+          (error) => {
+            console.log('ERROR REQUEST:\n ' + error.message);
+            swal("No se podido ejecutar la cancelacion", {
+              icon: "error",
+                 buttons: false,
+                 timer: 1300,
+            });
+          }
+        );
+      } else {
+        return;
       }
-    );
+    });
   }
 
   entregarOrdre(id:number) {
@@ -329,16 +347,35 @@ export class OrdersComponent implements OnInit {
       id: id,
       delivered: "D"
     }
-    // TODO: Posar alerta segur que vols canviar estat a Entregat
-    this.ordersService.changeStatus(data).subscribe(
-      (response) => {
-        this.loadOrders()
-      },
-      (error) => {
-        // TODO: Missatge error No s'ha pogut fer el canvi d'estat per algun motiu desconegut
-        console.log('ERROR REQUEST:\n ' + error.message);
+    swal({
+      text: '¿Seguro que quieres cambiar el estado a Entregado?',
+      icon: 'warning',
+      buttons: [true, "Si"],
+    }).then((okay: boolean) => {
+      if (okay) {
+        this.ordersService.changeStatus(data).subscribe(
+          (response) => {
+            this.loadOrders()
+            swal("Orden Entregada", {
+              icon: "success",
+                 buttons: false,
+                 timer: 1000,
+            });
+          },
+          (error) => {
+            console.log('ERROR REQUEST:\n ' + error.message);
+            swal("No se podido actualizar el estado a Entregado", {
+              icon: "error",
+                 buttons: false,
+                 timer: 1300,
+            });
+          }
+        );
+      } else {
+        return;
       }
-    );
+    });
+
   }
 
   ordenar(query:string) {
