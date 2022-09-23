@@ -52,7 +52,7 @@
               </a>
               <!-- si esta logueado reenvia a profile -->
               <a *ngIf="isLogin" class="user_link" (click)="reload()">
-                <i class="fa fa-user" aria-hidden="true"><span style="font-family: Open Sans;">&nbsp;{{usuari}}</span></i>
+                <i style="cursor:pointer" class="fa fa-user" aria-hidden="true"><span style="font-family: Open Sans;">&nbsp;{{usuari}}</span></i>
               </a>
 
               <a class="cart_link" href="#" data-bs-toggle="modal" data-bs-target="#tu-carrito"

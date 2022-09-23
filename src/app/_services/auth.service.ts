@@ -48,6 +48,10 @@ export class AuthService {
     return this.http.put(AUTH_URL + "api/users/update/"+username, email, httpOptions);
   }
 
+  changePassword(data:any): Observable<any> {
+    return this.http.put(AUTH_URL + "api/users/password/", data);
+  }
+
   updateUserImage(username:string,file:File): Observable<any> {
     const form = new FormData
     form.append('file', file, file.name)

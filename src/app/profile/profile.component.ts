@@ -18,6 +18,12 @@ export class ProfileComponent implements OnInit {
     image: null
   }
 
+  newPass={
+    oldPassword: "",
+    newPassword: "",
+    newPasswordRepeat: ""
+  }
+
   selectedFile: File | null = null;
   hasBeenModified = false;
 
@@ -46,6 +52,44 @@ export class ProfileComponent implements OnInit {
   }
 
   updateInfo(){
+    // CANVIAR CONTRASENYA
+    if(this.newPass.newPassword != "") {
+      //TODO: Validar contrasenya amb regular expression + popus confirmacio i error/exit
+      if(this.newPass.newPassword != this.newPass.newPasswordRepeat) {
+        swal({
+          text: "La contraseña nueva no coincide",
+          icon: "error",
+          button: false,
+          timer: 2000
+        });
+        return
+      }
+      const data = {
+        username: this.user.username,
+        password: this.newPass.newPassword
+      }
+      this.api.changePassword(data).subscribe(
+        response => {
+          swal({
+            text: "Contraseña actualizada! :)",
+            icon: "success",
+            button: false,
+            timer: 1500
+          });
+        },
+        error => {
+          swal({
+            text: "Missatge error change password",
+            icon: "error",
+            button: false,
+            timer: 1500
+          });
+        }
+      )
+      return
+    }
+
+    // UPDATE USER
     this.api.updateUser(this.user.username, {email: this.user.email}).subscribe(
       response => {
         swal({
@@ -99,6 +143,18 @@ export class ProfileComponent implements OnInit {
 
       reader.readAsDataURL(event.target.files[0]);
     }
+  }
+
+  updatePassword() {
+    document.getElementById("goBackBtn")!.style.display = "block"
+    document.getElementById("infoBasica")!.style.display = "none"
+    document.getElementById("changePassword")!.style.display = "block"
+  }
+
+  goInicioPerfil() {
+    document.getElementById("goBackBtn")!.style.display = "none"
+    document.getElementById("infoBasica")!.style.display = "block"
+    document.getElementById("changePassword")!.style.display = "none"
   }
 
 }

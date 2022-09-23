@@ -9,24 +9,45 @@
     <input hidden (change)="onFileChanged($event)" class="form-control uploadFile" type="file" style="width: 90%">
   </div>
 
-
-  <div class="card-block">
-    <!-- <h1 class="m-b-20 p-b-5 b-b-default f-w-600" style="color: black;">Datos de Usuario</h1> -->
+  <!-- Info basica -->
+  <div class="card-block" id="infoBasica">
     <div class="mb-3">
-      <label for="disabledTextInput" class="form-label">Username:</label>
-      <input class="form-control" id="disabledInput" type="text" [(ngModel)]="user.username" disabled>
+      <label for="username" class="form-label">Username:</label>
+      <input class="form-control" id="username" type="text" [(ngModel)]="user.username" disabled>
       <br>
-      <label for="disabledTextInput" class="form-label">Email:</label>
-      <input class="form-control" id="disabledInput" type="text" [(ngModel)]="user.email">
+      <label for="email" class="form-label">Email:</label>
+      <input class="form-control" id="email" type="text" [(ngModel)]="user.email">
       <br>
-      <label for="disabledTextInput" class="form-label">Contraseña:</label>
-      <input class="form-control" id="disabledInput" type="password" [(ngModel)]="user.password" disabled>
+      <label for="passwd" class="form-label">Contraseña:</label>
+      <input class="form-control" id="passwd" type="password" [(ngModel)]="user.password" disabled>
+      <button (click)="updatePassword()">CANVIAR CONTRASENYA</button>
     </div>
     <div class="pt-1 mb-4">
       <button class="user_option" type="button" (click)="updateInfo()">Actualizar</button>
     </div>
   </div>
-  <!-- fin card-rock-informacion -->
+
+  <!-- Canviar contrasenya -->
+  <button (click)="goInicioPerfil()" id="goBackBtn" style="display: none;">Go Back</button>
+  <div class="card-block" id="changePassword" style="display: none;">
+    <div class="mb-3">
+      <label for="oldPassword" class="form-label">Contraseña:</label>
+      <input class="form-control" id="oldPassword" type="password"
+      placeholder="Contraseña vieja" [(ngModel)]="newPass.oldPassword">
+      <br>
+      <label for="newPassword" class="form-label">Contraseña:</label>
+      <input class="form-control" id="newPassword" type="password"
+      placeholder="Contraseña nueva" [(ngModel)]="newPass.newPassword">
+      <br>
+      <label for="newPasswordRepeat" class="form-label">Contraseña:</label>
+      <input class="form-control" id="newPasswordRepeat" type="password"
+      placeholder="Repetir nueva" [(ngModel)]="newPass.newPasswordRepeat">
+    </div>
+    <div class="pt-1 mb-4">
+      <button class="user_option" type="button" (click)="updateInfo()">Actualizar</button>
+    </div>
+  </div>
+
 
 </div>
 <!-- fin content -->
