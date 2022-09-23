@@ -9,7 +9,8 @@ export class SearchUserPipe implements PipeTransform {
     if(arg.length < 2) return value;
     const resultUser = [];
     for(const user of value){
-      if(user.username.toLowerCase().indexOf(arg.toLowerCase()) > -1 || user.email.toLowerCase().indexOf(arg.toLowerCase()) > -1){
+      if(user.username.toLowerCase().indexOf(arg.toLowerCase()) > -1 || user.email.toLowerCase().indexOf(arg.toLowerCase()) > -1
+        || user.rol.name.toLowerCase().indexOf(arg.toLowerCase()) > -1){
         resultUser.push(user);
       }
     }
