@@ -23,6 +23,9 @@ import { OthersPipe } from './others.pipe';
 import { SearchDishPipe } from './search-dish.pipe';
 import { SearchUserPipe } from './search-user.pipe';
 import { SearchOrdersPipe } from './search-orders.pipe';
+import { PaginatePipe } from './paginate.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -42,14 +45,17 @@ import { SearchOrdersPipe } from './search-orders.pipe';
     SearchDishPipe,
     SearchUserPipe,
     SearchOrdersPipe,
+    PaginatePipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders,MatPaginatorIntl],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

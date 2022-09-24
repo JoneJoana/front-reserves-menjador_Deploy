@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { data, map } from 'jquery';
 import { DishesService, OrdersService } from '../_services/api.service';
 import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, USER, USERNAME } from '../Constants';
+import { PageEvent } from '@angular/material/paginator';
 declare var swal: any;
 
 @Component({
@@ -19,6 +20,10 @@ export class OrdersComponent implements OnInit {
 
   filterOrder = '';
 
+  page_size: number = 8
+  page_number: number = 1
+  pageSizeOptions = [8,16,32,64,128,200]
+
   constructor(
     private api: OrdersService,
     private dishes: DishesService,
@@ -31,6 +36,18 @@ export class OrdersComponent implements OnInit {
 
     this.loadOrders();
     this.getDishes();
+  }
+
+  handlePage(e: PageEvent){
+    this.page_size = e.pageSize;
+    this.page_number = e.pageIndex+1;
+  }
+
+  //dado que si estas en 2a pagina, no te busca de la 1a (al reves si), recargamos
+  changePage(){
+    if(this.page_number !=1){
+      window.location.reload();
+    }
   }
 
   isModifiable(status: any, dd: any): boolean {
@@ -64,6 +81,18 @@ export class OrdersComponent implements OnInit {
     this.api.gerOrdersByUser(user).subscribe(
       (response) => {
         this.orders = response;
+
+        // Ordenar llista per estat ordre -> Pending > Delivered
+        this.orders.sort((a: { delivered: string; }, b: { delivered: string; }) => {
+          if (b.delivered == "P" && a.delivered != "P") {
+            return 1;
+          } else if (a.delivered == "P" && b.delivered != "P") {
+            return -1;
+          } else {
+              return 0
+          }
+        });
+
       },
       (error) => {
         console.log('[ERROR] loadOrders()\n ' + error.message);

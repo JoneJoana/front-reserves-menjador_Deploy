@@ -1,242 +1,288 @@
 <section class="book_section layout_padding">
-    <div class="container">
+  <div class="container">
 
-        <!-- VISTA ADMIN -->
-        <div *ngIf="admin" class="card mask-custom">
+    <!-- VISTA ADMIN -->
+    <div *ngIf="admin" class="card mask-custom">
 
-          <div class="input-group mb-3">
-            <input class="form-control me-2" type="search" placeholder="Busca por Usuario o Estado (p,c,d)"
-              aria-label="Search" [(ngModel)]="filterOrder" name="filterOrder">
+      <div class="input-group mb-3">
+        <input class="form-control me-2" type="search" placeholder="Busca por Usuario o Estado (p,c,d)"
+          aria-label="Search" [(ngModel)]="filterOrder" name="filterOrder" (click)="changePage()">
+      </div>
+
+      <table *ngIf="orders != null;else loading" class="table table-borderless text-white mb-0" id="taulaAdmin">
+        <thead>
+          <tr id="cabecera">
+            <th scope="col">#</th>
+            <th scope="col">Estado</th>
+            <th scope="col" class="trData" (click)="orderBy('createdOn')">Creado
+              <svg *ngIf="ordenacio.camp == 'createdOn' && ordenacio.tipus != 'asc'" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z" />
+              </svg>
+              <svg *ngIf="ordenacio.camp == 'createdOn' && ordenacio.tipus == 'asc'" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+              </svg>
+            </th>
+            <th scope="col" class="trData" (click)="orderBy('modifiedOn')">Modificado
+              <svg *ngIf="ordenacio.camp == 'modifiedOn' && ordenacio.tipus != 'asc'" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z" />
+              </svg>
+              <svg *ngIf="ordenacio.camp == 'modifiedOn' && ordenacio.tipus == 'asc'" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+              </svg>
+            </th>
+            <th scope="col" class="trData" (click)="orderBy('deliveryOn')">Entrega
+              <svg *ngIf="ordenacio.camp == 'deliveryOn' && ordenacio.tipus != 'asc'" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z" />
+              </svg>
+              <svg *ngIf="ordenacio.camp == 'deliveryOn' && ordenacio.tipus == 'asc'" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+              </svg>
+            </th>
+            <th scope="col">Usuario</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="orders.length > 0;else noOrders">
+          <tr *ngFor="let o of orders | searchOrders:filterOrder | paginate:page_size:page_number; let iOrd = index">
+            <th scope="row">{{o.id}}</th>
+            <td [ngStyle]="{color: o.delivered | others:'color'}">
+              {{o.delivered | others:"statusOrder"}}
+              <div *ngIf="o.delivered == 'P'">
+                <!-- "C" de Cancel -->
+                <button class="btn-admin" (click)="cancelarOrdre(o.id)">Cancelar</button>
+                <br>
+                <!-- "D" de Deliver -->
+                <button class="btn-admin" (click)="entregarOrdre(o.id)">Delivered</button>
+              </div>
+            </td>
+            <td style="color:#a7a7a7">
+              {{o.createdOn | dates:"createdOn"}}
+            </td>
+            <td style="color:#a7a7a7">
+              {{o.modifiedOn | date:"dd MMM yyyy HH:mm"}}
+            </td>
+            <td>
+              {{o.deliveryOn | dates:"deliveryOn"}}
+            </td>
+            <td>
+              {{o.user.username}}
+            </td>
+          </tr>
+        </tbody>
+        <ng-template #noOrders>
+          <div class="text-center">
+            No hay ordenes
           </div>
-
-          <table *ngIf="orders != null;else loading" class="table table-borderless text-white mb-0" id="taulaAdmin">
-                <thead>
-                    <tr id="cabecera">
-                        <th scope="col">#</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col" class="trData" (click)="orderBy('createdOn')">Creado
-                          <svg *ngIf="ordenacio.camp == 'createdOn' && ordenacio.tipus != 'asc'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
-                            <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
-                          </svg>
-                          <svg *ngIf="ordenacio.camp == 'createdOn' && ordenacio.tipus == 'asc'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
-                            <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
-                          </svg>
-                        </th>
-                        <th scope="col" class="trData" (click)="orderBy('modifiedOn')">Modificado
-                          <svg *ngIf="ordenacio.camp == 'modifiedOn' && ordenacio.tipus != 'asc'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
-                            <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
-                          </svg>
-                          <svg *ngIf="ordenacio.camp == 'modifiedOn' && ordenacio.tipus == 'asc'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
-                            <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
-                          </svg>
-                        </th>
-                        <th scope="col" class="trData" (click)="orderBy('deliveryOn')">Entrega
-                          <svg *ngIf="ordenacio.camp == 'deliveryOn' && ordenacio.tipus != 'asc'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
-                            <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
-                          </svg>
-                          <svg *ngIf="ordenacio.camp == 'deliveryOn' && ordenacio.tipus == 'asc'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
-                            <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
-                          </svg>
-                        </th>
-                        <th scope="col">Usuario</th>
-                    </tr>
-                </thead>
-                <tbody *ngIf="orders.length > 0;else noOrders">
-                    <tr *ngFor="let o of orders | searchOrders:filterOrder; let iOrd = index">
-                        <th scope="row">{{o.id}}</th>
-                        <td [ngStyle]="{color: o.delivered | others:'color'}">
-                          {{o.delivered | others:"statusOrder"}}
-                          <div *ngIf="o.delivered == 'P'">
-                            <!-- "C" de Cancel -->
-                            <button class="btn-admin" (click)="cancelarOrdre(o.id)">Cancelar</button>
-                            <br>
-                            <!-- "D" de Deliver -->
-                            <button class="btn-admin" (click)="entregarOrdre(o.id)">Delivered</button>
-                          </div>
-                        </td>
-                        <td style="color:#a7a7a7">
-                          {{o.createdOn | dates:"createdOn"}}
-                        </td>
-                        <td style="color:#a7a7a7">
-                          {{o.modifiedOn | date:"dd MMM yyyy HH:mm"}}
-                        </td>
-                        <td>
-                          {{o.deliveryOn | dates:"deliveryOn"}}
-                        </td>
-                        <td>
-                          {{o.user.username}}
-                        </td>
-                    </tr>
-                </tbody>
-                <ng-template #noOrders>
-                  <div class="text-center">
-                      No hay ordenes
-                  </div>
-                </ng-template>
-            </table>
-            <ng-template #loading>
-              <div class="text-center">
-                <div class="spinner-border" role="status">
-                  <span class="sr-only">Cargando...</span>
-                </div>
-              </div>
-            </ng-template>
+        </ng-template>
+      </table>
+      <mat-paginator
+          [length]="orders.length"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="handlePage($event)"
+          showFirstLastButtons
+          hidePageSize
+          aria-label="Select page of orders">
+        </mat-paginator>
+      <ng-template #loading>
+        <div class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
         </div>
-
-        <!-- VISTA CLIENT -->
-        <div *ngIf="!admin">
-            <!-- Implementar vista client -->
-            <div class="input-group mb-3">
-              <!-- datepicker -->
-            </div>
-            <div class="input-group mb-3">
-              <input class="form-control me-2" type="search" placeholder="Busca por Estado. Pendientes(p) - Entregadas(d)"
-                aria-label="Search" [(ngModel)]="filterOrder" name="filterOrder">
-            </div>
-            <div *ngIf="orders != null;else loading" class="ordres">
-                <div *ngFor="let o of orders | searchOrders:filterOrder; let iOrd = index" class="ordre">
-                    <div class="ordre-top">
-                        <div class="ordre-top-top">
-                            <div class="ordre-top-createdOn">
-                                <i>Creada {{o.createdOn | dates:"createdOn"}}</i>
-                            </div>
-                            <div class="ordre-top-orderId s-14">
-                                ORDER N.º 00{{o.id}}
-                            </div>
-                        </div>
-                        <div *ngIf="!modifying.has(o.id)" class="ordre-top-bottom" style="color: #5b183b;">
-                          Entrega {{o.deliveryOn | dates:"deliveryOn"}}
-                        </div>
-                        <!-- MODIFICAR DATA ENTREGA -->
-                        <div *ngIf="modifying.has(o.id)">
-                          Fecha entrega:
-                          <div class="container-dateInput">
-                            <div class="wrapper-dateinput dia">
-                              <input class="hores w-70" value="{{orders[iOrd].deliveryOn | dates:'dd'}}" disabled type="text"  />
-                              <div class="plus-minus">
-                                <span class="boto" (click)="dateInput('dd','+',iOrd);">
-                                  <i class="fa fa-plus"></i>
-                                </span>
-                                <span class="boto" (click)="dateInput('dd','-',iOrd)">
-                                  <i class="fa fa-minus"></i>
-                                </span>
-                              </div>
-                            </div>
-                            <div class="wrapper-dateinput hora">
-                              <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}"
-                              disabled min="12" max="15" type="number"  />
-                              <div class="plus-minus">
-                                <span class="boto" (click)="dateInput('hh','+',iOrd)">
-                                  <i class="fa fa-plus"></i>
-                                </span>
-                                <span class="boto" (click)="dateInput('hh','-',iOrd)">
-                                  <i class="fa fa-minus"></i>
-                                </span>
-                              </div>
-                            </div>
-                            <div class="wrapper-dateinput minut">
-                              <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'mm'}}" disabled min="0" max="45" type="number"  />
-                              <div class="plus-minus">
-                                <span class="boto" (click)="dateInput('mm','+',iOrd)">
-                                  <i class="fa fa-plus"></i>
-                                </span>
-                                <span class="boto" (click)="dateInput('mm','-',iOrd)">
-                                  <i class="fa fa-minus"></i>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="ordre-bottom">
-                        <img src="data:image/jpeg;base64,{{o.dishes[0].image}}" width="150px" height="150px" />
-                        <div class="ordre-bottom-info">
-                            <!-- VISTA PLATS NORMAL-->
-                            <div *ngIf="!modifying.has(o.id)">
-                                <span *ngFor="let d of o.dishes; let i = index">
-                                  <span *ngIf="i>0" class="plus"> + </span>
-                                  <span>{{d.name}}</span>
-                                </span>
-                            </div>
-                            <!-- VISTA PLATS MODIFICAR-->
-                            <div *ngIf="modifying.has(o.id)">
-
-                              <span *ngFor="let d of o.dishes; let i = index">
-                                <span *ngIf="i>0" class="plus"> + </span>
-                                <div class="caixaPlat">
-                                  <span (click)="eliminarPlat(iOrd,d.id)" class="plat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                                  </svg> <span class="nomPlat">{{d.name}}</span></span>
-                                </div>
-                              </span>
-                              <span class="plus"> + </span>
-
-
-                              <select (change)="onSelectPlato(iOrd,$event)" class="selectPlats">
-                                <option selected value="{{null}}">Seleccionar Plato</option>
-                                <option *ngFor="let p of plats; let i = index" value="{{i}}"><span>{{p.name}}</span></option>
-                              </select>
-                          </div>
-
-                            <div>
-                              <i>
-                                <span class="s-14">Modificable hasta </span>
-                                <span id="modifyDate{{o.id}}" class="s-14">{{o.deliveryOn | dates:"modifiableTill"}}</span>
-                              </i>
-                            </div>
-
-                            <span *ngIf="!modifying.has(o.id)">
-                                <button (click)="onBtnModify(iOrd,o.id)" *ngIf="isModifiable(o.delivered,o.deliveryOn)" class="btn">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                  </svg>
-                                  Modificar
-                                </button>
-                                <button *ngIf="!isModifiable(o.delivered,o.deliveryOn)" disabled class="btn">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                  </svg>
-                                  Modificar
-                                </button>
-                                <button class="btn" (click)="eliminar(o.id)">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
-                                  </svg>
-                                  Eliminar
-                                </button>
-                            </span>
-                            <!-- BOTONS QUE SURTEN QUAN ESTEM MODIFICANT UNA ORDRE-->
-                            <span *ngIf="modifying.has(o.id)">
-                              <button (click)="update(iOrd,o.id)" class="btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                </svg>
-                                Actualizar
-                              </button>
-                              <button class="btn" (click)="cancelModification(iOrd,o.id)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
-                                  <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
-                                </svg>
-                                Atrás
-                              </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="orders.length == 0" class="text-center">
-                      No hay ordenes
-                </div>
-            </div>
-            <ng-template #loading>
-              <div class="text-center">
-                <div class="spinner-border" role="status">
-                  <span class="sr-only">Cargando...</span>
-                </div>
-              </div>
-            </ng-template>
-        </div>
+      </ng-template>
     </div>
+
+    <!-- VISTA CLIENT -->
+    <div *ngIf="!admin">
+      <!-- Implementar vista client -->
+      <div class="input-group mb-3">
+        <!-- datepicker -->
+      </div>
+      <div class="input-group mb-3">
+        <input class="form-control me-2" type="search" placeholder="Busca por Estado. Pendientes(p) - Entregadas(d)"
+          aria-label="Search" [(ngModel)]="filterOrder" name="filterOrder" (click)="changePage()">
+      </div>
+      <div *ngIf="orders != null;else loading" class="ordres">
+        <div *ngFor="let o of orders | searchOrders:filterOrder | paginate:page_size:page_number; let iOrd = index" class="ordre">
+          <div class="ordre-top">
+            <div class="ordre-top-top">
+              <div class="ordre-top-createdOn">
+                <i>Creada {{o.createdOn | dates:"createdOn"}}</i>
+              </div>
+              <div class="ordre-top-orderId s-14">
+                ORDER N.º 00{{o.id}}
+              </div>
+            </div>
+            <div *ngIf="!modifying.has(o.id)" class="ordre-top-bottom" style="color: #5b183b;">
+              Entrega {{o.deliveryOn | dates:"deliveryOn"}}
+            </div>
+            <!-- MODIFICAR DATA ENTREGA -->
+            <div *ngIf="modifying.has(o.id)">
+              Fecha entrega:
+              <div class="container-dateInput">
+                <div class="wrapper-dateinput dia">
+                  <input class="hores w-70" value="{{orders[iOrd].deliveryOn | dates:'dd'}}" disabled type="text" />
+                  <div class="plus-minus">
+                    <span class="boto" (click)="dateInput('dd','+',iOrd);">
+                      <i class="fa fa-plus"></i>
+                    </span>
+                    <span class="boto" (click)="dateInput('dd','-',iOrd)">
+                      <i class="fa fa-minus"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="wrapper-dateinput hora">
+                  <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'hh'}}" disabled min="12" max="15"
+                    type="number" />
+                  <div class="plus-minus">
+                    <span class="boto" (click)="dateInput('hh','+',iOrd)">
+                      <i class="fa fa-plus"></i>
+                    </span>
+                    <span class="boto" (click)="dateInput('hh','-',iOrd)">
+                      <i class="fa fa-minus"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="wrapper-dateinput minut">
+                  <input class="hores" ngModel="{{orders[iOrd].deliveryOn | dates:'mm'}}" disabled min="0" max="45"
+                    type="number" />
+                  <div class="plus-minus">
+                    <span class="boto" (click)="dateInput('mm','+',iOrd)">
+                      <i class="fa fa-plus"></i>
+                    </span>
+                    <span class="boto" (click)="dateInput('mm','-',iOrd)">
+                      <i class="fa fa-minus"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ordre-bottom">
+            <img src="data:image/jpeg;base64,{{o.dishes[0].image}}" width="150px" height="150px" />
+            <div class="ordre-bottom-info">
+              <!-- VISTA PLATS NORMAL-->
+              <div *ngIf="!modifying.has(o.id)">
+                <span *ngFor="let d of o.dishes; let i = index">
+                  <span *ngIf="i>0" class="plus"> + </span>
+                  <span>{{d.name}}</span>
+                </span>
+              </div>
+              <!-- VISTA PLATS MODIFICAR-->
+              <div *ngIf="modifying.has(o.id)">
+
+                <span *ngFor="let d of o.dishes; let i = index">
+                  <span *ngIf="i>0" class="plus"> + </span>
+                  <div class="caixaPlat">
+                    <span (click)="eliminarPlat(iOrd,d.id)" class="plat"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path
+                          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                      </svg> <span class="nomPlat">{{d.name}}</span></span>
+                  </div>
+                </span>
+                <span class="plus"> + </span>
+
+
+                <select (change)="onSelectPlato(iOrd,$event)" class="selectPlats">
+                  <option selected value="{{null}}">Seleccionar Plato</option>
+                  <option *ngFor="let p of plats; let i = index" value="{{i}}"><span>{{p.name}}</span></option>
+                </select>
+              </div>
+
+              <div>
+                <i>
+                  <span class="s-14">Modificable hasta </span>
+                  <span id="modifyDate{{o.id}}" class="s-14">{{o.deliveryOn | dates:"modifiableTill"}}</span>
+                </i>
+              </div>
+
+              <span *ngIf="!modifying.has(o.id)">
+                <button (click)="onBtnModify(iOrd,o.id)" *ngIf="isModifiable(o.delivered,o.deliveryOn)" class="btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  </svg>
+                  Modificar
+                </button>
+                <button *ngIf="!isModifiable(o.delivered,o.deliveryOn)" disabled class="btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  </svg>
+                  Modificar
+                </button>
+                <button class="btn" (click)="eliminar(o.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                  </svg>
+                  Eliminar
+                </button>
+              </span>
+              <!-- BOTONS QUE SURTEN QUAN ESTEM MODIFICANT UNA ORDRE-->
+              <span *ngIf="modifying.has(o.id)">
+                <button (click)="update(iOrd,o.id)" class="btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  </svg>
+                  Actualizar
+                </button>
+                <button class="btn" (click)="cancelModification(iOrd,o.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z" />
+                  </svg>
+                  Atrás
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="orders.length == 0" class="text-center">
+          No hay ordenes
+        </div>
+        <mat-paginator
+          [length]="orders.length"
+          [pageSize]="4"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="handlePage($event)"
+          showFirstLastButtons
+          hidePageSize
+          aria-label="Select page of orders">
+        </mat-paginator>
+      </div>
+
+      <ng-template #loading>
+        <div class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
 </section>

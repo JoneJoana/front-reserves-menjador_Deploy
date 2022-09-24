@@ -7,7 +7,7 @@
 
         <div class="input-group mb-3">
           <input class="form-control me-2" type="search" placeholder="Busca por Usuario, Email o Rol"
-            aria-label="Search" [(ngModel)]="filterUser" name="filterUser">
+            aria-label="Search" [(ngModel)]="filterUser" name="filterUser" (click)="changePage()">
         </div>
         <div class="table-responsive" *ngIf="users.length != 0;else loading">
           <table class="table table-borderless text-white mb-0 ">
@@ -20,7 +20,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users | searchUser:filterUser">
+              <tr *ngFor="let user of users | searchUser:filterUser | paginate:page_size:page_number">
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.rol == null ? "cliente" : user.rol.name}}</td>
@@ -38,6 +38,15 @@
               </tr>
             </tbody>
           </table>
+          <mat-paginator
+            [length]="users.length"
+            [pageSize]="page_size"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="handlePage($event)"
+            showFirstLastButtons
+            hidePageSize
+            aria-label="Select page of users">
+          </mat-paginator>
         </div>
         <ng-template #loading>
           <div class="text-center">

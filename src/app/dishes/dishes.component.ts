@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import {
   CategoriesService,
@@ -21,6 +22,10 @@ export class DishesComponent implements OnInit {
   filterDish = '';
   newDishCategories: Category[] = [];
 
+  page_size: number = 4
+  page_number: number = 1
+  pageSizeOptions = [4,8,12,16,20,24,28,32]
+
   newDish = {
     name: '',
     descripcion: '',
@@ -41,6 +46,18 @@ export class DishesComponent implements OnInit {
   ngOnInit(): void {
     this.loadDishes();
     this.loadCategories();
+  }
+
+  handlePage(e: PageEvent){
+    this.page_size = e.pageSize;
+    this.page_number = e.pageIndex+1;
+  }
+
+  //dado que si estas en 2a pagina, no te busca de la 1a (al reves si), recargamos
+  changePage(){
+    if(this.page_number !=1){
+      window.location.reload();
+    }
   }
 
   //compara les categ del plat amb la llista completa de categ, per tal que surtin checked a la llista
@@ -302,4 +319,5 @@ export interface Category {
   id: number;
   name: string;
 }
+
 
