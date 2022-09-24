@@ -15,6 +15,85 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+  <!-- boton formulario opinion clientes -->
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+  <script>
+    window.formbutton =
+      window.formbutton ||
+      function() {
+        (formbutton.q = formbutton.q || []).push(arguments);
+      };
+
+    formbutton("create", {
+      onResponse: function(ok, setStatus) {
+        if (ok) {
+          setStatus("Tu respuesta ha sido enviada. Gracias!.");
+        } else {
+          setStatus("<span style='color:red'>Ha habido algun error. Inténtalo de nuevo.</span>");
+        }
+      },
+      action: "https://formspree.io/f/xaykooqy",
+      title: "Valora nuestro servicio",
+      description: false,
+      fields: [
+        { type: "label", label: "Calidad de los platos"},
+        { label: "1", type: "radio", name: "time" },
+        { label: "2", type: "radio", name: "time" },
+        { label: "3", type: "radio", name: "time" },
+        { label: "4", type: "radio", name: "time" },
+        { label: "5", type: "radio", name: "time" },
+        { type: "label", label: "Atención al cliente"},
+        { label: "1", type: "radio", name: "clean" },
+        { label: "2", type: "radio", name: "clean" },
+        { label: "3", type: "radio", name: "clean" },
+        { label: "4", type: "radio", name: "clean" },
+        { label: "5", type: "radio", name: "clean" },
+        {
+          type: "label",
+          label: "1 = &#x1f44e; &nbsp; 5 = &#x1f44d;",
+          styles: {
+              textAlign: "right",
+              marginBottom: "-48px",
+              marginTop: "16px",
+          }
+        },
+        {
+          type: "submit",
+          text: "enviar",
+          styles: {
+            fontSize: "0.8em",
+            textAlign: "left",
+          }
+          }
+      ],
+      styles: {
+        radioField: {
+          fontSize: "0.8em",
+          margin: "5px 15px 0px 1px",
+          display: "inline",
+        },
+        button: {
+          background: "#E30075",
+          marginBottom: "100px",
+          scale: "0.8"
+        },
+        title: {
+          fontSize: "0.9em",
+          background: "#E30075",
+          letterSpacing: "0.05em",
+          textTransform: "uppercase"
+        },
+        label:{
+          fontSize: "0.9em",
+        },
+        modal: {
+          scale: "0.85"
+        }
+      },
+      initiallyVisible: false
+    });
+
+  </script>
 </head>
 
 <body>
