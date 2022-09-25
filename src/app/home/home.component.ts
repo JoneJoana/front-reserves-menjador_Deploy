@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
     this.loadCategories();
   }
 
-  alert(){
+  private alert(){
     swal("Plato añadido a tu carrito!", {
       icon: "success",
       buttons: false,
@@ -66,6 +66,17 @@ export class HomeComponent implements OnInit {
       carritoFlotant.style.display = "block";
     }
 
+    this.alert();
+
+  }
+
+  showMessageNotLogin(){
+    swal({
+      text: "Logueate para poder reservar :)",
+      buttons: false,
+      icon: "info",
+      timer:2000
+    });
   }
 
   loadCategories() {
