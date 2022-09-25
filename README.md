@@ -15,7 +15,7 @@ Frontend pel Projecte Final Bootcamp - Reserves Menjador
 
 ### Enlaces de Interés
 
-##### Repositorio Backend
+#### Repositorio Backend
 ```
 https://github.com/Arini11/back-reserves-menjador
 ```
