@@ -267,13 +267,6 @@ export class AppComponent implements OnInit{
     }
   }
 
-  redireccion(donde: number){
-    setTimeout (() => {
-      window.scrollTo(0,donde);
-    }, 400);
-  }
-
-
   reload(){
     this.router.navigate(['/profile',this.usuari]);
     setTimeout (() => {
