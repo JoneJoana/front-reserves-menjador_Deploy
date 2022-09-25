@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
+import { data, map } from 'jquery';
 import { DishesService, OrdersService } from '../_services/api.service';
 import { MARGIN, MAX_HOUR, MIN_HOUR, ROL, ROL_ADMIN, USER, USERNAME } from '../Constants';
+import { PageEvent } from '@angular/material/paginator';
 declare var swal: any;
-declare var $: any;
-declare var dt: any
 
 @Component({
   selector: 'app-orders',
@@ -16,11 +15,19 @@ export class OrdersComponent implements OnInit {
   admin = false;
   orders: any = null;
   modifying: any = new Map<number, boolean>();
+  ordenacio = { camp:'',tipus:''};
   plats: any;
+
+  filterOrder = '';
+
+  page_size: number = 8
+  page_number: number = 1
+  pageSizeOptions = [8,16,32,64,128,200]
 
   constructor(
     private api: OrdersService,
     private dishes: DishesService,
+    private ordersService: OrdersService,
     private router: Router
   ) {}
 
@@ -29,6 +36,18 @@ export class OrdersComponent implements OnInit {
 
     this.loadOrders();
     this.getDishes();
+  }
+
+  handlePage(e: PageEvent){
+    this.page_size = e.pageSize;
+    this.page_number = e.pageIndex+1;
+  }
+
+  //dado que si estas en 2a pagina, no te busca de la 1a (al reves si), recargamos
+  changePage(){
+    if(this.page_number !=1){
+      window.location.reload();
+    }
   }
 
   isModifiable(status: any, dd: any): boolean {
@@ -62,17 +81,18 @@ export class OrdersComponent implements OnInit {
     this.api.gerOrdersByUser(user).subscribe(
       (response) => {
         this.orders = response;
-        console.log(this.orders.length)
-        // Ordenar llista per data d'entrega
-        this.orders.sort((a: { deliveryOn: any }, b: { deliveryOn: any }) => {
-          if (a.deliveryOn > b.deliveryOn) {
+
+        // Ordenar llista per estat ordre -> Pending > Delivered
+        this.orders.sort((a: { delivered: string; }, b: { delivered: string; }) => {
+          if (b.delivered == "P" && a.delivered != "P") {
             return 1;
-          } else if (a.deliveryOn < b.deliveryOn) {
+          } else if (a.delivered == "P" && b.delivered != "P") {
             return -1;
           } else {
-            return 0;
+              return 0
           }
         });
+
       },
       (error) => {
         console.log('[ERROR] loadOrders()\n ' + error.message);
@@ -101,9 +121,6 @@ export class OrdersComponent implements OnInit {
             }
           }
         });
-
-        // Inicialitzar datatable
-        $('#taulaAdmin').DataTable();
 
       },
       (error) => {
@@ -319,5 +336,105 @@ export class OrdersComponent implements OnInit {
     this.orders[iOrd].deliveryOn = d.toISOString();
   }
 
-  onModelChange(e: any, o: any) {}
+  cancelarOrdre(id:number) {
+    const data = {
+      id: id,
+      delivered: "C"
+    }
+    swal({
+      text: '¿Seguro que quieres cancelar esta orden?',
+      icon: 'warning',
+      buttons: [true, "Si"],
+    }).then((okay: boolean) => {
+      if (okay) {
+        this.ordersService.changeStatus(data).subscribe(
+          (response) => {
+            this.loadOrders()
+            swal("Orden cancelada", {
+              icon: "success",
+                 buttons: false,
+                 timer: 1000,
+            });
+          },
+          (error) => {
+            console.log('ERROR REQUEST:\n ' + error.message);
+            swal("No se podido ejecutar la cancelacion", {
+              icon: "error",
+                 buttons: false,
+                 timer: 1300,
+            });
+          }
+        );
+      } else {
+        return;
+      }
+    });
+  }
+
+  entregarOrdre(id:number) {
+    const data = {
+      id: id,
+      delivered: "D"
+    }
+    swal({
+      text: '¿Seguro que quieres cambiar el estado a Entregado?',
+      icon: 'warning',
+      buttons: [true, "Si"],
+    }).then((okay: boolean) => {
+      if (okay) {
+        this.ordersService.changeStatus(data).subscribe(
+          (response) => {
+            this.loadOrders()
+            swal("Orden Entregada", {
+              icon: "success",
+                 buttons: false,
+                 timer: 1000,
+            });
+          },
+          (error) => {
+            console.log('ERROR REQUEST:\n ' + error.message);
+            swal("No se podido actualizar el estado a Entregado", {
+              icon: "error",
+                 buttons: false,
+                 timer: 1300,
+            });
+          }
+        );
+      } else {
+        return;
+      }
+    });
+
+  }
+
+  ordenar(query:string) {
+    // Si hem tret els filtres, que carregui normal
+    if(query == "") { this.loadOrders(); return }
+    // Aquí s'hauria de construir la query amb uns checkboxes o algo aixi que digui els camps per ordenar
+    this.ordersService.ordenar(query).subscribe(
+      (response) => {
+        this.orders = response
+      },
+      (error) => {
+        console.log('ERROR REQUEST:\n ' + error.message);
+      }
+    );
+  }
+
+  orderBy(camp:string) {
+    // Si hem clicat un camp nou per ordenar
+    if(this.ordenacio.camp != camp) {
+      this.ordenacio.tipus = "asc"
+      this.ordenacio.camp = camp
+    }
+    // Si el camp es el mateix
+    this.ordenar(camp+","+this.ordenacio.tipus)
+    if(this.ordenacio.tipus == "desc") this.ordenacio.tipus = "asc"
+    else this.ordenacio.tipus = "desc"
+    // Actualitzar boto mitjançant la classe de l'icono
+    const llista = document.getElementById(camp+"Btn")!.classList
+    llista.add("bi")
+    llista.add("bi-sort-down-alt")
+  }
+
 }

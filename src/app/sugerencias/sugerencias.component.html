@@ -9,7 +9,7 @@
       <div class="col-md-6">
         <div class="form_container">
 
-          <form (ngSubmit)="f.form.valid && msjEnviado()" #f="ngForm" novalidate>
+          <form (ngSubmit)="f.form.valid && msjEnviado(f)" #f="ngForm" novalidate>
 
             <input type="text" class="form-control" placeholder="Tu nombre" name="nombre"
                 [(ngModel)]="form.nombre" required #nombre="ngModel"/>

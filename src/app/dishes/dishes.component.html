@@ -3,7 +3,7 @@
   <div class="container">
     <div class="input-group mb-3">
       <input class="form-control me-2" type="search" placeholder="Busca por nombre y/o descripción"
-        aria-label="Search" [(ngModel)]="filterDish" name="filterDish">
+        aria-label="Search" [(ngModel)]="filterDish" name="filterDish" (click)="changePage()">
     </div>
     <div class="card mask-custom">
       <div class="form_container">
@@ -26,7 +26,7 @@
             <tr id="cabecera">
               <th scope="col">Plato | Descripción</th>
               <th scope="col">Imágen</th>
-              <th scope="col">Popularidad</th>
+              <!--<th scope="col">Popularidad</th>-->
               <th scope="col">Estado</th>
               <th scope="col">Categorías</th>
               <th scope="col">Acciones</th>
@@ -48,16 +48,9 @@
                   <input hidden (change)="onFileChanged($event,'New')" class="form-control uploadFile" type="file" style="width: 90%" />
                 </div>
               </td>
-              <td>
-                <select class="form-select" [(ngModel)]="newDish.popularity">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </td>
+              <!--<td>
+                <input class="form-input" type="number" [(ngModel)]="newDish.popularity" disabled />
+              </td>-->
               <td>
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
@@ -76,7 +69,7 @@
             </tr>
 
             <!-- platos existentes -->
-            <tr *ngFor="let dish of dishes | searchDish:filterDish; let i = index" id="dish{{i}}">
+            <tr *ngFor="let dish of dishes | searchDish:filterDish | paginate:page_size:page_number; let i = index" id="dish{{i}}">
               <td>
                 <input class="form-input" type="text" id="nombrePlato" [(ngModel)]="dish.name" />
                 <textarea class="form-input" [(ngModel)]="dish.descripcion" rows="3"></textarea>
@@ -92,16 +85,9 @@
                   <!-- input formFile amagat i al clicar imatge apareix -->
                 </div>
               </td>
-              <td>
-                <select class="form-select" [(ngModel)]="dish.popularity">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </td>
+              <!--<td>
+                <input class="form-input" type="number" [(ngModel)]="dish.popularity" disabled />
+              </td>-->
               <td>
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
@@ -127,9 +113,17 @@
                 </a>
               </td>
             </tr>
-
           </tbody>
         </table>
+        <mat-paginator
+          [length]="dishes.length"
+          [pageSize]="page_size"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="handlePage($event)"
+          showFirstLastButtons
+          hidePageSize= true
+          aria-label="Select page of dishes">
+        </mat-paginator>
       </div>
       <ng-template #loading>
         <div class="text-center">

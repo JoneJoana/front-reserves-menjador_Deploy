@@ -8,6 +8,12 @@ body {
 .btn:hover, .btn:focus {
   background-color: #E30075;
 }
+
+.btn-admin{
+  background-color: #d45b99;
+  border-radius: 2em;
+  font-size: 10px;
+}
 .plus {
   color: #E30075;
 }
@@ -189,5 +195,18 @@ div.container {
   border-radius: 10px 10px 0px 45px;
   border: 1px solid #e30075;
 }
-
-
+tbody tr:hover{
+  background-color: #f7c1ddbf;
+}
+div.ordres div.ordre:hover{
+  background-color: #f7c1ddbf;
+}
+.trData{
+  cursor: pointer;
+}
+.trData:hover{
+  background-color: #f7c1ddbf;
+}
+.trData:active{
+  background-color: #ff8dc8;
+}

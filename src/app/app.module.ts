@@ -21,6 +21,11 @@ import { AuthInterceptor, authInterceptorProviders } from './_helpers/authinterc
 import { UsersComponent } from './users/users.component';
 import { OthersPipe } from './others.pipe';
 import { SearchDishPipe } from './search-dish.pipe';
+import { SearchUserPipe } from './search-user.pipe';
+import { SearchOrdersPipe } from './search-orders.pipe';
+import { PaginatePipe } from './paginate.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -38,14 +43,19 @@ import { SearchDishPipe } from './search-dish.pipe';
     SugerenciasComponent,
     UsersComponent,
     SearchDishPipe,
+    SearchUserPipe,
+    SearchOrdersPipe,
+    PaginatePipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders,MatPaginatorIntl],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -51,8 +51,6 @@ export class AppComponent implements OnInit{
     window.sessionStorage.clear()
     this.isLogin = false;
     this.logAdmin = false;
-    // Quan fas logout, vols tornar-te a connectar amb un altre usuari
-    this.router.navigate(['/login']);
   }
 
   dateInput(tipus:string, accio:string) {
@@ -218,8 +216,7 @@ export class AppComponent implements OnInit{
             });
             console.log("Nova Ordre:\n"+response.createdOn+"\n"+response.deliveryOn)
             setTimeout (() => {
-              this.router.navigate(['/orders']);
-              $('#tu-carrito').modal('hide');
+              window.location.reload()
             }, 1800);
           },
           error => {
@@ -275,6 +272,17 @@ export class AppComponent implements OnInit{
       window.scrollTo(0,donde);
     }, 400);
   }
+
+
+  reload(){
+    this.router.navigate(['/profile',this.usuari]);
+    setTimeout (() => {
+      window.location.reload();
+    }, 50);
+  }
+
+
+  //en html [routerLink]="['/profile',usuari]"
 
 }
 
