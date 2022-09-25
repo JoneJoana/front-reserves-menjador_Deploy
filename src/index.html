@@ -29,7 +29,7 @@
         if (ok) {
           setStatus("Tu respuesta ha sido enviada. Gracias!.");
         } else {
-          setStatus("<span style='color:red'>Ha habido algun error. Inténtalo de nuevo.</span>");
+          setStatus("<span style='color:red'>Si quieres enviar, marca los campos. Gracias :)</span>");
         }
       },
       action: "https://formspree.io/f/xaykooqy",
@@ -59,16 +59,16 @@
         },
         {
           type: "submit",
-          text: "enviar",
+          value: "Enviar",
           styles: {
             fontSize: "0.8em",
-            textAlign: "left",
+            textAlign: "left"
           }
           }
       ],
       styles: {
         radioField: {
-          fontSize: "0.8em",
+          fontSize: "0.9em",
           margin: "5px 15px 0px 1px",
           display: "inline",
         },
@@ -82,9 +82,6 @@
           background: "#E30075",
           letterSpacing: "0.05em",
           textTransform: "uppercase"
-        },
-        label:{
-          fontSize: "0.9em",
         },
         modal: {
           scale: "0.85"
